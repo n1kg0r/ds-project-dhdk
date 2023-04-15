@@ -1,3 +1,5 @@
+#by Erica Andreose
+
 class EntityWithMetadata(IdentifiableEntity):
     def _init_(self, id, label, title, creators):
         self.label = label 
