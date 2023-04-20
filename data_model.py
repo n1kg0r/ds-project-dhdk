@@ -64,4 +64,3 @@ class Collection(EntityWithMetadata):
         self.items = items
     def getItems(self):
         return self.items
-
