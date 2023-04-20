@@ -1,4 +1,5 @@
 #by Erica Andreose
+from identifiable_entity import IdentifiableEntity
 
 class EntityWithMetadata(IdentifiableEntity):
     def _init_(self, id, label, title, creators):
