@@ -2,7 +2,7 @@
 from identifiable_entity import IdentifiableEntity
 
 class EntityWithMetadata(IdentifiableEntity):
-    def _init_(self, id, label, title, creators):
+    def __init__(self, id, label, title, creators):
         self.label = label 
         self.title = title
         self.creators = list()
@@ -10,7 +10,7 @@ class EntityWithMetadata(IdentifiableEntity):
             for creator in creators:
                 self.creators.append(creator)
 
-    super().__init__(id)
+        super().__init__(id)
 
     def getLabel(self):
         return self.label
