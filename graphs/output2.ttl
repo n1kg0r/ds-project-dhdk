@@ -1,0 +1,145 @@
+@prefix ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> .
+@prefix ns2: <https://github.com/n1kg0r/ds-project-dhdk/relations/> .
+
+<https://dl.ficlit.unibo.it/iiif/19428-19425/collection> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Collection> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/19428-19425/collection" ;
+    ns1:label "Fondo Giuseppe Raimondi" ;
+    ns2:items <https://dl.ficlit.unibo.it/iiif/2/19425/manifest> .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p1> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p1" ;
+    ns1:label "r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p10> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p10" ;
+    ns1:label "c4v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p11> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p11" ;
+    ns1:label "c5r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p12> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p12" ;
+    ns1:label "c5v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p13> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p13" ;
+    ns1:label "r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p14> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p14" ;
+    ns1:label "v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p15> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p15" ;
+    ns1:label "colori" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p2> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p2" ;
+    ns1:label "v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p3> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p3" ;
+    ns1:label "c1r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p4> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p4" ;
+    ns1:label "c1v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p5> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p5" ;
+    ns1:label "c2r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p6> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p6" ;
+    ns1:label "c2v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p7> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p7" ;
+    ns1:label "c3r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p8> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p8" ;
+    ns1:label "c3v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p9> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p9" ;
+    ns1:label "c4r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p1> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p1" ;
+    ns1:label "r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p10> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p10" ;
+    ns1:label "c4v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p11> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p11" ;
+    ns1:label "c5r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p12> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p12" ;
+    ns1:label "c5v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p13> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p13" ;
+    ns1:label "r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p14> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p14" ;
+    ns1:label "v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p15> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p15" ;
+    ns1:label "colori" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p16> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p16" ;
+    ns1:label "scala" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p2> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p2" ;
+    ns1:label "v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p3> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p3" ;
+    ns1:label "c1r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p4> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p4" ;
+    ns1:label "c1v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p5> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p5" ;
+    ns1:label "c2r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p6> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p6" ;
+    ns1:label "c2v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p7> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p7" ;
+    ns1:label "c3r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p8> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p8" ;
+    ns1:label "c3v" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p9> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p9" ;
+    ns1:label "c4r" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19428/manifest> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Manifest> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19428/manifest" ;
+    ns1:label "Raimondi, Giuseppe. Quaderno manoscritto, \"Caserma Scalo : 1930-1968\"" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p16> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p16" ;
+    ns1:label "scala" .
+
+<https://dl.ficlit.unibo.it/iiif/2/19425/manifest> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Manifest> ;
+    ns1:id "https://dl.ficlit.unibo.it/iiif/2/19425/manifest" ;
+    ns1:label "Raimondi, Giuseppe. Quaderno manoscritto, \"La vecchia centrale termica. Aprile 965\"" ;
+    ns2:items <https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p16> .
+
