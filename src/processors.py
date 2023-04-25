@@ -16,7 +16,7 @@ class QueryProcessor(Processor):
 
     def getEntityById(self, entityId: str):
         entityId_stripped = entityId.strip("'")
-        db_url = self.getDbPathOrUrl() if len(self.getDbPathOrUrl()) else './data/annotation.db'
+        db_url = self.getDbPathOrUrl() if len(self.getDbPathOrUrl()) else '../data/annotation.db'
         with connect(db_url) as con:
             query = \
             "SELECT *" +\
