@@ -34,7 +34,7 @@ class AnnotationProcessor(Processor):
             image_internalId.append("image-" +str(idx))
         image.insert(0, "imageId", Series(image_internalId, dtype = "string"))
 
-        with connect(Processor.getDbPathOrUrl()) as con:
+        with connect(self.getDbPathOrUrl()) as con:
             annotations.to_sql("Annotation", con, if_exists="replace", index=False)
             image.to_sql("Image", con, if_exists="replace", index=False)
 
@@ -53,11 +53,11 @@ class MetadataProcessor(Processor):
         metadata_internalId = []
         for idx, row in entityWithMetadata.iterrows():
             metadata_internalId.append("entity-" +str(idx))
-        entityWithMetadata.insert(0, "EntityId", Series(metadata_internalId, dtype = "string"))
-        creator = entityWithMetadata[["EntityId", "creator"]]
+        entityWithMetadata.insert(0, "entityId", Series(metadata_internalId, dtype = "string"))
+        creator = entityWithMetadata[["entityId", "creator"]]
         #I recreate entityMetadata since, as I will create a proxy table, I will have no need of
         #coloumn creator
-        entityWithMetadata = entityWithMetadata[["EntityId", "id", "title"]]
+        entityWithMetadata = entityWithMetadata[["entityId", "id", "title"]]
         
 
         for idx, row in creator.iterrows():
@@ -73,18 +73,17 @@ class MetadataProcessor(Processor):
                             new_data = DataFrame({"entityId": new_serie, "creator": list_of_creators})
                             creator = concat([creator.loc[:idx-1], new_data, creator.loc[idx:]], ignore_index=True)
 
-        with connect(Processor.getDbPathOrUrl(self)) as con:
-            entityWithMetadata.to_sql("entity", con, if_exists="replace", index=False)
+        with connect(self.getDbPathOrUrl()) as con:
+            entityWithMetadata.to_sql("Entity", con, if_exists="replace", index = False)
             creator.to_sql("Creators", con, if_exists="replace", index = False)
 
-#upload_metadata = MetadataProcessor()
-#upload_metadata.setDbPathOrUrl("./data/new_database.db")
-#upload_metadata.uploadData("./data/metadata.csv")
-#upload_annotations= AnnotationProcessor()
-#upload_metadata.setDbPathOrUrl("./data/new_new_database.db")
-#upload_annotations.uploadData("./data/annotations.csv")
 
-
+#upload_metadata= MetadataProcessor()
+#upload_metadata.setDbPathOrUrl("database.db")
+#upload_metadata.uploadData("metadata.csv")
+#upload_annotation= AnnotationProcessor()
+#upload_annotation.setDbPathOrUrl("database.db")
+#upload_annotation.uploadData("annotations.csv")
 
 
 
