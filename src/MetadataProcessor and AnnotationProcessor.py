@@ -57,7 +57,7 @@ class MetadataProcessor(Processor):
         creator = entityWithMetadata[["EntityId", "creator"]]
         #I recreate entityMetadata since, as I will create a proxy table, I will have no need of
         #coloumn creator
-        entityWithMetadata = [["EntityId", "id", "title"]]
+        entityWithMetadata = entityWithMetadata[["EntityId", "id", "title"]]
         
 
         for idx, row in creator.iterrows():
