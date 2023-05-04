@@ -43,6 +43,7 @@ class QueryProcessor(Processor):
             store.close()
         return df
 
+
 # Uncomment for a test of query processor    
 
 # qp = QueryProcessor()
@@ -52,3 +53,33 @@ class QueryProcessor(Processor):
 
 # qp.setDbPathOrUrl(SQL_DB_URL)
 # print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
+
+class GenericQueryProcessor():
+    def __init__(self):
+        self.queryProcessors = []
+    def cleanQueryProcessors(self):
+        self.queryProcessors = []
+    def addQueryProcessor(self, processor: QueryProcessor):
+        self.queryProcessors.append(processor)
+    def getAllAnnotations():
+        pass
+    def getAllCanvas():
+        pass
+    def getAllCollections():
+        pass
+    def getAllImages():
+        pass
+    def getAllManifests():
+        pass
+    def getAnnotationsToCanvas():
+        pass
+    def getAnnotationsToCollection():
+        pass
+    def getAnnotationsToManifest():
+        pass
+    def getAnnotationsWithBody():
+        pass
+    def getAnnotationsWithBodyAndTarget():
+        pass
+    def getAnnotationsWithTarget():
+        pass
