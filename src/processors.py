@@ -1,5 +1,8 @@
 from sqlite3 import connect
 from pandas import read_sql, DataFrame
+from utils import RDF_DB_URL, SQL_DB_URL
+from rdflib import Graph, Literal, URIRef
+from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
 
 
 class Processor():
@@ -16,19 +19,36 @@ class QueryProcessor(Processor):
 
     def getEntityById(self, entityId: str):
         entityId_stripped = entityId.strip("'")
-        db_url = self.getDbPathOrUrl() if len(self.getDbPathOrUrl()) else '../data/annotation.db'
-        with connect(db_url) as con:
-            query = \
-            "SELECT *" +\
-            " FROM Entity" +\
-            " LEFT JOIN Annotation" +\
-            " ON Entity.id = Annotation.target" +\
-            " WHERE 1=1" +\
-            f" AND Entity.id='{entityId_stripped}'"
-            df_sql = read_sql(query, con)
-        return df_sql
+        db_url = self.getDbPathOrUrl() if len(self.getDbPathOrUrl()) else SQL_DB_URL
+        df = DataFrame()
+        if db_url == SQL_DB_URL:
+            with connect(db_url) as con:
+                query = \
+                "SELECT *" +\
+                " FROM Entity" +\
+                " LEFT JOIN Annotation" +\
+                " ON Entity.id = Annotation.target" +\
+                " WHERE 1=1" +\
+                f" AND Entity.id='{entityId_stripped}'"
+                df = read_sql(query, con)
 
-# Uncomment for a small test of query processor    
+        elif db_url == RDF_DB_URL:
+            df = DataFrame(columns=['id', 'type', 'label'])
+            store = SPARQLUpdateStore()
+            endpoint = 'http://172.20.10.3:9999/blazegraph/sparql'
+            store.open((endpoint, endpoint))
+            for triple in store.triples((URIRef(entityId), None, None)):
+                list_row = [triple[0][0], triple[0][1], triple[0][2]]
+                df.loc[len(df)] = list_row
+            store.close()
+        return df
+
+# Uncomment for a test of query processor    
+
 # qp = QueryProcessor()
-# print(qp.getEntityById('haha'))
+
+# qp.setDbPathOrUrl(RDF_DB_URL)
+# print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
+
+# qp.setDbPathOrUrl(SQL_DB_URL)
 # print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
