@@ -2,10 +2,8 @@
 
 from rdflib import Graph, URIRef, Literal, RDF
 from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
-from try_processor import Processor
+from processors import Processor
 import json
-import sqlite3
-import pandas as pd
 
 
 
@@ -31,7 +29,6 @@ class CollectionProcessor(Processor):
 
     def __init__(self):
         super().__init__()
-        self.setdbPathOrUrl = Processor.setdbPathOrUrl
 
     def uploadData(self, path: str):
         my_graph = Graph()
@@ -94,12 +91,10 @@ class CollectionProcessor(Processor):
             return False
         
 
-# try1 = CollectionProcessor()
-# try1.dbPathOrUrl = "http://192.168.0.168:9999/blazegraph/sparql"
-# try1.getdbPathOrUrl()
-# try1.uploadData("collection-1.json")
-
-# print(try1.uploadData("collection-1.json"))
+try1 = CollectionProcessor()
+try1.dbPathOrUrl = "http://192.168.1.37:9999/blazegraph/sparql"
+try1.getDbPathOrUrl()
+print(try1.uploadData("data/collection-1.json"))
 
 
 # try2 = CollectionProcessor()
