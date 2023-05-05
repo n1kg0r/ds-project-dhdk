@@ -12,6 +12,7 @@ class Processor():
         return self.dbPathOrUrl
     def setDbPathOrUrl(self, dbPathOrUrl:str):
         self.dbPathOrUrl = dbPathOrUrl
+        # TODO: check the validity of the url
 
 class QueryProcessor(Processor):
     def __init__(self):
@@ -35,7 +36,7 @@ class QueryProcessor(Processor):
         elif db_url == RDF_DB_URL:
             df = DataFrame(columns=['id', 'type', 'label'])
             store = SPARQLUpdateStore()
-            endpoint = 'http://172.20.10.3:9999/blazegraph/sparql'
+            endpoint = 'http://192.168.1.37:9999/blazegraph/sparql'
             store.open((endpoint, endpoint))
             for triple in store.triples((URIRef(entityId), None, None)):
                 list_row = [triple[0][0], triple[0][1], triple[0][2]]
