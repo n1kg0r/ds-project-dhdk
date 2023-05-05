@@ -1,4 +1,4 @@
-from try_processor import Processor
+from processors import Processor, QueryProcessor
 from Collection_processor import CollectionProcessor
 from pandas import DataFrame
 from sparql_dataframe import get 

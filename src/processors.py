@@ -41,19 +41,22 @@ class QueryProcessor(Processor):
             for triple in store.triples((URIRef(entityId), None, None)):
                 list_row = [triple[0][0], triple[0][1], triple[0][2]]
                 df.loc[len(df)] = list_row
+                # TODO: generic sparql query  
+                # select * where first one is id
             store.close()
         return df
 
 
 # Uncomment for a test of query processor    
 
-# qp = QueryProcessor()
+qp = QueryProcessor()
 
-# qp.setDbPathOrUrl(RDF_DB_URL)
-# print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
+qp.setDbPathOrUrl(RDF_DB_URL)
+print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
 
 # qp.setDbPathOrUrl(SQL_DB_URL)
 # print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
+# check library sparqldataframe
 
 class GenericQueryProcessor():
     def __init__(self):

@@ -6,4 +6,6 @@ python-dateutil==2.8.2
 pytz==2023.3
 rdflib==6.3.2
 six==1.16.0
+sparql-dataframe==0.4
+SPARQLWrapper==2.0.0
 tzdata==2023.3
