@@ -1,0 +1,1386 @@
+@prefix ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> .
+@prefix ns2: <http://purl.org/dc/elements/1.1/> .
+@prefix ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Collection_1> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Collection> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/28429/collection" ;
+    ns1:label "['Works of Dante Alighieri']" ;
+    ns3:items <https://github.com/n1kg0r/ds-project-dhdk/Manifest_1> .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_1> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1" ;
+    ns1:label "['BO0451_CAM6537_0001_piatto anteriore.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_10> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p10" ;
+    ns1:label "['BO0451_CAM6537_0010_p.[VI].jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_100> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p100" ;
+    ns1:label "['BO0451_CAM6537_0100_p.38.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_101> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p101" ;
+    ns1:label "['BO0451_CAM6537_0101_p.39.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_102> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p102" ;
+    ns1:label "['BO0451_CAM6537_0102_p.40.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_103> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p103" ;
+    ns1:label "['BO0451_CAM6537_0103_p.41.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_104> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p104" ;
+    ns1:label "['BO0451_CAM6537_0104_p.42.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_105> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p105" ;
+    ns1:label "['BO0451_CAM6537_0105_p.43.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_106> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p106" ;
+    ns1:label "['BO0451_CAM6537_0106_p.44.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_107> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p107" ;
+    ns1:label "['BO0451_CAM6537_0107_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_108> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p108" ;
+    ns1:label "['BO0451_CAM6537_0108_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_109> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p109" ;
+    ns1:label "['BO0451_CAM6537_0109_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_11> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p11" ;
+    ns1:label "['BO0451_CAM6537_0011_p.VII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_110> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p110" ;
+    ns1:label "['BO0451_CAM6537_0110_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_111> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p111" ;
+    ns1:label "['BO0451_CAM6537_0111_p.45.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_112> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p112" ;
+    ns1:label "['BO0451_CAM6537_0112_p.46.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_113> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p113" ;
+    ns1:label "['BO0451_CAM6537_0113_p.47.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_114> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p114" ;
+    ns1:label "['BO0451_CAM6537_0114_p.48.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_115> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p115" ;
+    ns1:label "['BO0451_CAM6537_0115_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_116> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p116" ;
+    ns1:label "['BO0451_CAM6537_0116_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_117> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p117" ;
+    ns1:label "['BO0451_CAM6537_0117_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_118> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p118" ;
+    ns1:label "['BO0451_CAM6537_0118_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_119> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p119" ;
+    ns1:label "['BO0451_CAM6537_0119_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_12> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p12" ;
+    ns1:label "['BO0451_CAM6537_0012_p.VIII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_120> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p120" ;
+    ns1:label "['BO0451_CAM6537_0120_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_121> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p121" ;
+    ns1:label "['BO0451_CAM6537_0121_p.49.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_122> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p122" ;
+    ns1:label "['BO0451_CAM6537_0122_p.50.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_123> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p123" ;
+    ns1:label "['BO0451_CAM6537_0123_p.51.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_124> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p124" ;
+    ns1:label "['BO0451_CAM6537_0124_p.52.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_125> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p125" ;
+    ns1:label "['BO0451_CAM6537_0125_p.53.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_126> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p126" ;
+    ns1:label "['BO0451_CAM6537_0126_p.54.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_127> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p127" ;
+    ns1:label "['BO0451_CAM6537_0127_p.55.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_128> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p128" ;
+    ns1:label "['BO0451_CAM6537_0128_p.56.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_129> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p129" ;
+    ns1:label "['BO0451_CAM6537_0129_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_13> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p13" ;
+    ns1:label "['BO0451_CAM6537_0013_p.IX.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_130> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p130" ;
+    ns1:label "['BO0451_CAM6537_0130_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_131> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p131" ;
+    ns1:label "['BO0451_CAM6537_0131_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_132> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p132" ;
+    ns1:label "['BO0451_CAM6537_0132_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_133> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p133" ;
+    ns1:label "['BO0451_CAM6537_0133_p.57.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_134> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p134" ;
+    ns1:label "['BO0451_CAM6537_0134_p.58.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_135> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p135" ;
+    ns1:label "['BO0451_CAM6537_0135_p.59.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_136> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p136" ;
+    ns1:label "['BO0451_CAM6537_0136_p.60.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_137> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p137" ;
+    ns1:label "['BO0451_CAM6537_0137_p.61.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_138> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p138" ;
+    ns1:label "['BO0451_CAM6537_0138_p.62.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_139> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p139" ;
+    ns1:label "['BO0451_CAM6537_0139_p.63.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_14> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p14" ;
+    ns1:label "['BO0451_CAM6537_0014_p.X.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_140> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p140" ;
+    ns1:label "['BO0451_CAM6537_0140_p.64.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_141> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p141" ;
+    ns1:label "['BO0451_CAM6537_0141_p.65.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_142> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p142" ;
+    ns1:label "['BO0451_CAM6537_0142_p.66.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_143> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p143" ;
+    ns1:label "['BO0451_CAM6537_0143_p.67.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_144> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p144" ;
+    ns1:label "['BO0451_CAM6537_0144_p.68.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_145> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p145" ;
+    ns1:label "['BO0451_CAM6537_0145_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_146> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p146" ;
+    ns1:label "['BO0451_CAM6537_0146_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_147> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p147" ;
+    ns1:label "['BO0451_CAM6537_0147_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_148> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p148" ;
+    ns1:label "['BO0451_CAM6537_0148_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_149> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p149" ;
+    ns1:label "['BO0451_CAM6537_0149_p.69.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_15> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p15" ;
+    ns1:label "['BO0451_CAM6537_0015_p.XI.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_150> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p150" ;
+    ns1:label "['BO0451_CAM6537_0150_p.70.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_151> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p151" ;
+    ns1:label "['BO0451_CAM6537_0151_p.71.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_152> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p152" ;
+    ns1:label "['BO0451_CAM6537_0152_p.72.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_153> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p153" ;
+    ns1:label "['BO0451_CAM6537_0153_p.73.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_154> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p154" ;
+    ns1:label "['BO0451_CAM6537_0154_p.74.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_155> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p155" ;
+    ns1:label "['BO0451_CAM6537_0155_p.75.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_156> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p156" ;
+    ns1:label "['BO0451_CAM6537_0156_p.76.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_157> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p157" ;
+    ns1:label "['BO0451_CAM6537_0157_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_158> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p158" ;
+    ns1:label "['BO0451_CAM6537_0158_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_159> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p159" ;
+    ns1:label "['BO0451_CAM6537_0159_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_16> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p16" ;
+    ns1:label "['BO0451_CAM6537_0016_p.XII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_160> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p160" ;
+    ns1:label "['BO0451_CAM6537_0160_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_161> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p161" ;
+    ns1:label "['BO0451_CAM6537_0161_p.77.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_162> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p162" ;
+    ns1:label "['BO0451_CAM6537_0162_p.78.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_163> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p163" ;
+    ns1:label "['BO0451_CAM6537_0163_p.79.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_164> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p164" ;
+    ns1:label "['BO0451_CAM6537_0164_p.80.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_165> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p165" ;
+    ns1:label "['BO0451_CAM6537_0165_p.81.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_166> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p166" ;
+    ns1:label "['BO0451_CAM6537_0166_p.82.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_167> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p167" ;
+    ns1:label "['BO0451_CAM6537_0167_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_168> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p168" ;
+    ns1:label "['BO0451_CAM6537_0168_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_169> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p169" ;
+    ns1:label "['BO0451_CAM6537_0169_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_17> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p17" ;
+    ns1:label "['BO0451_CAM6537_0017_p.XIII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_170> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p170" ;
+    ns1:label "['BO0451_CAM6537_0170_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_171> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p171" ;
+    ns1:label "['BO0451_CAM6537_0171_p.83.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_172> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p172" ;
+    ns1:label "['BO0451_CAM6537_0172_p.84.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_173> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p173" ;
+    ns1:label "['BO0451_CAM6537_0173_p.85.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_174> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p174" ;
+    ns1:label "['BO0451_CAM6537_0174_p.86.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_175> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p175" ;
+    ns1:label "['BO0451_CAM6537_0175_p.87.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_176> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p176" ;
+    ns1:label "['BO0451_CAM6537_0176_p.88.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_177> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p177" ;
+    ns1:label "['BO0451_CAM6537_0177_p.89.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_178> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p178" ;
+    ns1:label "['BO0451_CAM6537_0178_p.90.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_179> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p179" ;
+    ns1:label "['BO0451_CAM6537_0179_p.91.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_18> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p18" ;
+    ns1:label "['BO0451_CAM6537_0018_p.XIV.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_180> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p180" ;
+    ns1:label "['BO0451_CAM6537_0180_p.92.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_181> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p181" ;
+    ns1:label "['BO0451_CAM6537_0181_p.93.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_182> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p182" ;
+    ns1:label "['BO0451_CAM6537_0182_p.94.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_183> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p183" ;
+    ns1:label "['BO0451_CAM6537_0183_p.95.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_184> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p184" ;
+    ns1:label "['BO0451_CAM6537_0184_p.96.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_185> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p185" ;
+    ns1:label "['BO0451_CAM6537_0185_p.97.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_186> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p186" ;
+    ns1:label "['BO0451_CAM6537_0186_p.98.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_187> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p187" ;
+    ns1:label "['BO0451_CAM6537_0187_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_188> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p188" ;
+    ns1:label "['BO0451_CAM6537_0188_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_189> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p189" ;
+    ns1:label "['BO0451_CAM6537_0189_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_19> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p19" ;
+    ns1:label "['BO0451_CAM6537_0019_p.XV.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_190> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p190" ;
+    ns1:label "['BO0451_CAM6537_0190_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_191> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p191" ;
+    ns1:label "['BO0451_CAM6537_0191_p.99.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_192> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p192" ;
+    ns1:label "['BO0451_CAM6537_0192_p.100.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_193> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p193" ;
+    ns1:label "['BO0451_CAM6537_0193_p.101.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_194> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p194" ;
+    ns1:label "['BO0451_CAM6537_0194_p.102.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_195> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p195" ;
+    ns1:label "['BO0451_CAM6537_0195_p.103.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_196> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p196" ;
+    ns1:label "['BO0451_CAM6537_0196_p.104.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_197> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p197" ;
+    ns1:label "['BO0451_CAM6537_0197_p.105.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_198> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p198" ;
+    ns1:label "['BO0451_CAM6537_0198_p.106.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_199> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p199" ;
+    ns1:label "['BO0451_CAM6537_0199_p.107.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_2> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p2" ;
+    ns1:label "['BO0451_CAM6537_0002_contropiatto anteriore.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_20> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p20" ;
+    ns1:label "['BO0451_CAM6537_0020_p.XVI.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_200> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p200" ;
+    ns1:label "['BO0451_CAM6537_0200_p.108.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_201> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p201" ;
+    ns1:label "['BO0451_CAM6537_0201_p.109.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_202> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p202" ;
+    ns1:label "['BO0451_CAM6537_0202_p.110.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_203> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p203" ;
+    ns1:label "['BO0451_CAM6537_0203_p.111.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_204> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p204" ;
+    ns1:label "['BO0451_CAM6537_0204_p.112.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_205> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p205" ;
+    ns1:label "['BO0451_CAM6537_0205_p.113.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_206> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p206" ;
+    ns1:label "['BO0451_CAM6537_0206_p.114.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_207> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p207" ;
+    ns1:label "['BO0451_CAM6537_0207_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_208> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p208" ;
+    ns1:label "['BO0451_CAM6537_0208_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_209> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p209" ;
+    ns1:label "['BO0451_CAM6537_0209_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_21> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p21" ;
+    ns1:label "['BO0451_CAM6537_0021_p.XVII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_210> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p210" ;
+    ns1:label "['BO0451_CAM6537_0210_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_211> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p211" ;
+    ns1:label "['BO0451_CAM6537_0211_p.115.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_212> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p212" ;
+    ns1:label "['BO0451_CAM6537_0212_p.116.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_213> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p213" ;
+    ns1:label "['BO0451_CAM6537_0213_p.117.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_214> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p214" ;
+    ns1:label "['BO0451_CAM6537_0214_p.118.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_215> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p215" ;
+    ns1:label "['BO0451_CAM6537_0215_p.119.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_216> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p216" ;
+    ns1:label "['BO0451_CAM6537_0216_p.120.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_217> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p217" ;
+    ns1:label "['BO0451_CAM6537_0217_p.[121].jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_218> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p218" ;
+    ns1:label "['BO0451_CAM6537_0218_p.[122].jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_219> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p219" ;
+    ns1:label "['BO0451_CAM6537_0219_p.123.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_22> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p22" ;
+    ns1:label "['BO0451_CAM6537_0022_p.XVIII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_220> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p220" ;
+    ns1:label "['BO0451_CAM6537_0220_p.124.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_221> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p221" ;
+    ns1:label "['BO0451_CAM6537_0221_p.125.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_222> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p222" ;
+    ns1:label "['BO0451_CAM6537_0222_p.126.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_223> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p223" ;
+    ns1:label "['BO0451_CAM6537_0223_p.127.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_224> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p224" ;
+    ns1:label "['BO0451_CAM6537_0224_p.128.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_225> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p225" ;
+    ns1:label "['BO0451_CAM6537_0225_p.[129].jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_226> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p226" ;
+    ns1:label "['BO0451_CAM6537_0226_p.[130].jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_227> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p227" ;
+    ns1:label "['BO0451_CAM6537_0227_foglio di guardia.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_228> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p228" ;
+    ns1:label "['BO0451_CAM6537_0228_foglio di guardia.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_229> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p229" ;
+    ns1:label "['BO0451_CAM6537_0229_foglio di guardia.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_23> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p23" ;
+    ns1:label "['BO0451_CAM6537_0023_p.XIX.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_230> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p230" ;
+    ns1:label "['BO0451_CAM6537_0230_foglio di guardia.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_231> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p231" ;
+    ns1:label "['BO0451_CAM6537_0231_foglio di guardia.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_232> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p232" ;
+    ns1:label "['BO0451_CAM6537_0232_foglio di guardia.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_233> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p233" ;
+    ns1:label "['BO0451_CAM6537_0233_contropiatto posteriore.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_234> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p234" ;
+    ns1:label "['BO0451_CAM6537_0234_piatto posteriore.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_235> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p235" ;
+    ns1:label "['BO0451_CAM6537_0235_dorso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_236> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p236" ;
+    ns1:label "['BO0451_CAM6537_0236_taglio inferiore.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_237> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p237" ;
+    ns1:label "['BO0451_CAM6537_0237_taglio concavo.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_238> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p238" ;
+    ns1:label "['BO0451_CAM6537_0238_taglio superiore.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_239> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p239" ;
+    ns1:label "['BO0451_CAM6537_0239_metro e colore.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_24> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p24" ;
+    ns1:label "['BO0451_CAM6537_0024_p.XX.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_25> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p25" ;
+    ns1:label "['BO0451_CAM6537_0025_p.XXI.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_26> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p26" ;
+    ns1:label "['BO0451_CAM6537_0026_p.XXII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_27> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p27" ;
+    ns1:label "['BO0451_CAM6537_0027_p.XXIII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_28> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p28" ;
+    ns1:label "['BO0451_CAM6537_0028_p.XXIV.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_29> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p29" ;
+    ns1:label "['BO0451_CAM6537_0029_p.XXV.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_3> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p3" ;
+    ns1:label "['BO0451_CAM6537_0003_foglio di guardia.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_30> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p30" ;
+    ns1:label "['BO0451_CAM6537_0030_p.XXVI.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_31> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p31" ;
+    ns1:label "['BO0451_CAM6537_0031_p.XXVII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_32> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p32" ;
+    ns1:label "['BO0451_CAM6537_0032_p.XXVIII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_33> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p33" ;
+    ns1:label "['BO0451_CAM6537_0033_p.XXIX.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_34> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p34" ;
+    ns1:label "['BO0451_CAM6537_0034_p.XXX.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_35> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p35" ;
+    ns1:label "['BO0451_CAM6537_0035_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_36> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p36" ;
+    ns1:label "['BO0451_CAM6537_0036_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_37> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p37" ;
+    ns1:label "['BO0451_CAM6537_0037_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_38> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p38" ;
+    ns1:label "['BO0451_CAM6537_0038_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_39> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p39" ;
+    ns1:label "['BO0451_CAM6537_0039_p.XXXI.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_4> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p4" ;
+    ns1:label "['BO0451_CAM6537_0004_foglio di guardia.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_40> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p40" ;
+    ns1:label "['BO0451_CAM6537_0040_p.XXXII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_41> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p41" ;
+    ns1:label "['BO0451_CAM6537_0041_p.XXXIII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_42> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p42" ;
+    ns1:label "['BO0451_CAM6537_0042_p.XXXIV.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_43> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p43" ;
+    ns1:label "['BO0451_CAM6537_0043_p.XXXV.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_44> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p44" ;
+    ns1:label "['BO0451_CAM6537_0044_p.XXXVI.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_45> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p45" ;
+    ns1:label "['BO0451_CAM6537_0045_p.XXXVII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_46> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p46" ;
+    ns1:label "['BO0451_CAM6537_0046_p.XXXVIII.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_47> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p47" ;
+    ns1:label "['BO0451_CAM6537_0047_p.XXXIX.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_48> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p48" ;
+    ns1:label "['BO0451_CAM6537_0048_p.XL.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_49> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p49" ;
+    ns1:label "['BO0451_CAM6537_0049_p.XLI.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_5> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p5" ;
+    ns1:label "['BO0451_CAM6537_0005_foglio di guardia.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_50> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p50" ;
+    ns1:label "['BO0451_CAM6537_0050_p.[XLII].jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_51> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p51" ;
+    ns1:label "['BO0451_CAM6537_0051_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_52> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p52" ;
+    ns1:label "['BO0451_CAM6537_0052_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_53> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p53" ;
+    ns1:label "['BO0451_CAM6537_0053_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_54> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p54" ;
+    ns1:label "['BO0451_CAM6537_0054_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_55> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p55" ;
+    ns1:label "['BO0451_CAM6537_0055_p.1.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_56> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p56" ;
+    ns1:label "['BO0451_CAM6537_0056_p.2.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_57> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p57" ;
+    ns1:label "['BO0451_CAM6537_0057_p.3.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_58> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p58" ;
+    ns1:label "['BO0451_CAM6537_0058_p.4.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_59> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p59" ;
+    ns1:label "['BO0451_CAM6537_0059_p.5.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_6> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p6" ;
+    ns1:label "['BO0451_CAM6537_0006_foglio di guardia.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_60> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p60" ;
+    ns1:label "['BO0451_CAM6537_0060_p.6.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_61> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p61" ;
+    ns1:label "['BO0451_CAM6537_0061_p.7.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_62> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p62" ;
+    ns1:label "['BO0451_CAM6537_0062_p.8.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_63> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p63" ;
+    ns1:label "['BO0451_CAM6537_0063_p.9.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_64> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p64" ;
+    ns1:label "['BO0451_CAM6537_0064_p.10.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_65> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p65" ;
+    ns1:label "['BO0451_CAM6537_0065_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_66> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p66" ;
+    ns1:label "['BO0451_CAM6537_0066_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_67> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p67" ;
+    ns1:label "['BO0451_CAM6537_0067_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_68> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p68" ;
+    ns1:label "['BO0451_CAM6537_0068_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_69> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p69" ;
+    ns1:label "['BO0451_CAM6537_0069_p.11.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_7> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p7" ;
+    ns1:label "['BO0451_CAM6537_0007_p.[III].jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_70> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p70" ;
+    ns1:label "['BO0451_CAM6537_0070_p.12.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_71> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p71" ;
+    ns1:label "['BO0451_CAM6537_0071_p.13.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_72> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p72" ;
+    ns1:label "['BO0451_CAM6537_0072_p.14.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_73> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p73" ;
+    ns1:label "['BO0451_CAM6537_0073_p.15.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_74> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p74" ;
+    ns1:label "['BO0451_CAM6537_0074_p.16.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_75> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p75" ;
+    ns1:label "['BO0451_CAM6537_0075_p.17.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_76> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p76" ;
+    ns1:label "['BO0451_CAM6537_0076_p.18.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_77> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p77" ;
+    ns1:label "['BO0451_CAM6537_0077_p.19.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_78> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p78" ;
+    ns1:label "['BO0451_CAM6537_0078_p.20.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_79> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p79" ;
+    ns1:label "['BO0451_CAM6537_0079_p.21.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_8> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p8" ;
+    ns1:label "['BO0451_CAM6537_0008_p.[IV].jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_80> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p80" ;
+    ns1:label "['BO0451_CAM6537_0080_p.22.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_81> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p81" ;
+    ns1:label "['BO0451_CAM6537_0081_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_82> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p82" ;
+    ns1:label "['BO0451_CAM6537_0082_np.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_83> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p83" ;
+    ns1:label "['BO0451_CAM6537_0083_tavola recto.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_84> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p84" ;
+    ns1:label "['BO0451_CAM6537_0084_tavola verso.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_85> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p85" ;
+    ns1:label "['BO0451_CAM6537_0085_p.23.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_86> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p86" ;
+    ns1:label "['BO0451_CAM6537_0086_p.24.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_87> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p87" ;
+    ns1:label "['BO0451_CAM6537_0087_p.25.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_88> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p88" ;
+    ns1:label "['BO0451_CAM6537_0088_p.26.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_89> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p89" ;
+    ns1:label "['BO0451_CAM6537_0089_p.27.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_9> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p9" ;
+    ns1:label "['BO0451_CAM6537_0009_p.[V].jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_90> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p90" ;
+    ns1:label "['BO0451_CAM6537_0090_p.28.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_91> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p91" ;
+    ns1:label "['BO0451_CAM6537_0091_p.29.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_92> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p92" ;
+    ns1:label "['BO0451_CAM6537_0092_p.30.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_93> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p93" ;
+    ns1:label "['BO0451_CAM6537_0093_p.31.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_94> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p94" ;
+    ns1:label "['BO0451_CAM6537_0094_p.32.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_95> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p95" ;
+    ns1:label "['BO0451_CAM6537_0095_p.33.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_96> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p96" ;
+    ns1:label "['BO0451_CAM6537_0096_p.34.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_97> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p97" ;
+    ns1:label "['BO0451_CAM6537_0097_p.35.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_98> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p98" ;
+    ns1:label "['BO0451_CAM6537_0098_p.36.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_99> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p99" ;
+    ns1:label "['BO0451_CAM6537_0099_p.37.jpg']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Manifest_1> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Manifest> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/28429/manifest" ;
+    ns1:label "['Il Canzoniere']" ;
+    ns3:items <https://github.com/n1kg0r/ds-project-dhdk/Canvas_1>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_10>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_100>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_101>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_102>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_103>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_104>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_105>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_106>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_107>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_108>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_109>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_11>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_110>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_111>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_112>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_113>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_114>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_115>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_116>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_117>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_118>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_119>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_12>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_120>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_121>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_122>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_123>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_124>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_125>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_126>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_127>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_128>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_129>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_13>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_130>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_131>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_132>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_133>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_134>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_135>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_136>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_137>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_138>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_139>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_14>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_140>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_141>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_142>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_143>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_144>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_145>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_146>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_147>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_148>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_149>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_15>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_150>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_151>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_152>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_153>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_154>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_155>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_156>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_157>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_158>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_159>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_16>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_160>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_161>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_162>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_163>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_164>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_165>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_166>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_167>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_168>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_169>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_17>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_170>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_171>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_172>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_173>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_174>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_175>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_176>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_177>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_178>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_179>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_18>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_180>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_181>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_182>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_183>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_184>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_185>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_186>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_187>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_188>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_189>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_19>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_190>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_191>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_192>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_193>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_194>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_195>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_196>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_197>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_198>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_199>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_2>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_20>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_200>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_201>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_202>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_203>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_204>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_205>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_206>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_207>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_208>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_209>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_21>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_210>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_211>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_212>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_213>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_214>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_215>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_216>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_217>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_218>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_219>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_22>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_220>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_221>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_222>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_223>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_224>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_225>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_226>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_227>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_228>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_229>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_23>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_230>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_231>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_232>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_233>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_234>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_235>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_236>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_237>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_238>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_239>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_24>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_25>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_26>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_27>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_28>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_29>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_3>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_30>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_31>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_32>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_33>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_34>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_35>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_36>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_37>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_38>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_39>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_4>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_40>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_41>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_42>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_43>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_44>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_45>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_46>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_47>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_48>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_49>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_5>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_50>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_51>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_52>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_53>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_54>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_55>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_56>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_57>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_58>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_59>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_6>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_60>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_61>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_62>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_63>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_64>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_65>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_66>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_67>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_68>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_69>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_7>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_70>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_71>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_72>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_73>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_74>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_75>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_76>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_77>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_78>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_79>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_8>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_80>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_81>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_82>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_83>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_84>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_85>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_86>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_87>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_88>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_89>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_9>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_90>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_91>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_92>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_93>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_94>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_95>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_96>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_97>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_98>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_99> .
+
+@prefix ns1: <https://github.com/n1kg0r/ds-project-dhdk/relations/> .
+@prefix ns2: <http://purl.org/dc/elements/1.1/> .
+@prefix ns3: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Collection_2> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Collection> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/19428-19425/collection" ;
+    ns3:label "['Fondo Giuseppe Raimondi']" ;
+    ns1:items <https://github.com/n1kg0r/ds-project-dhdk/Manifest_2>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Manifest_3> .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_240> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p1" ;
+    ns3:label "['r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_241> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p2" ;
+    ns3:label "['v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_242> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p3" ;
+    ns3:label "['c1r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_243> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p4" ;
+    ns3:label "['c1v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_244> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p5" ;
+    ns3:label "['c2r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_245> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p6" ;
+    ns3:label "['c2v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_246> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p7" ;
+    ns3:label "['c3r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_247> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p8" ;
+    ns3:label "['c3v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_248> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p9" ;
+    ns3:label "['c4r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_249> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p10" ;
+    ns3:label "['c4v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_250> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p11" ;
+    ns3:label "['c5r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_251> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p12" ;
+    ns3:label "['c5v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_252> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p13" ;
+    ns3:label "['r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_253> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p14" ;
+    ns3:label "['v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_254> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p15" ;
+    ns3:label "['colori']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_255> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/canvas/p16" ;
+    ns3:label "['scala']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_256> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p1" ;
+    ns3:label "['r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_257> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p2" ;
+    ns3:label "['v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_258> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p3" ;
+    ns3:label "['c1r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_259> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p4" ;
+    ns3:label "['c1v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_260> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p5" ;
+    ns3:label "['c2r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_261> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p6" ;
+    ns3:label "['c2v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_262> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p7" ;
+    ns3:label "['c3r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_263> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p8" ;
+    ns3:label "['c3v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_264> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p9" ;
+    ns3:label "['c4r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_265> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p10" ;
+    ns3:label "['c4v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_266> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p11" ;
+    ns3:label "['c5r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_267> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p12" ;
+    ns3:label "['c5v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_268> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p13" ;
+    ns3:label "['r']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_269> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p14" ;
+    ns3:label "['v']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_270> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p15" ;
+    ns3:label "['colori']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Canvas_271> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/canvas/p16" ;
+    ns3:label "['scala']" .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Manifest_2> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Manifest> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19428/manifest" ;
+    ns3:label "['Raimondi, Giuseppe. Quaderno manoscritto, \"Caserma Scalo : 1930-1968\"']" ;
+    ns1:items <https://github.com/n1kg0r/ds-project-dhdk/Canvas_240>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_241>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_242>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_243>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_244>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_245>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_246>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_247>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_248>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_249>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_250>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_251>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_252>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_253>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_254>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_255> .
+
+<https://github.com/n1kg0r/ds-project-dhdk/Manifest_3> a <https://github.com/n1kg0r/ds-project-dhdk/classes/Manifest> ;
+    ns2:identifier "https://dl.ficlit.unibo.it/iiif/2/19425/manifest" ;
+    ns3:label "['Raimondi, Giuseppe. Quaderno manoscritto, \"La vecchia centrale termica. Aprile 965\"']" ;
+    ns1:items <https://github.com/n1kg0r/ds-project-dhdk/Canvas_256>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_257>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_258>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_259>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_260>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_261>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_262>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_263>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_264>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_265>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_266>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_267>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_268>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_269>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_270>,
+        <https://github.com/n1kg0r/ds-project-dhdk/Canvas_271> .
+
