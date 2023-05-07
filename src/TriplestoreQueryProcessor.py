@@ -1,5 +1,5 @@
-from processors import Processor, QueryProcessor
-from Collection_processor import CollectionProcessor
+from processor import Processor
+from CollectionProcessor import CollectionProcessor
 from pandas import DataFrame
 from sparql_dataframe import get 
 
@@ -10,17 +10,17 @@ class TriplestoreQueryProcessor(QueryProcessor):
 
     def getAllCanvases():
 
-        endpoint = Processor.setdbPathOrUrl
+        endpoint = Processor.setDbPathOrUrl
         query_canvases = """
         PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
-        PREFIX ns2: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
-        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/classes/>
+        PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
+        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
 
-        SELECT ?id ?label
+        SELECT ?canvas ?id ?label
         WHERE {
-           ?s rdf:type ns3:Canvas ;
-           ns1:id ?id ;
-           ns1:label ?label .
+            ?canvas a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas>;
+            ns2:identifier ?id;
+            ns1:label ?label.
         }
         """
 
@@ -29,16 +29,16 @@ class TriplestoreQueryProcessor(QueryProcessor):
 
     def getAllCollections():
 
-        endpoint = Processor.setdbPathOrUrl
+        endpoint = Processor.setDbPathOrUrl
         query_collections = """
         PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
-        PREFIX ns2: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
-        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/classes/>
+        PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
+        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
 
-        SELECT ?id ?label
+        SELECT ?collection ?id ?label
         WHERE {
-           ?s rdf:type ns3:Collection ;
-           ns1:id ?id ;
+           ?collection a <https://github.com/n1kg0r/ds-project-dhdk/classes/Collection>;
+           ns2:identifier ?id;
            ns1:label ?label .
         }
         """
@@ -48,16 +48,16 @@ class TriplestoreQueryProcessor(QueryProcessor):
 
     def getAllManifest():
 
-        endpoint = Processor.setdbPathOrUrl
+        endpoint = Processor.setDbPathOrUrl
         query_manifest = """
         PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
-        PREFIX ns2: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
-        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/classes/>
+        PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
+        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
 
-        SELECT ?id ?label
+        SELECT ?manifest ?id ?label
         WHERE {
-           ?s rdf:type ns3:Manifest ;
-           ns1:id ?id ;
+           ?manifest a <https://github.com/n1kg0r/ds-project-dhdk/classes/Manifest>;
+           ns2:identifier ?id;
            ns1:label ?label .
         }
         """
@@ -67,22 +67,22 @@ class TriplestoreQueryProcessor(QueryProcessor):
 
     def getCanvasesInCollection(collectionId: str):
 
-        endpoint = Processor.setdbPathOrUrl
+        endpoint = Processor.setDbPathOrUrl
         query_canInCol = """
         PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
-        PREFIX ns2: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
-        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/classes/>
+        PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
+        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
 
-        SELECT DISTINCT ?canvas_id ?canvas_label
+        SELECT ?canvas ?id ?label 
         WHERE {
-            ?collection rdf:type ns3:Collection ;
-            ns1:id "%s" ;
-            ns2:items ?manifest .
-            ?manifest rdf:type ns3:Manifest ;
-            ns2:items ?canvas .
-            ?canvas rdf:type ns3:Canvas ;
-            ns1:id ?canvas_id ;
-            ns1:label ?canvas_label .
+            ?collection a <https://github.com/n1kg0r/ds-project-dhdk/classes/Collection> ;
+            ns2:identifier "%s" ;
+            ns3:items ?manifest .
+            ?manifest a <https://github.com/n1kg0r/ds-project-dhdk/classes/Manifest> ;
+            ns3:items ?canvas .
+            ?canvas a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+            ns2:identifier ?id ;
+            ns1:label ?label .
         }
         """ % collectionId
 
@@ -91,64 +91,43 @@ class TriplestoreQueryProcessor(QueryProcessor):
 
     def getCanvasesInManifest(manifestId: str):
 
-        endpoint = Processor.setdbPathOrUrl
+        endpoint = Processor.setDbPathOrUrl
         query_canInMan = """
         PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
-        PREFIX ns2: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
-        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/classes/>
+        PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
+        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
 
-        SELECT DISTINCT ?canvas_id ?canvas_label
+        SELECT ?canvas ?id ?label
         WHERE {
-            ?manifest rdf:type ns3:Manifest ;
-            ns1:id "%s" ;
-            ns2:items ?canvas .
-            ?canvas rdf:type ns3:Canvas ;
-            ns1:id ?canvas_id ;
-            ns1:label ?canvas_label .
+            ?manifest a <https://github.com/n1kg0r/ds-project-dhdk/classes/Manifest> ;
+            ns2:identifier "%s" ;
+            ns3:items ?canvas .
+            ?canvas a <https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas> ;
+            ns2:identifier ?id ;
+            ns1:label ?label .
         }
         """ % manifestId
 
         df_sparql = get(endpoint, query_canInMan, True)
         return df_sparql
 
-    def getEntitiesWithLabel(label: str): #difficile, devi metterti con calma
-
-        endpoint = Processor.setdbPathOrUrl
-        # query = """
-        # PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
-        # PREFIX ns2: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
-        # PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/classes/>
-
-        # SELECT DISTINCT ?canvas_id ?canvas_label
-        # WHERE {
-        #     ?manifest rdf:type ns3:Manifest ;
-        #     ?manifest ns1:id "%s" ;
-        #     ?manifest ns2:items ?canvas .
-        #     ?canvas rdf:type ns3:Canvas ;
-        #     ?canvas ns1:id ?canvas_id ;
-        #     ?canvas ns1:label ?canvas_label .
-        # }
-        # """ % manifestId
-
-        # df_sparql = get(endpoint, query, True)
-        # return df_sparql
 
     def getManifestInCollection(collectionId: str):
 
-        endpoint = Processor.setdbPathOrUrl
+        endpoint = Processor.setDbPathOrUrl
         query_manInCol = """
         PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
-        PREFIX ns2: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
-        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/classes/>
+        PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
+        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
 
-        SELECT DISTINCT ?manifest_id ?manifest_label
+        SELECT ?manifest ?id ?label
         WHERE {
-            ?collection rdf:type ns3:Collection ;
-            ns1:id "%s" ;
-            ns2:items ?manifest .
-            ?manifest rdf:type ns3:Manifest ;
-            ns1:id ?manifest_id ;
-            ns1:label ?manifest_label .
+            ?collection a <https://github.com/n1kg0r/ds-project-dhdk/classes/Collection> ;
+            ns2:identifier "%s" ;
+            ns3:items ?manifest .
+            ?manifest a <https://github.com/n1kg0r/ds-project-dhdk/classes/Manifest> ;
+            ns2:identifier ?id ;
+            ns1:label ?label .
         }
         """ % collectionId
 
@@ -156,3 +135,31 @@ class TriplestoreQueryProcessor(QueryProcessor):
         return df_sparql
     
 
+    def getEntitiesWithLabel(label: str): 
+
+        # trova metodo di escape per le virgolette (doppie e singole) e per le parentesi quadre
+
+        # for char in label:
+        #     if char == "[":
+        #         label.replace('[', '%5B')
+        #     elif char == "]":
+        #         label.replace(']', '%5D')
+            
+
+        endpoint = Processor.setDbPathOrUrl
+        query_entityLabel = """
+        PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
+        PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
+        PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
+
+        SELECT ?entity ?type ?id
+        WHERE {
+            ?entity ns1:label "%s" ;
+            a ?type ;
+            ns2:identifier ?id .
+        
+        }
+        """ % ('""' + label + '""')
+
+        df_sparql = get(endpoint, query_entityLabel, True)
+        return df_sparql
