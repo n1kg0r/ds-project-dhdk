@@ -43,17 +43,14 @@ class QueryProcessor(Processor):
                 PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
                 PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
 
-                SELECT ?entity ?id ?label
+                SELECT ?entity
                 WHERE {
-                    ?entity ns2:identifier "%s" ;
-                    ns2:identifier ?id ;
-                    ns1:label ?label .
+                    ?entity ns2:identifier "%s" .
                 }
                 """ % entityId 
 
             df = get(endpoint, query, True)
             print(df['entity'].head().to_list())
-            print(df['id'].head().to_list())
             return df
         return df
 
@@ -335,17 +332,18 @@ grp_endpoint = "http://127.0.0.1:9999/blazegraph/sparql"
 qp = QueryProcessor()
 
 qp.setDbPathOrUrl(RDF_DB_URL)
+
 p = Processor()
 tqp = TriplestoreQueryProcessor()
 tqp.setDbPathOrUrl("http://127.0.0.1:9999/blazegraph/sparql")
-# print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
+print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
 
 generic = GenericQueryProcessor()
 generic.addQueryProcessor(qp)
 generic.addQueryProcessor(p)
 generic.addQueryProcessor(tqp)
-print(generic.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
-print(generic.getAllCanvases())
+#print(generic.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
+#print(generic.getAllCanvases())
 
 # col_dp = CollectionProcessor()
 # col_dp.setDbPathOrUrl(grp_endpoint)
