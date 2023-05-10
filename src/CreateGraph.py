@@ -1,7 +1,5 @@
 
-from rdflib import Graph, URIRef, RDF, RDFS, Literal #RDF.type; RDFS.label
-from json import load
-from pprint import pprint
+from rdflib import Graph, URIRef, RDF, Literal 
 from clean_str import remove_special_chars
 
 def create_Graph(json_object:dict, base_url, my_graph:Graph):
@@ -42,10 +40,9 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
 
     # create a list from the dictionary of label and catch the value of the key "none" (language) in a variable
     label_list = list(json_object['label'].values())  
-    value_label = label_list[0]
+    value_label = label_list[0][0]
 
     # remove the square brackets from the label value
-    value_label = str(value_label).replace("[", "").replace("]", "")
     value_label = remove_special_chars(str(value_label))
 
     # create the graph with the triples
@@ -69,10 +66,9 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
 
         # create a list from the dictionary of label and catch the value of the key "none" (language) in a variable
         M_label_list = list(manifest['label'].values())  
-        M_value_label = M_label_list[0]
+        M_value_label = M_label_list[0][0]
 
         # remove the square brackets from the label value
-        M_value_label = str(M_value_label).replace("[", "").replace("]", "")
         M_value_label = remove_special_chars(str(M_value_label))
         
 
@@ -96,10 +92,9 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
 
             # create a list from the dictionary of label and catch the value of the key "none" (language) in a variable
             C_label_list = list(canvas['label'].values())  
-            C_value_label = C_label_list[0]
+            C_value_label = C_label_list[0][0]
 
             # remove the square brackets from the label value
-            C_value_label = str(C_value_label).replace("[", "'").replace("]", "'")
             C_value_label = remove_special_chars(str(C_value_label))
 
 

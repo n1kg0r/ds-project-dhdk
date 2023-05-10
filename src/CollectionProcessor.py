@@ -53,14 +53,14 @@ class CollectionProcessor(Processor):
         
 
 try1 = CollectionProcessor()
-try1.dbPathOrUrl = "http://192.168.0.168:9999/blazegraph/sparql"
+try1.dbPathOrUrl = "http://192.168.1.55:9999/blazegraph/sparql"
 try1.getDbPathOrUrl()
 
 print(try1.uploadData("collection-1.json"))
 
 
 try2 = CollectionProcessor()
-try2.dbPathOrUrl = "http://192.168.0.168:9999/blazegraph/sparql"
+try2.dbPathOrUrl = "http://192.168.1.55:9999/blazegraph/sparql"
 try2.getDbPathOrUrl()
 
 print(try2.uploadData("collection-2.json"))

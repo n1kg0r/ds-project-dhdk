@@ -139,7 +139,7 @@ class TriplestoreQueryProcessor(QueryProcessor):
     def getEntitiesWithLabel(self, label: str): 
             
 
-        endpoint = Processor.getDbPathOrUrl
+        endpoint = "http://192.168.1.55:9999/blazegraph/sparql"
         query_entityLabel = """
         PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
         PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
@@ -159,4 +159,12 @@ class TriplestoreQueryProcessor(QueryProcessor):
 
 
 
+# create an instance of the TriplestoreQueryProcessor class
+query_processor = TriplestoreQueryProcessor()
 
+# call the getAllCanvases method to retrieve the canvases from the triplestore
+entity_df = query_processor.getEntitiesWithLabel('Raimondi, Giuseppe. Quaderno manoscritto, "Caserma Scalo : 1930-1968"')
+entity_dt = query_processor.getEntitiesWithLabel("Raimondi, Giuseppe. Quaderno manoscritto, \"Caserma Scalo : 1930-1968\"")
+# print the dataframe containing the canvases
+print(entity_df)
+print(entity_dt)
