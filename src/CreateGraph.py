@@ -2,7 +2,7 @@
 from rdflib import Graph, URIRef, RDF, RDFS, Literal #RDF.type; RDFS.label
 from json import load
 from pprint import pprint
-
+from clean_str import remove_special_chars
 
 def create_Graph(json_object:dict, base_url, my_graph:Graph):
     
@@ -44,10 +44,14 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
     label_list = list(json_object['label'].values())  
     value_label = label_list[0]
 
+    # remove the square brackets from the label value
+    value_label = str(value_label).replace("[", "").replace("]", "")
+    value_label = remove_special_chars(str(value_label))
+
     # create the graph with the triples
     my_graph.add((Coll_internalId, has_id, Literal(collection_id)))
     my_graph.add((Coll_internalId, RDF.type, Collection))
-    my_graph.add((Coll_internalId, label, Literal(value_label)))
+    my_graph.add((Coll_internalId, label, Literal(str(value_label))))
 
     
     # second step is entering the collection items list (enter the manifest) -> entering a list of dictionaries
@@ -67,10 +71,15 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
         M_label_list = list(manifest['label'].values())  
         M_value_label = M_label_list[0]
 
+        # remove the square brackets from the label value
+        M_value_label = str(M_value_label).replace("[", "").replace("]", "")
+        M_value_label = remove_special_chars(str(M_value_label))
+        
+
         # create the graph with the triples
         my_graph.add((Man_internalId, has_id, Literal(manifest_id)))
         my_graph.add((Man_internalId, RDF.type, Manifest))
-        my_graph.add((Man_internalId, label, Literal(M_value_label)))
+        my_graph.add((Man_internalId, label, Literal(str(M_value_label))))
 
         # third step is entering the manifest items list (enter the canvases) -> entering a list of dictionaries
         # here i take the id and I store it in a variable
@@ -89,10 +98,15 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
             C_label_list = list(canvas['label'].values())  
             C_value_label = C_label_list[0]
 
+            # remove the square brackets from the label value
+            C_value_label = str(C_value_label).replace("[", "'").replace("]", "'")
+            C_value_label = remove_special_chars(str(C_value_label))
+
+
             # create the graph with the triples
             my_graph.add((Can_internalId, has_id, Literal(canvas_id)))
             my_graph.add((Can_internalId, RDF.type, Canvas))
-            my_graph.add((Can_internalId, label, Literal(C_value_label)))
+            my_graph.add((Can_internalId, label, Literal(str(C_value_label))))
 
     #upload the counters text file
     with open('collection_counter.txt', 'w') as a:
