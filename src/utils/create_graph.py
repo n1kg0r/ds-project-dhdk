@@ -6,15 +6,15 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
     
     # create an internal id for the collections using an external counter
     # .strip is for removing eventually white space
-    with open('collection_counter.txt', 'r', encoding='utf-8') as a:
+    with open('src/counters/collection_counter.txt', 'r', encoding='utf-8') as a:
         collection_counter = int(a.read().strip())
 
     # create an internal id for the manifest using an external counter
-    with open('manifest_counter.txt', 'r', encoding='utf-8') as b:
+    with open('src/counters/manifest_counter.txt', 'r', encoding='utf-8') as b:
         manifest_counter = int(b.read().strip())
 
     # create an internal id for the canvases using an external counter
-    with open('canvas_counter.txt', 'r', encoding='utf-8') as c:
+    with open('src/counters/canvas_counter.txt', 'r', encoding='utf-8') as c:
         canvas_counter = int(c.read().strip())
 
 

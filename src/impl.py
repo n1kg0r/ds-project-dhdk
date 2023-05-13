@@ -89,8 +89,13 @@ class Processor():
     def getDbPathOrUrl(self):
         return self.dbPathOrUrl
     def setDbPathOrUrl(self, dbPathOrUrl:str):
-        self.dbPathOrUrl = dbPathOrUrl
-        # TODO: check the validity of the url
+        try:
+            self.dbPathOrUrl = dbPathOrUrl
+            # TODO: check the validity of the url
+            return True
+        except Exception as e:
+            print(e)
+            return False
 
 
 class QueryProcessor(Processor):
@@ -135,6 +140,7 @@ class TriplestoreQueryProcessor(QueryProcessor):
     def __init__(self):
         super().__init__()
 
+    # TODO: here we need to return a canvas i.e. id, label, title, creators
     def getAllCanvases(self):
 
         endpoint = self.getDbPathOrUrl()
@@ -175,7 +181,7 @@ class TriplestoreQueryProcessor(QueryProcessor):
         return df_sparql
 
 
-    def getAllManifest(self):
+    def getAllManifests(self):
 
         endpoint = self.getDbPathOrUrl()
         query_manifest = """
@@ -197,7 +203,7 @@ class TriplestoreQueryProcessor(QueryProcessor):
 
     def getCanvasesInCollection(self, collectionId: str):
 
-        endpoint = Processor.setDbPathOrUrl
+        endpoint = self.getDbPathOrUrl()
         query_canInCol = """
         PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
         PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
@@ -243,7 +249,7 @@ class TriplestoreQueryProcessor(QueryProcessor):
         return df_sparql
 
 
-    def getManifestInCollection(self, collectionId: str):
+    def getManifestsInCollection(self, collectionId: str):
 
         endpoint = self.getDbPathOrUrl()
         query_manInCol = """
@@ -303,29 +309,29 @@ class RelationalQueryProcessor(QueryProcessor):
           return q2_table
     def getAnnotationsWithBody(self, bodyId:str):
         with connect(self.getDbPathOrUrl())as con:
-            q3 = "SELECT * FROM Annotation WHERE body = "+ bodyId
+            q3 = f"SELECT * FROM Annotation WHERE body = '{bodyId}'"
             q3_table = read_sql(q3, con)
             return q3_table
     def getAnnotationsWithBodyAndTarget(self, bodyId:str,targetId:str):
         with connect(self.getDbPathOrUrl())as con:
-            q4 = "SELECT* FROM Annotation WHERE body = " + bodyId + " AND target = '" + targetId +"'"
+            q4 = f"SELECT * FROM Annotation WHERE body = '{bodyId}' AND target = '{targetId}'"
             q4_table = read_sql (q4, con)
             return q4_table
     def getAnnotationsWithTarget(self, targetId:str):
         with connect(self.getDbPathOrUrl())as con:
-            q5 = "SELECT * FROM Annotation WHERE target = '" + targetId +"'"
-            q5_table = read_sql(q5, con)
-            return q5_table
+            q = f"SELECT * FROM Annotation WHERE target = '{targetId}'"
+            table = read_sql(q, con)
+            return table
     def getEntitiesWithCreator(self, creatorName):
         with connect(self.getDbPathOrUrl())as con:
-             q6 = "SELECT * FROM Entity LEFT JOIN Creators ON Entity.entityId == Creators.entityId WHERE creator = '" + creatorName +"'"
+             q6 = f"SELECT * FROM Entity LEFT JOIN Creators ON Entity.entityId == Creators.entityId WHERE creator = '{creatorName}'"
              result = read_sql(q6, con)
              return result.drop_duplicates(subset=["entityId"])
     def getEntitiesWithLabel(self):
         pass
     def getEntitiesWithTitle(self,title):
         with connect(self.getDbPathOrUrl())as con:
-             q6 = "SELECT * FROM Entity WHERE title = '" + title +"'"
+             q6 = f"SELECT * FROM Entity WHERE title = '{title}'"
              return read_sql(q6, con)
         
 
@@ -357,6 +363,8 @@ class AnnotationProcessor(Processor):
         with connect(self.getDbPathOrUrl()) as con:
             annotations.to_sql("Annotation", con, if_exists="replace", index=False)
             image.to_sql("Image", con, if_exists="replace", index=False)
+        
+        return True
 
 class MetadataProcessor(Processor):
     def __init__(self):
@@ -403,7 +411,6 @@ class CollectionProcessor(Processor):
 
     def __init__(self):
         super().__init__()
-        self.setdbPathOrUrl = Processor.setDbPathOrUrl #check this
 
     def uploadData(self, path: str):
 
@@ -447,38 +454,85 @@ class CollectionProcessor(Processor):
         
 
 
-#NOTE: BLOCK GENERIC PROCESSOR
+# NOTE: BLOCK GENERIC PROCESSOR
 
 class GenericQueryProcessor():
     def __init__(self):
         self.queryProcessors = []
     def cleanQueryProcessors(self):
         self.queryProcessors = []
+        return True
     def addQueryProcessor(self, processor: QueryProcessor):
-        self.queryProcessors.append(processor)
+        try:
+            self.queryProcessors.append(processor)
+            return True 
+        except Exception as e:
+            print(e)
+            return False
+        
     def getAllAnnotations(self):
         result = []
         for processor in self.queryProcessors:
             try:
-                result.append(processor.getAllAnnotations())
+                df = processor.getAllAnnotations()
+                df = df.reset_index() 
+
+                annotations_list = [
+                    Annotation(row['id'], 
+                               row['motivation'], 
+                               IdentifiableEntity(row['target']), 
+                               Image(row['body'])
+                               ) for _, row in df.iterrows()
+                ]
+                result += annotations_list
             except Exception as e:
                 print(e)
         return result
     
-    def getAllCanvases(self):
+    
+    def getAllCanvas(self):
         result = []
         for processor in self.queryProcessors:
             try:
-                result.append(processor.getAllCanvases())
+                df = processor.getAllCanvases()
+                df = df.reset_index() 
+                
+                canvases_list = [
+                    Canvas(row['id'],
+                               row['label'], 
+                               row['title'],
+                               []
+                               ) for _, row in df.iterrows()
+                ] 
+                result += canvases_list
             except Exception as e:
                 print(e)
         return result
+    
+
     def getAllCollections(self):
+        result = []
         for processor in self.queryProcessors:
             try:
-                processor.getAllCollections()
+                df = processor.getAllCollections()
+                df = df.reset_index() 
+                
+                collections_list = [
+                    Collection(row['id'],
+                               row['label'],
+                               row['collection'],
+                               [],
+                               [
+                                   Manifest('','','',[],Canvas('','','',''))
+                                ]
+                                ) for _, row in df.iterrows()
+                ] 
+                result += collections_list
             except Exception as e:
                 print(e)
+        return result
+
+
     def getAllImages(self):
         for processor in self.queryProcessors:
             try:
@@ -560,7 +614,7 @@ qp.setDbPathOrUrl(RDF_DB_URL)
 p = Processor()
 tqp = TriplestoreQueryProcessor()
 tqp.setDbPathOrUrl("http://127.0.0.1:9999/blazegraph/sparql")
-print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
+# print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
 
 generic = GenericQueryProcessor()
 generic.addQueryProcessor(qp)
