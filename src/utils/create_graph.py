@@ -1,6 +1,6 @@
 
 from rdflib import Graph, URIRef, RDF, Literal 
-from clean_str import remove_special_chars
+from .clean_str import remove_special_chars
 
 def create_Graph(json_object:dict, base_url, my_graph:Graph):
     
