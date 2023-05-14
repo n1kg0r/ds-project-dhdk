@@ -1,6 +1,7 @@
 from TriplestoreQueryProcessor import TriplestoreQueryProcessor
 from pandas import DataFrame, merge
-from RelationalQueryProcessor import RelationalQueryProcessor, Processor
+from RelationalQueryProcessor import RelationalQueryProcessor
+from processor import Processor
 from data_model import Canvas
 
 class GenericQueryProcessor():
@@ -36,8 +37,8 @@ rel_path = "database.db"
 rel_qp.setDbPathOrUrl(rel_path)
 
 grp_qp = TriplestoreQueryProcessor()
-grp_qp.setDbPathOrUrl("http://10.5.98.175:9999/blazegraph/sparql")
-grp_endpoint = "http://10.5.98.175:9999/blazegraph/sparql"
+grp_qp.setDbPathOrUrl("http://192.168.0.168:9999/blazegraph/sparql")
+grp_endpoint = "http://192.168.0.168:9999/blazegraph/sparql"
 grp_qp.setDbPathOrUrl(grp_endpoint)
 generic.addQueryProcessor(rel_qp)
 generic.addQueryProcessor(grp_qp)
