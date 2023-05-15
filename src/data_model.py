@@ -28,9 +28,11 @@ class EntityWithMetadata(IdentifiableEntity):
         self.label = label 
         self.title = title
         self.creators = list()
-        if creators:
-            for creator in creators:
-                self.creators.append(creator)
+        self.creators = list()
+        if type(creators) == str:
+            self.creators.append(creators)
+        elif type(creators) == list:
+            self.creators = creators
 
         super().__init__(id)
 
