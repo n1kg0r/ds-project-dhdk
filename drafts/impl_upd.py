@@ -1,12 +1,12 @@
 from sqlite3 import connect
 from pandas import read_sql, DataFrame, concat, read_csv, Series, merge
 from utils.paths import RDF_DB_URL, SQL_DB_URL
-from rdflib import Graph, Literal, URIRef
+from rdflib import Graph, Namespace
 from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
 from sparql_dataframe import get 
-from utils.clean_str import remove_special_chars
+from clean_str import remove_special_chars
 from json import load
-from utils.create_graph import create_Graph
+from utils.CreateGraph import create_Graph
 from urllib.parse import urlparse
 
 
@@ -82,7 +82,9 @@ class Collection(EntityWithMetadata):
 
 
 
+
 # NOTE: BLOCK PROCESSORS
+
 
 class Processor(object):
     def __init__(self):
@@ -108,65 +110,176 @@ class QueryProcessor(Processor):
 
     def getEntityById(self, entityId: str):
         entityId_stripped = entityId.strip("'")
-        db_url = self.getDbPathOrUrl()
+        db_url = self.getDbPathOrUrl() if len(self.getDbPathOrUrl()) else SQL_DB_URL
         df = DataFrame()
+        if db_url == SQL_DB_URL:
+            with connect(db_url) as con:
+                query = \
+                "SELECT *" +\
+                " FROM Entity" +\
+                " LEFT JOIN Annotation" +\
+                " ON Entity.id = Annotation.target" +\
+                " WHERE 1=1" +\
+                f" AND Entity.id='{entityId_stripped}'"
+                df = read_sql(query, con)
 
-        if len(db_url.split('.')) and db_url.split('.')[-1] == 'db':
-            try:
-                with connect(db_url) as con:
-                    query = \
-                    "SELECT *" +\
-                    " FROM Entity" +\
-                    " LEFT JOIN Annotation" +\
-                    " ON Entity.id = Annotation.target" +\
-                    " WHERE 1=1" +\
-                    f" AND Entity.id='{entityId_stripped}'"
-                    df = read_sql(query, con) 
-            except Exception as e:
-                print("couldn't connect to sql database due to the following error:")
-                print(e)
-
-        elif 'blazegraph' in db_url:
-            
-            endpoint = db_url
+        elif db_url == RDF_DB_URL:
+            endpoint = 'http://127.0.0.1:9999/blazegraph/sparql'
             query = """
-                    PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
-                    PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
-                    PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
+                PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+                PREFIX nikAttr: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
+                PREFIX nikCl: <https://github.com/n1kg0r/ds-project-dhdk/classes/> 
+                PREFIX nikRel: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
 
-                    SELECT ?entity
-                    WHERE {
-                        ?entity ns2:identifier "%s" .
-                    }
-                    """ % entityId 
-            try:
-                df = get(endpoint, query, True)
-            except Exception as e:
-                print(f"couldn't connect to blazegraph due to the following error: \n{e}")
-                try:
-                    print(f"trying to connect to {db_url}/sparql")
-                    if len(db_url.split('/')) and db_url.split('/')[-1] == 'sparql':
-                        raise TimeoutError
-                    endpoint = db_url+'sparql'
-                    df = get(endpoint, query, True)
-                except Exception as e1:
-                    if type(e1).__name__ != TimeoutError:
-                        print(f"couldn't connect to blazegraph due to the following error: \n{e1}")
-                    print(f"trying to reconnect via local connection at http://127.0.0.1:9999/blazegraph/sparql")
-                    try:
-                        endpoint = "http://127.0.0.1:9999/blazegraph/sparql"
-                        df = get(endpoint, query, True) 
-                    # TODO: do we need to reconnect locally or it's fine to raise an error?
-                    except Exception as e2:
-                        print(f"couldn't connect to blazegraph due to the following error: {e2}")
-                        print("check the validity of your url!")
-                        print("check a blazegraph instance is running!")
-            
+                SELECT ?entity
+                WHERE {
+                    ?entity ns2:identifier "%s" .
+                }
+                """ % entityId 
+
+            df = get(endpoint, query, True)
+            return df
         return df
 
 
+class AnnotationProcessor(Processor):
+    def __init__(self):
+        pass
+    def uploadData(self, path:str): 
+        try:
+            annotations = read_csv(path, 
+                                    keep_default_na=False,
+                                    dtype={
+                                        "id": "string",
+                                        "body": "string",
+                                        "target": "string",
+                                        "motivation": "string"
+                                    })
+            annotations_internalId = []
+            for idx, row in annotations.iterrows():
+                annotations_internalId.append("annotation-" +str(idx))
+            annotations.insert(0, "annotationId", Series(annotations_internalId, dtype = "string"))
+            
+            image = annotations[["body"]]
+            image = image.rename(columns={"body": "id"})
+            image_internalId = []
+            for idx, row in image.iterrows():
+                image_internalId.append("image-" +str(idx))
+            image.insert(0, "imageId", Series(image_internalId, dtype = "string"))
+
+            with connect(self.getDbPathOrUrl()) as con:
+                annotations.to_sql("Annotation", con, if_exists="replace", index=False)
+                image.to_sql("Image", con, if_exists="replace", index=False)
+
+            return True
+        
+        except Exception as e:
+            print(str(e))
+            return False
+
+class MetadataProcessor(Processor):
+    def __init__(self):
+        pass
+    def uploadData(self, path:str):
+        try: 
+            entityWithMetadata= read_csv(path, 
+                                    keep_default_na=False,
+                                    dtype={
+                                        "id": "string",
+                                        "title": "string",
+                                        "creator": "string"
+                                    })
+            
+            metadata_internalId = []
+            for idx, row in entityWithMetadata.iterrows():
+                metadata_internalId.append("entity-" +str(idx))
+            entityWithMetadata.insert(0, "entityId", Series(metadata_internalId, dtype = "string"))
+            creator = entityWithMetadata[["entityId", "creator"]]
+            #I recreate entityMetadata since, as I will create a proxy table, I will have no need of
+            #coloumn creator
+            entityWithMetadata = entityWithMetadata[["entityId", "id", "title"]]
+            
+
+            for idx, row in creator.iterrows():
+                        for item_idx, item in row.iteritems():
+                            if "entity-" in item:
+                                entity_id = item
+                            if ";" in item:
+                                list_of_creators =  item.split(";")
+                                creator = creator.drop(idx)
+                                new_serie = []
+                                for i in range (len(list_of_creators)):
+                                    new_serie.append(entity_id)
+                                new_data = DataFrame({"entityId": new_serie, "creator": list_of_creators})
+                                creator = concat([creator.loc[:idx-1], new_data, creator.loc[idx:]], ignore_index=True)
+
+            with connect(self.getDbPathOrUrl()) as con:
+                entityWithMetadata.to_sql("Entity", con, if_exists="replace", index = False)
+                creator.to_sql("Creators", con, if_exists="replace", index = False)
+            return True
+        except Exception as e:
+                print(str(e))
+                return False
 
 
+
+class CollectionProcessor(Processor):
+
+    def __init__(self):
+        super().__init__()
+
+    def uploadData(self, path: str):
+
+        try: 
+
+            base_url = "https://github.com/n1kg0r/ds-project-dhdk/"
+            my_graph = Graph()
+
+            # define namespaces 
+            nikCl = Namespace("https://github.com/n1kg0r/ds-project-dhdk/classes/")
+            nikAttr = Namespace("https://github.com/n1kg0r/ds-project-dhdk/attributes/")
+            nikRel = Namespace("https://github.com/n1kg0r/ds-project-dhdk/relations/")
+            dc = Namespace("http://purl.org/dc/elements/1.1/")
+
+            my_graph.bind("nikCl", nikCl)
+            my_graph.bind("nikAttr", nikAttr)
+            my_graph.bind("nikRel", nikRel)
+            my_graph.bind("dc", dc)
+            
+            with open(path, mode='r', encoding="utf-8") as jsonfile:
+                json_object = load(jsonfile)
+            
+            #CREATE GRAPH
+            if type(json_object) is list: #CONTROLLARE!!!
+                for collection in json_object:
+                    create_Graph(collection, base_url, my_graph)
+            
+            else:
+                create_Graph(json_object, base_url, my_graph)
+            
+                    
+            #DB UPTDATE
+            store = SPARQLUpdateStore()
+
+            endpoint = self.getDbPathOrUrl()
+
+            store.open((endpoint, endpoint))
+
+            for triple in my_graph.triples((None, None, None)):
+                store.add(triple)
+            store.close()
+            
+            # FIX
+            # my_graph.serialize(destination="Graph_db.ttl", format="turtle")
+            with open('Graph_db.ttl', mode='a', encoding='utf-8') as f:
+                f.write(my_graph.serialize(format='turtle'))
+
+            return True
+        
+        except Exception as e:
+            print(str(e))
+            return False
+        
 
 class RelationalQueryProcessor(Processor):          
     def getAllAnnotations(self):
@@ -436,145 +549,6 @@ class TriplestoreQueryProcessor(QueryProcessor):
 
         df_sparql_getAllEntities = get(endpoint, query_AllEntities, True)
         return df_sparql_getAllEntities
-        
-
-class AnnotationProcessor(Processor):
-    def __init__(self):
-        pass
-    def uploadData(self, path:str): 
-        try:
-            annotations = read_csv(path, 
-                                    keep_default_na=False,
-                                    dtype={
-                                        "id": "string",
-                                        "body": "string",
-                                        "target": "string",
-                                        "motivation": "string"
-                                    })
-            annotations_internalId = []
-            for idx, row in annotations.iterrows():
-                annotations_internalId.append("annotation-" +str(idx))
-            annotations.insert(0, "annotationId", Series(annotations_internalId, dtype = "string"))
-            
-            image = annotations[["body"]]
-            image = image.rename(columns={"body": "id"})
-            image_internalId = []
-            for idx, row in image.iterrows():
-                image_internalId.append("image-" +str(idx))
-            image.insert(0, "imageId", Series(image_internalId, dtype = "string"))
-
-            with connect(self.getDbPathOrUrl()) as con:
-                annotations.to_sql("Annotation", con, if_exists="replace", index=False)
-                image.to_sql("Image", con, if_exists="replace", index=False)
-
-            return True
-        
-        except Exception as e:
-            print(str(e))
-            return False
-
-class MetadataProcessor(Processor):
-    def __init__(self):
-        pass
-    def uploadData(self, path:str):
-        try: 
-            entityWithMetadata= read_csv(path, 
-                                    keep_default_na=False,
-                                    dtype={
-                                        "id": "string",
-                                        "title": "string",
-                                        "creator": "string"
-                                    })
-            
-            metadata_internalId = []
-            for idx, row in entityWithMetadata.iterrows():
-                metadata_internalId.append("entity-" +str(idx))
-            entityWithMetadata.insert(0, "entityId", Series(metadata_internalId, dtype = "string"))
-            creator = entityWithMetadata[["entityId", "creator"]]
-            #I recreate entityMetadata since, as I will create a proxy table, I will have no need of
-            #coloumn creator
-            entityWithMetadata = entityWithMetadata[["entityId", "id", "title"]]
-            
-
-            for idx, row in creator.iterrows():
-                        for item_idx, item in row.iteritems():
-                            if "entity-" in item:
-                                entity_id = item
-                            if ";" in item:
-                                list_of_creators =  item.split(";")
-                                creator = creator.drop(idx)
-                                new_serie = []
-                                for i in range (len(list_of_creators)):
-                                    new_serie.append(entity_id)
-                                new_data = DataFrame({"entityId": new_serie, "creator": list_of_creators})
-                                creator = concat([creator.loc[:idx-1], new_data, creator.loc[idx:]], ignore_index=True)
-
-            with connect(self.getDbPathOrUrl()) as con:
-                entityWithMetadata.to_sql("Entity", con, if_exists="replace", index = False)
-                creator.to_sql("Creators", con, if_exists="replace", index = False)
-            return True
-        except Exception as e:
-                print(str(e))
-                return False
-
-
-
-class CollectionProcessor(Processor):
-
-    def __init__(self):
-        super().__init__()
-
-    def uploadData(self, path: str):
-
-        try: 
-
-            base_url = "https://github.com/n1kg0r/ds-project-dhdk/"
-            my_graph = Graph()
-
-            # define namespaces 
-            nikCl = Namespace("https://github.com/n1kg0r/ds-project-dhdk/classes/")
-            nikAttr = Namespace("https://github.com/n1kg0r/ds-project-dhdk/attributes/")
-            nikRel = Namespace("https://github.com/n1kg0r/ds-project-dhdk/relations/")
-            dc = Namespace("http://purl.org/dc/elements/1.1/")
-
-            my_graph.bind("nikCl", nikCl)
-            my_graph.bind("nikAttr", nikAttr)
-            my_graph.bind("nikRel", nikRel)
-            my_graph.bind("dc", dc)
-            
-            with open(path, mode='r', encoding="utf-8") as jsonfile:
-                json_object = load(jsonfile)
-            
-            #CREATE GRAPH
-            if type(json_object) is list: #CONTROLLARE!!!
-                for collection in json_object:
-                    create_Graph(collection, base_url, my_graph)
-            
-            else:
-                create_Graph(json_object, base_url, my_graph)
-            
-                    
-            #DB UPTDATE
-            store = SPARQLUpdateStore()
-
-            endpoint = self.getDbPathOrUrl()
-
-            store.open((endpoint, endpoint))
-
-            for triple in my_graph.triples((None, None, None)):
-                store.add(triple)
-            store.close()
-            
-            # FIX
-            # my_graph.serialize(destination="Graph_db.ttl", format="turtle")
-            with open('Graph_db.ttl', mode='a', encoding='utf-8') as f:
-                f.write(my_graph.serialize(format='turtle'))
-
-            return True
-        
-        except Exception as e:
-            print(str(e))
-            return False
 
 
 # NOTE: BLOCK GENERIC PROCESSOR
@@ -596,53 +570,40 @@ class GenericQueryProcessor():
     def getAllAnnotations(self):
         result = []
         for processor in self.queryProcessors:
-            if isinstance(processor, RelationalQueryProcessor):
-                try:
-                    df = processor.getAllAnnotations()
-                    df = df.reset_index() 
+            try:
+                df = processor.getAllAnnotations()
+                df = df.reset_index() 
 
-                    annotations_list = [
-                        Annotation(row['id'], 
-                                row['motivation'], 
-                                IdentifiableEntity(row['target']), 
-                                Image(row['body'])
-                                ) for _, row in df.iterrows()
-                    ] 
-
-                    result += annotations_list
-                except Exception as e:
-                    print(e)
+                annotations_list = [
+                    Annotation(row['id'], 
+                               row['motivation'], 
+                               IdentifiableEntity(row['target']), 
+                               Image(row['body'])
+                               ) for _, row in df.iterrows()
+                ]
+                result += annotations_list
+            except Exception as e:
+                print(e)
         return result
     
     
     def getAllCanvas(self):
-        tqp_df = DataFrame()
-        rqp_df = DataFrame()
+        result = []
         for processor in self.queryProcessors:
-            if isinstance(processor, TriplestoreQueryProcessor):
-                try:
-                    df = processor.getAllCanvases()
-                    df = df.reset_index() 
-                    tqp_df = df if tqp_df.empty else tqp_df.append(df).drop_duplicates()
-                    for processor2 in self.queryProcessors:
-                        if isinstance(processor2, RelationalQueryProcessor):
-                            df2 = processor.getEntities()
-                            rqp_df = df2 if rqp_df.empty else rqp_df.append(df2).drop_duplicates()
-
-                except Exception as e:
-                    print(e)
-
-        if not tqp_df.empty:
-            df_joined = merge(tqp_df, rqp_df, left_on="id", right_on="id")
-            
-            result = [
-                            Canvas(row['id'],
-                                    row['label'], 
-                                    row['title'],
-                                    row['creator']
-                                    ) for _, row in df_joined.iterrows()
-                        ] 
-            
+            try:
+                df = processor.getAllCanvases()
+                df = df.reset_index() 
+                
+                canvases_list = [
+                    Canvas(row['id'],
+                               row['label'], 
+                               row['title'],
+                               []
+                               ) for _, row in df.iterrows()
+                ] 
+                result += canvases_list
+            except Exception as e:
+                print(e)
         return result
     
 
@@ -663,11 +624,11 @@ class GenericQueryProcessor():
                                 ]
                                 ) for _, row in df.iterrows()
                 ] 
-
                 result += collections_list
             except Exception as e:
                 print(e)
         return result
+
 
     def getAllImages(self):
         for processor in self.queryProcessors:
@@ -718,7 +679,7 @@ class GenericQueryProcessor():
             except Exception as e:
                 print(e)
 
-    #Nicole 
+#Nicole 
     def getCanvasesInCollection(self, collectionId):
         graph_db = DataFrame()
         relation_db = DataFrame()
@@ -795,7 +756,8 @@ class GenericQueryProcessor():
         return entity_list
         
 
-    # ERICA:
+# ERICA:
+
     def getEntitiesWithLabel(self, label):
         
         graph_db = DataFrame()
@@ -977,3 +939,64 @@ class GenericQueryProcessor():
 
             return result
 
+
+
+
+
+# NOTE: TEST BLOCK, TO BE DELETED
+# TODO: DELETE COMMENTS
+#  
+# Supposing that all the classes developed for the project
+# are contained in the file 'impl.py', then:
+
+
+# Once all the classes are imported, first create the relational
+# database using the related source data
+# rel_path = "relational.db"
+# ann_dp = AnnotationProcessor()
+# ann_dp.setDbPathOrUrl(rel_path)
+# ann_dp.uploadData("data/annotations.csv")
+
+# met_dp = MetadataProcessor()
+# met_dp.setDbPathOrUrl(rel_path)
+# met_dp.uploadData("data/metadata.csv")
+
+# Then, create the RDF triplestore (remember first to run the
+# Blazegraph instance) using the related source data
+# grp_endpoint = "http://127.0.0.1:9999/blazegraph/sparql"
+# col_dp = CollectionProcessor()
+# col_dp.setDbPathOrUrl(grp_endpoint)
+# col_dp.uploadData("data/collection-1.json")
+# col_dp.uploadData("data/collection-2.json")
+
+# In the next passage, create the query processors for both
+# the databases, using the related classes
+# rel_qp = RelationalQueryProcessor()
+# rel_qp.setDbPathOrUrl(rel_path)
+
+# grp_qp = TriplestoreQueryProcessor()
+# grp_qp.setDbPathOrUrl(grp_endpoint)
+# entity_df = grp_qp.getEntitiesWithLabel('Raimondi, Giuseppe. Quaderno manoscritto, "Caserma Scalo : 1930-1968"')
+# entity_dt = grp_qp.getEntitiesWithLabel("Raimondi, Giuseppe. Quaderno manoscritto, \"Caserma Scalo : 1930-1968\"")
+
+# print(entity_df)
+# print(entity_dt)
+
+# Finally, create a generic query processor for asking
+# about data
+# generic = GenericQueryProcessor()
+# generic.addQueryProcessor(rel_qp)
+# generic.addQueryProcessor(grp_qp)
+
+# result_q1 = generic.getAllManifests()
+# result_q2 = generic.getEntitiesWithCreator("Dante, Alighieri")
+# result_q3 = generic.getAnnotationsToCanvas("https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1")
+
+# ciao = generic.getManifestsInCollection("https://dl.ficlit.unibo.it/iiif/19428-19425/collection")
+# print(ciao)
+
+# print("that contains")
+# a = []
+# for i in ciao:
+#     a.append(vars(i)) 
+# print(a)
