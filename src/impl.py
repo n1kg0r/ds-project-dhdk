@@ -1,7 +1,7 @@
 from sqlite3 import connect
 from pandas import read_sql, DataFrame, concat, read_csv, Series, merge
 from utils.paths import RDF_DB_URL, SQL_DB_URL
-from rdflib import Graph, Literal, URIRef
+from rdflib import Graph, Literal, URIRef, Namespace
 from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
 from sparql_dataframe import get 
 from utils.clean_str import remove_special_chars
