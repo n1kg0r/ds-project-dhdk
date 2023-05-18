@@ -647,40 +647,84 @@ class GenericQueryProcessor():
     
 
     def getAllCollections(self):
-        result = []
+        tqp_df = DataFrame()
+        rqp_df = DataFrame()
         for processor in self.queryProcessors:
-            try:
-                df = processor.getAllCollections()
-                df = df.reset_index() 
-                
-                collections_list = [
-                    Collection(row['id'],
-                               row['label'],
-                               row['collection'],
-                               [],
-                               [
-                                   Manifest('','','',[],Canvas('','','',''))
-                                ]
-                                ) for _, row in df.iterrows()
-                ] 
+            if isinstance(processor, TriplestoreQueryProcessor):
+                try:
+                    df = processor.getAllCollections()
+                    df = df.reset_index() 
+                    tqp_df = df if tqp_df.empty else tqp_df.append(df).drop_duplicates()
+                    for processor2 in self.queryProcessors:
+                        if isinstance(processor2, RelationalQueryProcessor):
+                            df2 = processor.getEntities()
+                            rqp_df = df2 if rqp_df.empty else rqp_df.append(df2).drop_duplicates()
 
-                result += collections_list
-            except Exception as e:
-                print(e)
+                except Exception as e:
+                    print(e)
+
+        if not tqp_df.empty:
+            df_joined = merge(tqp_df, rqp_df, left_on="id", right_on="id")
+            
+            result = [
+                            Collection(row['id'],
+                                       row['label'],
+                                       row['title'],
+                                       row['creator'],
+                                       row['items']
+                                       ) for _, row in df_joined.iterrows()
+                        ] 
+        #     def __init__(self, id:str, label:str, title:str, creators:list[str], items:list[Manifest]):
         return result
 
     def getAllImages(self):
+        result = []
         for processor in self.queryProcessors:
-            try:
-                processor.getAllImages()
-            except Exception as e:
-                print(e)
+            if isinstance(processor, RelationalQueryProcessor):
+                try:
+                    df = processor.getAllAnnotations()
+                    df = df.reset_index() 
+
+                    annotations_list = [
+                        Image(row['id'])
+                                 for _, row in df.iterrows()
+                    ] 
+
+                    result += annotations_list
+                except Exception as e:
+                    print(e)
+        return result
+
     def getAllManifests(self):
+        tqp_df = DataFrame()
+        rqp_df = DataFrame()
         for processor in self.queryProcessors:
-            try:
-                processor.getAllManifests()
-            except Exception as e:
-                print(e)
+            if isinstance(processor, TriplestoreQueryProcessor):
+                try:
+                    df = processor.getAllCollections()
+                    df = df.reset_index() 
+                    tqp_df = df if tqp_df.empty else tqp_df.append(df).drop_duplicates()
+                    for processor2 in self.queryProcessors:
+                        if isinstance(processor2, RelationalQueryProcessor):
+                            df2 = processor.getEntities()
+                            rqp_df = df2 if rqp_df.empty else rqp_df.append(df2).drop_duplicates()
+
+                except Exception as e:
+                    print(e)
+
+        if not tqp_df.empty:
+            df_joined = merge(tqp_df, rqp_df, left_on="id", right_on="id")
+            
+            result = [
+                            Manifest(row['id'],
+                                     row['label'],
+                                     row['title'],
+                                     row['creator'],
+                                     [item for item in processor.getCanvasesInManifest(id)])
+                                       for _, row in df_joined.iterrows()
+                        ] 
+        #     def __init__(self, id:str, label:str, title:str, creators:list[str], items:list[Manifest]):
+        return result
     def getAnnotationsToCanvas(self):
         for processor in self.queryProcessors:
             try:
