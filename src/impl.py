@@ -1,7 +1,6 @@
 from sqlite3 import connect
 from pandas import read_sql, DataFrame, concat, read_csv, Series, merge
-from utils.paths import RDF_DB_URL, SQL_DB_URL
-from rdflib import Graph, Literal, URIRef, Namespace
+from rdflib import Graph, Namespace
 from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
 from sparql_dataframe import get 
 from utils.clean_str import remove_special_chars
@@ -137,8 +136,7 @@ class QueryProcessor(Processor):
 
                     SELECT ?entity ?id
                     WHERE {
-                        ?entity ns2:identifier "%s" ;
-                        dc:identifier ?id .
+                        ?entity dc:identifier "%s" .
                     }
                     """ % entityId 
             try:
@@ -146,7 +144,7 @@ class QueryProcessor(Processor):
             except Exception as e:
                 print(f"couldn't connect to blazegraph due to the following error: \n{e}")
                 try:
-                    print(f"trying to connect to {db_url}/sparql")
+                    print(f"trying to connect to {db_url}sparql")
                     if len(db_url.split('/')) and db_url.split('/')[-1] == 'sparql':
                         raise TimeoutError
                     endpoint = db_url+'sparql'
