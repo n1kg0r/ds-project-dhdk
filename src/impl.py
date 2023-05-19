@@ -130,13 +130,15 @@ class QueryProcessor(Processor):
             
             endpoint = db_url
             query = """
-                    PREFIX ns1: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
-                    PREFIX ns2: <http://purl.org/dc/elements/1.1/> 
-                    PREFIX ns3: <https://github.com/n1kg0r/ds-project-dhdk/relations/> 
+                    PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+                    PREFIX nikAttr: <https://github.com/n1kg0r/ds-project-dhdk/attributes/> 
+                    PREFIX nikCl: <https://github.com/n1kg0r/ds-project-dhdk/classes/> 
+                    PREFIX nikRel: <https://github.com/n1kg0r/ds-project-dhdk/relations/>  
 
-                    SELECT ?entity
+                    SELECT ?entity ?id
                     WHERE {
-                        ?entity ns2:identifier "%s" .
+                        ?entity ns2:identifier "%s" ;
+                        dc:identifier ?id .
                     }
                     """ % entityId 
             try:
