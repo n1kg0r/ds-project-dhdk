@@ -1,8 +1,8 @@
 def remove_special_chars(s: str) -> str:
     if '\"' in s:
-        return s.replace('\"', '\\\"')
+        return s.replace('\"', '\\\\\\"')
     elif '"' in s:
-        return s.replace('"', '\\\"')
+        return s.replace('"', '\\\\\\"')
     else:
         return s
     
