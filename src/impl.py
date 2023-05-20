@@ -700,7 +700,6 @@ class GenericQueryProcessor():
     def getAllCollections(self):
         graph_db = DataFrame()
         relation_db = DataFrame()
-        result = []
         
         for processor in self.queryProcessors:
             if isinstance(processor, TriplestoreQueryProcessor):
@@ -710,16 +709,74 @@ class GenericQueryProcessor():
                 relation_to_add = processor.getEntities()
                 relation_db = concat([relation_db, relation_to_add], ignore_index=True)
             
-        df_joined = merge(graph_db, relation_db, left_on="id", right_on="id") 
-        result = [
+        df_joined = merge(graph_db, relation_db, how='left',
+                           left_on="id", right_on="id") 
+        
+        collections_list = []
+        for _, row in df_joined.iterrows():
+
+
+            graph_db_manifest = DataFrame()
+            for processor in self.queryProcessors:
+                    if isinstance(processor, TriplestoreQueryProcessor):
+                        graph_to_add_manifest = processor.getManifestsInCollection(row['id'])
+                        graph_db_manifest = concat([graph_db_manifest, graph_to_add_manifest], ignore_index= True)
+
+            df_joined_manifest = merge(graph_db_manifest, 
+                                       relation_db,
+                                       how='left',
+                                       left_on='id',
+                                       right_on='id'
+                                       )
+            manifests_list = []
+            print(processor.getManifestsInCollection(row['id']).columns.to_list())
+            print(relation_db.columns.to_list())
+            print(df_joined_manifest.columns.to_list())
+
+
+            
+            for _, row1 in df_joined_manifest.iterrows():
+                graph_db_canvas = DataFrame()
+
+                # TODO: reuse Erica's method here (maybe)
+                for processor in self.queryProcessors:
+                    if isinstance(processor, TriplestoreQueryProcessor):
+                        graph_to_add_canvas = processor.getCanvasesInManifest(row1['id'])
+                        graph_db_canvas = concat([graph_db_canvas,graph_to_add_canvas], ignore_index= True)
+
+                df_joined_canvas = merge(graph_db, 
+                                       relation_db,
+                                       how='left',
+                                       left_on='id',
+                                       right_on='id'
+                                       )
+                
+                canvases_list = [
+                    Canvas(row2['id'], 
+                       row2['label'], 
+                       row2['title'],
+                       row2['creator']) 
+                       for _, row2 in df_joined_canvas.iterrows()
+                ]
+                
+                manifests_list.append(
+                    Manifest(row1["id"],
+                        row1["label"], 
+                        canvases_list,
+                        row1['title'], 
+                        row1['creator']
+                        ) 
+                )
+
+            collections_list.append(
                 Collection(row["id"],
                         row["label"], 
-                        processor.getManifestsInCollection(row['id']),
+                        manifests_list,
                         row['title'], 
                         row['creator'], 
-                        ) for _, row in df_joined.iterrows()
-            ]         
-        return result
+                        ) 
+            )
+        return collections_list
 
     def getAllImages(self):
         result = []
@@ -1175,7 +1232,7 @@ rel_qp = RelationalQueryProcessor()
 rel_qp.setDbPathOrUrl('./data/test.db')
 
 grp_qp = TriplestoreQueryProcessor()
-print(grp_qp.setDbPathOrUrl('hahaxd'))
+print(grp_qp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql'))
 
 # Finally, create a generic query processor for asking
 # about data
@@ -1194,4 +1251,8 @@ generic.addQueryProcessor(grp_qp)
 
 # print(generic.getAllCanvas())
 
-print(generic.getAllManifests())
+generic.getAllCollections()
+for collection in generic.getAllCollections():
+    print(collection.id, collection.label, collection.title, collection.items, collection.creators)
+# for manifest in generic.getAllCollections()[0].items:
+#     print(manifest.id, manifest.label, manifest.title, manifest.items, manifest.creators)
