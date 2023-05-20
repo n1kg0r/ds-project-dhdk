@@ -457,9 +457,9 @@ class TriplestoreQueryProcessor(QueryProcessor):
         df_sparql_getAllEntities = get(endpoint, query_AllEntities, True)
         return df_sparql_getAllEntities
         
-t_qp = TriplestoreQueryProcessor()
-t_qp.setDbPathOrUrl('./data/test.db')
-print(t_qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/manifest'))
+# t_qp = TriplestoreQueryProcessor()
+# t_qp.setDbPathOrUrl('./data/test.db')
+# print(t_qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/manifest'))
 
 
 
@@ -669,65 +669,55 @@ class GenericQueryProcessor():
     
     
     def getAllCanvas(self):
-        tqp_df = DataFrame()
-        rqp_df = DataFrame()
-        for processor in self.queryProcessors:
-            if isinstance(processor, TriplestoreQueryProcessor):
-                try:
-                    df = processor.getAllCanvases()
-                    df = df.reset_index() 
-                    tqp_df = df if tqp_df.empty else tqp_df.append(df).drop_duplicates()
-                    for processor2 in self.queryProcessors:
-                        if isinstance(processor2, RelationalQueryProcessor):
-                            df2 = processor.getEntities()
-                            rqp_df = df2 if rqp_df.empty else rqp_df.append(df2).drop_duplicates()
+        graph_db = DataFrame()
+        relation_db = DataFrame()
+        result = []
+        for item in self.queryProcessors:
+            if isinstance(item, TriplestoreQueryProcessor):
+                graph_to_add = item.getAllCanvases()
+                graph_db = concat([graph_db, graph_to_add], ignore_index= True)
+            elif isinstance(item, RelationalQueryProcessor):
+                relation_to_add = item.getEntities()
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
+            else:
+                break
+        if not graph_db.empty:
+            df_joined = merge(graph_db, relation_db, left_on="id", right_on="id")
 
-                except Exception as e:
-                    print(e)
-
-        if not tqp_df.empty:
-            df_joined = merge(tqp_df, rqp_df, left_on="id", right_on="id")
-            
             result = [
-                            Canvas(row['id'],
-                                    row['label'], 
-                                    row['title'],
-                                    row['creator']
-                                    ) for _, row in df_joined.iterrows()
-                        ] 
+                Canvas(row['id'], 
+                       row['label'], 
+                       row['title'],
+                       row['creator']) 
+                       for _, row in df_joined.iterrows()
+            ]
             
-        return result
+        return result 
     
 
+
     def getAllCollections(self):
-        tqp_df = DataFrame()
-        rqp_df = DataFrame()
+        graph_db = DataFrame()
+        relation_db = DataFrame()
+        result = []
+        
         for processor in self.queryProcessors:
             if isinstance(processor, TriplestoreQueryProcessor):
-                try:
-                    df = processor.getAllCollections()
-                    df = df.reset_index() 
-                    tqp_df = df if tqp_df.empty else tqp_df.append(df).drop_duplicates()
-                    for processor2 in self.queryProcessors:
-                        if isinstance(processor2, RelationalQueryProcessor):
-                            df2 = processor.getEntities()
-                            rqp_df = df2 if rqp_df.empty else rqp_df.append(df2).drop_duplicates()
-
-                except Exception as e:
-                    print(e)
-
-        if not tqp_df.empty:
-            df_joined = merge(tqp_df, rqp_df, left_on="id", right_on="id")
+                graph_to_add = processor.getAllCollections()
+                graph_db = concat([graph_db,graph_to_add], ignore_index= True)
+            elif isinstance(processor, RelationalQueryProcessor):
+                relation_to_add = processor.getEntities()
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
             
-            result = [
-                            Collection(row['id'],
-                                       row['label'],
-                                       row['title'],
-                                       row['creator'],
-                                       row['items']
-                                       ) for _, row in df_joined.iterrows()
-                        ] 
-        #     def __init__(self, id:str, label:str, title:str, creators:list[str], items:list[Manifest]):
+        df_joined = merge(graph_db, relation_db, left_on="id", right_on="id") 
+        result = [
+                Collection(row["id"],
+                        row["label"], 
+                        processor.getManifestsInCollection(row['id']),
+                        row['title'], 
+                        row['creator'], 
+                        ) for _, row in df_joined.iterrows()
+            ]         
         return result
 
     def getAllImages(self):
@@ -747,73 +737,176 @@ class GenericQueryProcessor():
                 except Exception as e:
                     print(e)
         return result
+    
 
     def getAllManifests(self):
-        tqp_df = DataFrame()
-        rqp_df = DataFrame()
+        graph_db = DataFrame()
+        relation_db = DataFrame()
+        result = []
+        
         for processor in self.queryProcessors:
             if isinstance(processor, TriplestoreQueryProcessor):
-                try:
-                    df = processor.getAllCollections()
-                    df = df.reset_index() 
-                    tqp_df = df if tqp_df.empty else tqp_df.append(df).drop_duplicates()
-                    for processor2 in self.queryProcessors:
-                        if isinstance(processor2, RelationalQueryProcessor):
-                            df2 = processor.getEntities()
-                            rqp_df = df2 if rqp_df.empty else rqp_df.append(df2).drop_duplicates()
+                graph_to_add = processor.getAllManifests()
+                graph_db = concat([graph_db,graph_to_add], ignore_index= True)
+            elif isinstance(processor, RelationalQueryProcessor):
+                relation_to_add = processor.getEntities()
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
+            
+        df_joined = merge(graph_db, relation_db, left_on="id", right_on="id") 
+        result = [
+                Manifest(row["id"],
+                        row["label"], 
+                        processor.getCanvasesInManifest(row['id']),
+                        row['title'], 
+                        row['creator']
+                        ) for _, row in df_joined.iterrows()
+            ]         
+        return result
+    
 
+
+
+    def getAnnotationsToCanvas(self, canvasId):
+        relation_db = DataFrame()
+        for processor in self.queryProcessors:
+            if isinstance(processor, RelationalQueryProcessor):
+                relation_to_add = processor.getAnnotationsWithTarget(canvasId)
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
+        
+        result = [
+            Annotation(row['id'],
+                        row['motivation'],
+                        row['target'], 
+                        row['body']
+                    ) 
+                    for _, row in relation_db.iterrows()
+        ]
+
+        return result
+
+                
+    def getAnnotationsToCollection(self, collectionId):
+        graph_db = DataFrame()
+        relation_db = DataFrame()
+
+        for processor in self.queryProcessors:
+            if isinstance(processor, TriplestoreQueryProcessor):
+                graph_to_add = processor.getCanvasesInCollection(collectionId)
+                graph_db = concat([graph_db, graph_to_add], ignore_index=True)
+
+        graph_db = graph_db[["id"]]
+
+        for processor in self.queryProcessors:
+            if isinstance(processor, RelationalQueryProcessor):
+                for _, row in graph_db.iterrows():
+                    relation_to_add = processor.getAnnotationsWithTarget(row["id"])
+                    relation_db = concat([relation_db, relation_to_add], ignore_index=True)
+        
+        result = [
+            Annotation(row['id'],
+                        row['motivation'],
+                        row['target'], 
+                        row['body']
+                    ) 
+                    for _, row in relation_db.iterrows()
+        ]
+
+        return result
+
+
+    def getAnnotationsToManifest(self, manifestId):
+        graph_db = DataFrame()
+        relation_db = DataFrame()
+
+        for processor in self.queryProcessors:
+            if isinstance(processor, TriplestoreQueryProcessor):
+                graph_to_add = processor.getCanvasesInManifest(manifestId)
+                graph_db = concat([graph_db, graph_to_add], ignore_index=True)
+
+        graph_db = graph_db[["id"]]
+
+        for processor in self.queryProcessors:
+            if isinstance(processor, RelationalQueryProcessor):
+                for _, row in graph_db.iterrows():
+                    relation_to_add = processor.getAnnotationsWithTarget(row["id"])
+                    relation_db = concat([relation_db, relation_to_add], ignore_index=True)
+        
+        result = [
+            Annotation(row['id'],
+                        row['motivation'],
+                        row['target'], 
+                        row['body']
+                    ) 
+                    for _, row in relation_db.iterrows()
+        ]
+
+        return result
+    
+
+    def getAnnotationsWithBody(self, bodyId:str):
+        result = []
+        for processor in self.queryProcessors:
+            if isinstance(processor, RelationalQueryProcessor):
+                try:
+                    df = processor.getAnnotationsWithBody(bodyId)
+                    df = df.reset_index() 
+
+                    annotations_list = [
+                        Annotation(row['id'], 
+                                row['motivation'], 
+                                IdentifiableEntity(row['target']), 
+                                Image(row['body'])
+                                ) for _, row in df.iterrows()
+                    ] 
+
+                    result += annotations_list
                 except Exception as e:
                     print(e)
-
-        if not tqp_df.empty:
-            df_joined = merge(tqp_df, rqp_df, left_on="id", right_on="id")
-            
-            result = [
-                            Manifest(row['id'],
-                                     row['label'],
-                                     row['title'],
-                                     row['creator'],
-                                     [item for item in processor.getCanvasesInManifest(id)])
-                                       for _, row in df_joined.iterrows()
-                        ] 
-        #     def __init__(self, id:str, label:str, title:str, creators:list[str], items:list[Manifest]):
         return result
-    def getAnnotationsToCanvas(self):
+
+
+    def getAnnotationsWithBodyAndTarget(self, bodyId:str, targetId:str):
+        result = []
         for processor in self.queryProcessors:
-            try:
-                processor.getAnnotationsToCanvas()
-            except Exception as e:
-                print(e)
-    def getAnnotationsToCollection(self):
+            if isinstance(processor, RelationalQueryProcessor):
+                try:
+                    df = processor.getAnnotationsWithBodyAndTarget(bodyId, targetId)
+                    df = df.reset_index() 
+
+                    annotations_list = [
+                        Annotation(row['id'], 
+                                row['motivation'], 
+                                IdentifiableEntity(row['target']), 
+                                Image(row['body'])
+                                ) for _, row in df.iterrows()
+                    ] 
+
+                    result += annotations_list
+                except Exception as e:
+                    print(e)
+        return result
+
+
+    def getAnnotationsWithTarget(self, targetId:str):
+        result = []
         for processor in self.queryProcessors:
-            try:
-                processor.getAnnotationsToCollection()
-            except Exception as e:
-                print(e)
-    def getAnnotationsToManifest(self):
-        for processor in self.queryProcessors:
-            try:
-                processor.getAnnotationsToManifest()
-            except Exception as e:
-                print(e)
-    def getAnnotationsWithBody(self):
-        for processor in self.queryProcessors:
-            try:
-                processor.getAnnotationsWithBody()
-            except Exception as e:
-                print(e)
-    def getAnnotationsWithBodyAndTarget(self):
-        for processor in self.queryProcessors:
-            try:
-                processor.getAnnotationsWithBodyAndTarget()
-            except Exception as e:
-                print(e)
-    def getAnnotationsWithTarget(self):
-        for processor in self.queryProcessors:
-            try:
-                processor.getAnnotationsWithTarget()
-            except Exception as e:
-                print(e)
+            if isinstance(processor, RelationalQueryProcessor):
+                try:
+                    df = processor.getAnnotationsWithTarget(targetId)
+                    df = df.reset_index() 
+
+                    annotations_list = [
+                        Annotation(row['id'], 
+                                row['motivation'], 
+                                IdentifiableEntity(row['target']), 
+                                Image(row['body'])
+                                ) for _, row in df.iterrows()
+                    ] 
+
+                    result += annotations_list
+                except Exception as e:
+                    print(e)
+        return result
 
     #Nicole 
     def getCanvasesInCollection(self, collectionId):
@@ -864,6 +957,7 @@ class GenericQueryProcessor():
                     return entity
             else:
                 pass
+
     def getEntitiesWithCreator(self, creator):
         graph_db = DataFrame()
         relation_db = DataFrame()
@@ -1074,3 +1168,27 @@ class GenericQueryProcessor():
 
             return result
 
+
+
+rel_qp = RelationalQueryProcessor()
+rel_qp.setDbPathOrUrl('./data/test.db')
+
+grp_qp = TriplestoreQueryProcessor()
+grp_qp.setDbPathOrUrl('hahahXD')
+
+# Finally, create a generic query processor for asking
+# about data
+generic = GenericQueryProcessor()
+generic.addQueryProcessor(rel_qp)
+generic.addQueryProcessor(grp_qp)
+
+# print(generic.getAllManifests())
+# print(generic.getAllCanvas())
+# print(generic.getEntitiesWithCreator("Dante, Alighieri"))
+# print(generic.getAnnotationsToCanvas("https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1"))
+
+
+# triplestore processor?
+# print(generic.getAllCanvas())
+
+print(generic.getAllManifests())
