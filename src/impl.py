@@ -59,18 +59,18 @@ class EntityWithMetadata(IdentifiableEntity):
     
 
 class Canvas(EntityWithMetadata):
-    def __init__(self, id:str, label:str, title:str=None, creators:list[str]=None):
+    def __init__(self, id:str, label:str, title:str, creators:list[str]):
         super().__init__(id, label, title, creators)
 
 class Manifest(EntityWithMetadata):
-    def __init__(self, id:str, label:str, items:list[Canvas], title:str=None, creators:list[str]=None):
+    def __init__(self, id:str, label:str, title:str, creators:list[str], items:list[Canvas]):
         super().__init__(id, label, title, creators)
         self.items = items
     def getItems(self):
         return self.items
 
 class Collection(EntityWithMetadata):
-    def __init__(self, id:str, label:str, items:list[Manifest], title:str, creators:list[str]):
+    def __init__(self, id:str, label:str, title:str, creators:list[str], items:list[Manifest]):
         super().__init__(id, label, title, creators)
         self.items = items
     def getItems(self):
@@ -159,7 +159,8 @@ class QueryProcessor(Processor):
 
                     SELECT ?entity ?id
                     WHERE {
-                        ?entity dc:identifier "%s" .
+                        ?entity dc:identifier "%s" ;
+                        dc:identifier ?id .
                     }
                     """ % entityId 
             try:
@@ -1240,6 +1241,14 @@ generic = GenericQueryProcessor()
 generic.addQueryProcessor(rel_qp)
 generic.addQueryProcessor(grp_qp)
 
+cp = CollectionProcessor()
+cp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql')
+cp.uploadData("./data/collection-1.json")
+cp.uploadData("./data/collection-2.json")
+# print(generic.getEntitiesWithLabel("Raimondi, Giuseppe. Quaderno manoscritto, \'Caserma Scalo : 1930-1968\'"))
+
+print(grp_qp.getEntityById('https://dl.ficlit.unibo.it/iiif/28429/collection'))
+
 # print(generic.getAllManifests())
 # print(generic.getAllCanvas())
 # print(generic.getEntitiesWithCreator("Dante, Alighieri"))
@@ -1251,8 +1260,10 @@ generic.addQueryProcessor(grp_qp)
 
 # print(generic.getAllCanvas())
 
-generic.getAllCollections()
-for collection in generic.getAllCollections():
-    print(collection.id, collection.label, collection.title, collection.items, collection.creators)
+# generic.getAllCollections()
+# for collection in generic.getAllCollections():
+#     print(collection.id, collection.label, collection.title, collection.items, collection.creators)
+
+
 # for manifest in generic.getAllCollections()[0].items:
 #     print(manifest.id, manifest.label, manifest.title, manifest.items, manifest.creators)
