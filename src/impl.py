@@ -89,10 +89,11 @@ class Processor(object):
         if len(newpath.split('.')) and newpath.split('.')[-1] == "db":
             self.dbPathOrUrl = newpath
             return True
-        elif urlparse(newpath).scheme and urlparse(newpath).netloc:
+        elif len(urlparse(newpath).scheme) and len(urlparse(newpath).netloc):
             self.dbPathOrUrl = newpath
             return True
-        return False
+        raise Exception('be sure to provide a correct url')
+        
 
 
 class QueryProcessor(Processor):
@@ -1174,7 +1175,7 @@ rel_qp = RelationalQueryProcessor()
 rel_qp.setDbPathOrUrl('./data/test.db')
 
 grp_qp = TriplestoreQueryProcessor()
-grp_qp.setDbPathOrUrl('hahahXD')
+print(grp_qp.setDbPathOrUrl('hahaxd'))
 
 # Finally, create a generic query processor for asking
 # about data
@@ -1187,8 +1188,10 @@ generic.addQueryProcessor(grp_qp)
 # print(generic.getEntitiesWithCreator("Dante, Alighieri"))
 # print(generic.getAnnotationsToCanvas("https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1"))
 
+# print(generic.getAllCollections())
 
 # triplestore processor?
+
 # print(generic.getAllCanvas())
 
 print(generic.getAllManifests())
