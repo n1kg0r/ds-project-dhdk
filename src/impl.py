@@ -32,7 +32,6 @@ class Annotation(IdentifiableEntity):
         return self.motivation
     def getTarget(self):
         return self.target
-    
 # small fix (title and creators can have 0 values)
 class EntityWithMetadata(IdentifiableEntity):
     def __init__(self, id: str, label: str, title:str=None, creators:str|list[str]=None):
@@ -59,9 +58,10 @@ class EntityWithMetadata(IdentifiableEntity):
     
 
 class Canvas(EntityWithMetadata):
-    def __init__(self, id:str, label:str, title:str, creators:list[str]):
-        super().__init__(id, label, title, creators)
+    pass
 
+
+# TODO: think about default values while initialisation
 class Manifest(EntityWithMetadata):
     def __init__(self, id:str, label:str, title:str, creators:list[str], items:list[Canvas]):
         super().__init__(id, label, title, creators)
@@ -92,10 +92,10 @@ class Processor(object):
         elif len(urlparse(newpath).scheme) and len(urlparse(newpath).netloc):
             self.dbPathOrUrl = newpath
             return True
-        raise Exception('be sure to provide a correct url')
+        return False
         
 
-
+# TODO: redo sql query for concatenating instead of merging
 class QueryProcessor(Processor):
     def __init__(self):
         super().__init__()
@@ -139,8 +139,7 @@ class QueryProcessor(Processor):
                     # print(df_entity)
                     # print(df_image)
                     # print(df_annotation)
-                    # print(df_creators)
-                    
+                    # print(df_creators)  
             except Exception as e:
                 print(f"couldn't connect to sql database due to the following error: {e}")
             df_entity = df_entity.merge(df_annotation, 'left', left_on='id', right_on='target', suffixes=('_ie', '_ann')).drop_duplicates()
@@ -532,7 +531,7 @@ class AnnotationProcessor(Processor):
 # print(ap.uploadData('./data/annotations.csv'))
 # print(ap.getDbPathOrUrl())
 
-
+# TODO: check internal ids repetition
 class MetadataProcessor(Processor):
     def __init__(self):
         super().__init__()
@@ -932,7 +931,7 @@ class GenericQueryProcessor():
                 graph_db = concat([graph_db, graph_to_add], ignore_index=True)
 
         graph_db = graph_db[["id"]].drop_duplicates().fillna('')
-
+        graph_db.to_csv('./graph_manifest_test.csv', sep='\t')
         for processor in self.queryProcessors:
             if isinstance(processor, RelationalQueryProcessor):
                 for _, row in graph_db.iterrows():
@@ -1067,6 +1066,8 @@ class GenericQueryProcessor():
         for _, row in pd.iterrows():
             if len(row['id']):
                 return IdentifiableEntity(row['id'])
+
+        # TODO: merge from blazegraph and sql
             
         return IdentifiableEntity('')
     

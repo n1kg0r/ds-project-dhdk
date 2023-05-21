@@ -1,4 +1,3 @@
-
 from rdflib import Graph, URIRef, RDF, Literal 
 from .clean_str import remove_special_chars
 
@@ -6,15 +5,15 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
     
     # create an internal id for the collections using an external counter
     # .strip is for removing eventually white space
-    with open('src/counters/collection_counter.txt', 'r', encoding='utf-8') as a:
+    with open('collection_counter.txt', 'r', encoding='utf-8') as a:
         collection_counter = int(a.read().strip())
 
     # create an internal id for the manifest using an external counter
-    with open('src/counters/manifest_counter.txt', 'r', encoding='utf-8') as b:
+    with open('manifest_counter.txt', 'r', encoding='utf-8') as b:
         manifest_counter = int(b.read().strip())
 
     # create an internal id for the canvases using an external counter
-    with open('src/counters/canvas_counter.txt', 'r', encoding='utf-8') as c:
+    with open('canvas_counter.txt', 'r', encoding='utf-8') as c:
         canvas_counter = int(c.read().strip())
 
 
@@ -112,13 +111,3 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
 
     with open('canvas_counter.txt', 'w') as c:
         c.write(str(canvas_counter))
-
-
-
-
-
-    
-
-
-
-
