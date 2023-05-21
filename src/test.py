@@ -50,15 +50,14 @@ generic.addQueryProcessor(grp_qp)
 
 
 # test getAllCanvas -- seemingly ok
-# consult with Erica about the data as they are
 #
 # uncomment to_csv in function definition for test with csv
 #
 # uncomment for length test
 # get_all_canvas_res = generic.getAllCanvas()
 # print(len(get_all_canvas_res))
-#
-# uncomment for sample tests
+
+# # uncomment for sample tests
 # for i in range(min(5, len(get_all_canvas_res))):
 #     print()
 #     print(get_all_canvas_res[i].id)
@@ -82,8 +81,8 @@ generic.addQueryProcessor(grp_qp)
 # get_all_collections_res = generic.getAllCollections()
 # print(len(get_all_collections_res))
 
-# uncomment for sample tests
-# check collections
+# # uncomment for sample tests
+# # check collections
 # for i in range(min(5, len(get_all_collections_res))):
 #     print()
 #     print(get_all_collections_res[i].id)
@@ -92,8 +91,8 @@ generic.addQueryProcessor(grp_qp)
 #     print(get_all_collections_res[i].creators)
 #     print(get_all_collections_res[i].items)
 #     print()
-#
-# check manifests
+
+# # check manifests
 # for i in range(min(5, len(get_all_collections_res[0].items))):
 #     print()
 #     print(get_all_collections_res[0].items[i].id)
@@ -102,8 +101,8 @@ generic.addQueryProcessor(grp_qp)
 #     print(get_all_collections_res[0].items[i].creators)
 #     print(get_all_collections_res[0].items[i].items)
 #     print()
-#
-# check canvases
+
+# # check canvases
 # for i in range(min(5, len(get_all_collections_res[0].items[0].items))):
 #     print()
 #     print(get_all_collections_res[0].items[0].items[i].id)
@@ -116,7 +115,7 @@ generic.addQueryProcessor(grp_qp)
 
 # get_all_images_res = generic.getAllImages()
 # print(len(get_all_images_res))
-# sample check
+# # sample check
 # for i in range(min(5, len(get_all_images_res))):
 #     print()
 #     print(get_all_images_res[i].id)
@@ -137,7 +136,7 @@ generic.addQueryProcessor(grp_qp)
 #     print(get_all_manifests_res[i].creators)
 #     print(get_all_manifests_res[i].items)
 #     print()
-#
+
 # # check canvases
 # for i in range(min(5, len(get_all_manifests_res[0].items))):
 #     print()
@@ -148,7 +147,7 @@ generic.addQueryProcessor(grp_qp)
 #     print()
 
 
-# consider dropping annotation-id column, otherwise ok
+# # consider dropping annotation-id column, otherwise ok
 # get_annotations_res = generic.getAnnotationsToCanvas('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1')
 # print(len(get_annotations_res))
 # for i in range(min(5, len(get_annotations_res))):
@@ -160,7 +159,7 @@ generic.addQueryProcessor(grp_qp)
 #     print()
 
 
-# if jpeg is in collection but not in .csv -- what then?
+# # if jpeg is in collection but not in .csv -- what then?
 # get_annotations_res = generic.getAnnotationsWithBody("https://dl.ficlit.unibo.it/iiif/2/45498/full/699,800/0/default.jpg")
 # print(len(get_annotations_res))
 # for i in range(min(5, len(get_annotations_res))):
@@ -191,8 +190,58 @@ generic.addQueryProcessor(grp_qp)
 #     print(get_annotations_res[i].body.id)
 #     print()
 
-# TODO: check two methods, revisit previous ones (drop extra column)
+
+
 # TODO: change query processor, add getentitiesbyid
+
+# TODO: check getCanvasesInCollection
+# uncomment to_csv inside the function to look up the results
+
+# get_annotations_res = generic.getAnnotationsToCollection('https://dl.ficlit.unibo.it/iiif/19428-19425/collection')
+# print(len(get_annotations_res))
+# for i in range(min(5, len(get_annotations_res))):
+#     print()
+#     print(get_annotations_res[i].id)
+#     print(get_annotations_res[i].motivation)
+#     print(get_annotations_res[i].target.id)
+#     print(get_annotations_res[i].body.id)
+#     print()
+
+
+# get_annotations_res = generic.getAnnotationsToManifest('https://dl.ficlit.unibo.it/iiif/2/28429/manifest')
+# print(len(get_annotations_res))
+# for i in range(min(5, len(get_annotations_res))):
+#     print()
+#     print(get_annotations_res[i].id)
+#     print(get_annotations_res[i].motivation)
+#     print(get_annotations_res[i].target.id)
+#     print(get_annotations_res[i].body.id)
+#     print()
+
+# get_annotations_res = generic.getAnnotationsToManifest('https://dl.ficlit.unibo.it/iiif/2/28429/manifest')
+# print(len(get_annotations_res))
+# for i in range(min(5, len(get_annotations_res))):
+#     print()
+#     print(get_annotations_res[i].id)
+#     print(get_annotations_res[i].motivation)
+#     print(get_annotations_res[i].target.id)
+#     print(get_annotations_res[i].body.id)
+#     print()
+
+
+# TODO: check the triplestore storage
+# get_all_images_res = generic.getEntityById('https://dl.ficlit.unibo.it/iiif/28429/collection')
+# print(get_all_images_res.id)
+# print(get_all_images_res)
+# print()
+# get_all_images_res = generic.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p8')
+# print(get_all_images_res.id)
+# print(get_all_images_res)
+# get_all_images_res = generic.getEntityById('just_an_example')
+# print(get_all_images_res.id)
+# print(get_all_images_res)
+# print()
+
 
 
 
