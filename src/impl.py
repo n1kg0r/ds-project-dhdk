@@ -469,11 +469,10 @@ class TriplestoreQueryProcessor(QueryProcessor):
 
 
 
-class AnnotationProcessor(Processor):
+class AnnotationProcessor(QueryProcessor):
     def __init__(self):
-        # initializing dbPathURL!
-        super().__init__()
-    def uploadData(self, path:str): 
+        pass
+    def uploadData(self, path:str):
         try:
             annotations = read_csv(path, 
                                     keep_default_na=False,
@@ -482,90 +481,80 @@ class AnnotationProcessor(Processor):
                                         "body": "string",
                                         "target": "string",
                                         "motivation": "string"
-                                    }, encoding='utf-8')
+                                    })
+            annotations_internalId = []
+            for idx, row in annotations.iterrows():
+                annotations_internalId.append("annotation-" +str(idx))
+            annotations.insert(0, "annotationId", Series(annotations_internalId, dtype = "string"))
             
-            images = annotations[["body"]].rename(columns={"body": "id"})
-            images["imageId"] = 'image-'+str(images.index)
+            image = annotations[["body"]]
+            image = image.rename(columns={"body": "id"})
+            image_internalId = []
+            for idx, row in image.iterrows():
+                image_internalId.append("image-" +str(idx))
+            image.insert(0, "imageId", Series(image_internalId, dtype = "string"))
 
-            # this is not just syntax:
-            # once we provide a new file we want to update the DB, 
-            # not replace it
             with connect(self.getDbPathOrUrl()) as con:
-                CREATE_ANNOTATION_QUERY = """ 
-                            CREATE TABLE IF NOT EXISTS Annotation (
-                            annotationId VARCHAR(255) NOT NULL,
-                            id VARCHAR(100) NOT NULL,
-                            body VARCHAR(100),
-                            target VARCHAR(100),
-                            motivation VARCHAR(100)
-                            );
-                        """
-                
-                CREATE_IMAGE_QUERY = """ 
-                            CREATE TABLE IF NOT EXISTS Image (
-                            imageId VARCHAR(255) NOT NULL,
-                            id VARCHAR(100) NOT NULL
-                            ); 
-                        """
-                
-                con.cursor().execute(CREATE_ANNOTATION_QUERY)
-                con.cursor().execute(CREATE_IMAGE_QUERY)
+                annotations.to_sql("Annotation", con, if_exists="append", index=False)
+                image.to_sql("Image", con, if_exists="append", index=False)
 
-                annotations_prev = read_sql("SELECT * FROM Annotation", con)
-                annotations = concat([annotations_prev, annotations], ignore_index=True)
-                annotations["annotationId"] = 'annotation-' + annotations.index.astype(str)
-                annotations.to_sql("Annotation", con, if_exists="replace", index=False)
-
-                images_prev = read_sql("SELECT * FROM Image", con)
-                images = concat([images_prev, images], ignore_index=True)
-                images["imageId"] = 'image-' + images.index.astype(str)
-                images.to_sql("Image", con, if_exists="replace", index=False)
             return True
+            
         
         except Exception as e:
             print(str(e))
-        return False
+            return False
+
+class MetadataProcessor(QueryProcessor):
+    def __init__(self):
+        pass
+    def uploadData(self, path:str):
+        try: 
+            entityWithMetadata= read_csv(path, 
+                                    keep_default_na=False,
+                                    dtype={
+                                        "id": "string",
+                                        "title": "string",
+                                        "creator": "string"
+                                    })
+            
+            metadata_internalId = []
+            for idx, row in entityWithMetadata.iterrows():
+                metadata_internalId.append("entity-" +str(idx))
+            entityWithMetadata.insert(0, "entityId", Series(metadata_internalId, dtype = "string"))
+            creator = entityWithMetadata[["entityId", "creator"]]
+            #I recreate entityMetadata since, as I will create a proxy table, I will have no need of
+            #coloumn creator
+            entityWithMetadata = entityWithMetadata[["entityId", "id", "title"]]
+            
+
+            for idx, row in creator.iterrows():
+                        for item_idx, item in row.items():
+                            if "entity-" in item:
+                                entity_id = item
+                            if ";" in item:
+                                list_of_creators =  item.split(";")
+                                creator = creator.drop(idx)
+                                new_serie = []
+                                for i in range (len(list_of_creators)):
+                                    new_serie.append(entity_id)
+                                new_data = DataFrame({"entityId": new_serie, "creator": list_of_creators})
+                                creator = concat([creator.loc[:idx-1], new_data, creator.loc[idx:]], ignore_index=True)
+
+            with connect(self.getDbPathOrUrl()) as con:
+                entityWithMetadata.to_sql("Entity", con, if_exists="append", index = False)
+                creator.to_sql("Creators", con, if_exists="append", index = False)
+            return True
+        except Exception as e:
+                print(str(e))
+                return False
 
 # ap = AnnotationProcessor()
 # ap.setDbPathOrUrl('./data/test.db')
 # print(ap.uploadData('./data/annotations.csv'))
 # print(ap.getDbPathOrUrl())
 
-# TODO: check internal ids repetition
-class MetadataProcessor(Processor):
-    def __init__(self):
-        super().__init__()
 
-    def uploadData(self, path:str):
-        entityWithMetadata = read_csv(path, 
-                                keep_default_na=False,
-                                dtype={
-                                    "id": "string",
-                                    "title": "string",
-                                    "creator": "string"
-                                })
-    
-        # this works computanionally better then iterrows
-        # plus it is shorter to write
-        entityWithMetadata['entityId'] = 'entity-' + entityWithMetadata.index.astype(str)
-        creator = entityWithMetadata[["entityId", "creator"]]
-        entityWithMetadata = entityWithMetadata[["entityId", "id", "title"]]
-                
-        # what if creator had a substring 'entity-'
-        # or what if entityId had a substring ';'
-        creator_upd = DataFrame(columns=["entityId", "creator"])
-        for _, row in creator.iterrows():
-            list_of_creators = row['creator'].split('; ')
-            for c in list_of_creators:
-                creator_upd.loc[len(creator_upd)] = [row['entityId'], c]
-        try: 
-            with connect(self.getDbPathOrUrl()) as con:
-                entityWithMetadata.to_sql("Entity", con, if_exists="append", index = False)
-                creator_upd.to_sql("Creators", con, if_exists="append", index = False)
-                return True
-        except Exception as e:
-            print(str(e))
-        return False
 
 
 # mp = MetadataProcessor()
@@ -1134,12 +1123,7 @@ class GenericQueryProcessor():
                         id = row["id"]
                         label = label
                         title = row["title"]
-                        creators = row['creator']
-                        for item in creators: # iterate the string and find out if there are some ";", if there are, split them
-                            if ";" in item:
-                                creators = creators.split(';') 
-                            
-
+                        creators = row['creator'].split('; ')
                         entities = EntityWithMetadata(id, label, title, creators)
                         result.append(entities)
                     
@@ -1200,10 +1184,7 @@ class GenericQueryProcessor():
                 id = row["id"]
                 label = row["label"]
                 title = title
-                creators = row["creator"]
-                for item in creators: # iterate the string and find out if there are some ";", if there are, split them
-                            if ";" in item:
-                                creators = creators.split(';') 
+                creators = row['creator'].split('; ')
                 entities = EntityWithMetadata(id, label, title, creators)
                 result.append(entities)
 

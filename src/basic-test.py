@@ -189,29 +189,29 @@ class TestProjectBasic(unittest.TestCase):
         for a in ent_1:
             self.assertIsInstance(a, EntityWithMetadata)
 
-        # self.assertIsInstance(generic.getEntitiesWithLabel("just_a_test"), list)
-        # ent_2 = generic.getEntitiesWithLabel("Il Canzoniere")
-        # self.assertIsInstance(ent_2, list)
-        # for a in ent_2:
-        #     self.assertIsInstance(a, EntityWithMetadata)
+        self.assertIsInstance(generic.getEntitiesWithLabel("just_a_test"), list)
+        ent_2 = generic.getEntitiesWithLabel("Il Canzoniere")
+        self.assertIsInstance(ent_2, list)
+        for a in ent_2:
+            self.assertIsInstance(a, EntityWithMetadata)
 
-        # self.assertIsInstance(generic.getEntitiesWithTitle("just_a_test"), list) # : list[EntityWithMetadata]
-        # ent_3 = generic.getEntitiesWithTitle("Dante Alighieri: Opere")
-        # self.assertIsInstance(ent_3, list)
-        # for a in ent_3:
-        #     self.assertIsInstance(a, EntityWithMetadata)
+        self.assertIsInstance(generic.getEntitiesWithTitle("just_a_test"), list) # : list[EntityWithMetadata]
+        ent_3 = generic.getEntitiesWithTitle("Dante Alighieri: Opere")
+        self.assertIsInstance(ent_3, list)
+        for a in ent_3:
+            self.assertIsInstance(a, EntityWithMetadata)
 
-        # self.assertIsInstance(generic.getImagesAnnotatingCanvas("just_a_test"), list)
-        # ima_2 = generic.getImagesAnnotatingCanvas("https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p7")
-        # self.assertIsInstance(ima_2, list)
-        # for a in ima_2:
-        #     self.assertIsInstance(a, Image)
+        self.assertIsInstance(generic.getImagesAnnotatingCanvas("just_a_test"), list)
+        ima_2 = generic.getImagesAnnotatingCanvas("https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p7")
+        self.assertIsInstance(ima_2, list)
+        for a in ima_2:
+            self.assertIsInstance(a, Image)
 
-        # self.assertIsInstance(generic.getManifestsInCollection("just_a_test"), list)
-        # man_2 = generic.getManifestsInCollection("https://dl.ficlit.unibo.it/iiif/28429/collection")
-        # self.assertIsInstance(man_2, list)
-        # for a in man_2:
-        #     self.assertIsInstance(a, Manifest)
+        self.assertIsInstance(generic.getManifestsInCollection("just_a_test"), list)
+        man_2 = generic.getManifestsInCollection("https://dl.ficlit.unibo.it/iiif/28429/collection")
+        self.assertIsInstance(man_2, list)
+        for a in man_2:
+            self.assertIsInstance(a, Manifest)
 
 t = TestProjectBasic()
 print(t.test_01_AnnotationProcessor())
