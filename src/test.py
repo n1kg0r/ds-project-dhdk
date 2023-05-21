@@ -2,7 +2,7 @@ import unittest
 from os import sep
 from impl import AnnotationProcessor, MetadataProcessor, RelationalQueryProcessor
 from impl import CollectionProcessor, TriplestoreQueryProcessor
-from impl import GenericQueryProcessor
+from impl import GenericQueryProcessor, QueryProcessor
 from pandas import DataFrame
 from impl import IdentifiableEntity, EntityWithMetadata, Canvas, Collection, Image, Annotation, Manifest
 
@@ -229,7 +229,7 @@ generic.addQueryProcessor(grp_qp)
 #     print()
 
 
-# TODO: check the triplestore storage
+## testing GQP.getEntitiesById
 # get_all_images_res = generic.getEntityById('https://dl.ficlit.unibo.it/iiif/28429/collection')
 # print(get_all_images_res.id)
 # print(get_all_images_res)
@@ -243,7 +243,13 @@ generic.addQueryProcessor(grp_qp)
 # print()
 
 
-
+## testing QP
+# q = QueryProcessor()
+# q.setDbPathOrUrl('./data/test.db')
+# print(q.getEntityById('just_a_test'))
+# q.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql')
+# print(q.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/manifest'))
+# print(q.getEntityById('just_a_test'))
 
 
 

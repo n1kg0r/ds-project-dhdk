@@ -122,31 +122,25 @@ class QueryProcessor(Processor):
                         SELECT *
                         FROM Annotation
                         WHERE 1=1
-                        AND target='{entityId_stripped}'
+                        AND id='{entityId_stripped}'
                     """
-            select_creators = f"""
-                        SELECT *
-                        FROM Creators
-                    """
-                    
             try:
                 with connect(db_url) as con:
                     df_entity = read_sql(select_entity, con) 
                     df_image = read_sql(select_image, con) 
                     df_annotation = read_sql(select_annotation, con) 
-                    df_creators = read_sql(select_creators, con) 
 
-                    # print(df_entity)
-                    # print(df_image)
-                    # print(df_annotation)
-                    # print(df_creators)  
+                    
             except Exception as e:
                 print(f"couldn't connect to sql database due to the following error: {e}")
-            df_entity = df_entity.merge(df_annotation, 'left', left_on='id', right_on='target', suffixes=('_ie', '_ann')).drop_duplicates()
-            # print(df_entity)
-            df_entity = df_entity.merge(df_image, 'left', left_on='id_ie',right_on='id', suffixes=('_ie', '_img')).drop_duplicates()
-            df_entity = df_entity.merge(df_creators, 'left', on='entityId', suffixes=('_ie', '_cr')).drop_duplicates()
-            df = df_entity
+
+            df = concat([
+                df_entity[['id']],
+                df_annotation[['id']],
+                df_image[['id']]
+                ], 
+                ignore_index=True)
+            
             
         elif len(urlparse(db_url).scheme) and len(urlparse(db_url).netloc):
             endpoint = db_url
@@ -163,21 +157,17 @@ class QueryProcessor(Processor):
                     }
                     """ % entityId 
             try:
-                df = get(endpoint, query, True)
+                df = get(endpoint, query, True)[['id']]
             except Exception as e:
                 print(f"couldn't connect to blazegraph due to the following error: \n{e}")
                 print(f"trying to reconnect via local connection at http://127.0.0.1:9999/blazegraph/sparql")
                 try:
                     endpoint = "http://127.0.0.1:9999/blazegraph/sparql"
-                    df = get(endpoint, query, True) 
+                    df = get(endpoint, query, True)[['id']]
                 except Exception as e2:
                     print(f"couldn't connect to blazegraph due to the following error: {e2}")
             
-        return df
-
-
-
-
+        return df.drop_duplicates()
 
 
 class RelationalQueryProcessor(QueryProcessor):      
@@ -1052,12 +1042,12 @@ class GenericQueryProcessor():
                 pd = concat([pd, pd_to_add], ignore_index=True)
 
         pd = pd.drop_duplicates().fillna('')
-        for _, row in pd.iterrows():
-            if len(row['id']):
-                return IdentifiableEntity(row['id'])
 
-        # TODO: merge from blazegraph and sql
-            
+        if not pd.empty:
+            return IdentifiableEntity(pd.loc[0, 'id'])
+
+        print('no entities in DB have this id')
+        print('returning an empty Identifiable Entity')
         return IdentifiableEntity('')
     
 
