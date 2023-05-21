@@ -1,6 +1,5 @@
 from sqlite3 import connect
 from pandas import read_sql, read_sql_table, DataFrame, concat, read_csv, Series, merge
-from rdflib import Graph, Namespace
 from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
 from sparql_dataframe import get 
 from utils.clean_str import remove_special_chars
@@ -136,15 +135,15 @@ class QueryProcessor(Processor):
                     df_annotation = read_sql(select_annotation, con) 
                     df_creators = read_sql(select_creators, con) 
 
-                    print(df_entity)
-                    print(df_image)
-                    print(df_annotation)
-                    print(df_creators)
+                    # print(df_entity)
+                    # print(df_image)
+                    # print(df_annotation)
+                    # print(df_creators)
                     
             except Exception as e:
                 print(f"couldn't connect to sql database due to the following error: {e}")
             df_entity = df_entity.merge(df_annotation, 'left', left_on='id', right_on='target', suffixes=('_ie', '_ann')).drop_duplicates()
-            print(df_entity)
+            # print(df_entity)
             df_entity = df_entity.merge(df_image, 'left', left_on='id_ie',right_on='id', suffixes=('_ie', '_img')).drop_duplicates()
             df_entity = df_entity.merge(df_creators, 'left', on='entityId', suffixes=('_ie', '_cr')).drop_duplicates()
             df = df_entity
@@ -556,7 +555,7 @@ class MetadataProcessor(Processor):
         # or what if entityId had a substring ';'
         creator_upd = DataFrame(columns=["entityId", "creator"])
         for _, row in creator.iterrows():
-            list_of_creators = row['creator'].split(';')
+            list_of_creators = row['creator'].split('; ')
             for c in list_of_creators:
                 creator_upd.loc[len(creator_upd)] = [row['entityId'], c]
         try: 
@@ -637,9 +636,11 @@ class CollectionProcessor(Processor):
 class GenericQueryProcessor():
     def __init__(self):
         self.queryProcessors = []
+
     def cleanQueryProcessors(self):
         self.queryProcessors = []
         return True
+    
     def addQueryProcessor(self, processor: QueryProcessor):
         try:
             self.queryProcessors.append(processor)
@@ -649,24 +650,19 @@ class GenericQueryProcessor():
             return False
         
     def getAllAnnotations(self):
-        result = []
+        relation_db = DataFrame()
         for processor in self.queryProcessors:
             if isinstance(processor, RelationalQueryProcessor):
-                try:
-                    df = processor.getAllAnnotations()
-                    df = df.reset_index() 
-
-                    annotations_list = [
-                        Annotation(row['id'], 
-                                row['motivation'], 
-                                IdentifiableEntity(row['target']), 
-                                Image(row['body'])
-                                ) for _, row in df.iterrows()
+                relation_to_add = processor.getAllAnnotations()
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True).drop_duplicates()
+        
+        result = [
+            Annotation(row['id'],
+                        row['motivation'],
+                        IdentifiableEntity(row['target']), 
+                        Image(row['body'])
+                        ) for _, row in relation_db.fillna('').iterrows()
                     ] 
-
-                    result += annotations_list
-                except Exception as e:
-                    print(e)
         return result
     
     
@@ -674,25 +670,29 @@ class GenericQueryProcessor():
         graph_db = DataFrame()
         relation_db = DataFrame()
         result = []
-        for item in self.queryProcessors:
-            if isinstance(item, TriplestoreQueryProcessor):
-                graph_to_add = item.getAllCanvases()
-                graph_db = concat([graph_db, graph_to_add], ignore_index= True)
-            elif isinstance(item, RelationalQueryProcessor):
-                relation_to_add = item.getEntities()
-                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
-            else:
-                break
-        if not graph_db.empty:
-            df_joined = merge(graph_db, relation_db, left_on="id", right_on="id")
 
-            result = [
+        for processor in self.queryProcessors:
+            if isinstance(processor, TriplestoreQueryProcessor):
+                graph_to_add = processor.getAllCanvases()
+                graph_db = concat([graph_db, graph_to_add], ignore_index= True)
+            elif isinstance(processor, RelationalQueryProcessor):
+                relation_to_add = processor.getEntities()
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
+
+        print(relation_db)
+
+        df_joined = merge(graph_db, relation_db, left_on="id", right_on="id", how='left').fillna("").drop_duplicates()
+        df_joined['creator'] =  df_joined.groupby(['canvas','id','label', 'entityId', 'title'])['creator'].transform(lambda x: '; '.join(x))
+        df_joined = df_joined.drop_duplicates()
+
+        # df_joined.to_csv('./get_all_canvases_res.csv', sep='\t')
+        result = [
                 Canvas(row['id'], 
                        row['label'], 
                        row['title'],
-                       row['creator']) 
+                       row['creator'].split('; '))
                        for _, row in df_joined.iterrows()
-            ]
+                ]
             
         return result 
     
@@ -705,145 +705,188 @@ class GenericQueryProcessor():
         for processor in self.queryProcessors:
             if isinstance(processor, TriplestoreQueryProcessor):
                 graph_to_add = processor.getAllCollections()
-                graph_db = concat([graph_db,graph_to_add], ignore_index= True)
+                graph_db = concat([graph_db,graph_to_add], ignore_index= True).drop_duplicates()
             elif isinstance(processor, RelationalQueryProcessor):
                 relation_to_add = processor.getEntities()
-                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
-            
-        df_joined = merge(graph_db, relation_db, how='left',
-                           left_on="id", right_on="id") 
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True).drop_duplicates()
         
+        df_joined = merge(graph_db, relation_db, how='left',
+                           left_on="id", right_on="id").fillna('')
+        
+
         collections_list = []
+        
+        df_joined['creator'] =  df_joined.groupby(['collection','id','label', 'entityId', 'title'])['creator'].transform(lambda x: '; '.join(x))
+        df_joined = df_joined.drop_duplicates()
+
         for _, row in df_joined.iterrows():
 
+
+
+            
 
             graph_db_manifest = DataFrame()
             for processor in self.queryProcessors:
                     if isinstance(processor, TriplestoreQueryProcessor):
                         graph_to_add_manifest = processor.getManifestsInCollection(row['id'])
-                        graph_db_manifest = concat([graph_db_manifest, graph_to_add_manifest], ignore_index= True)
+                        graph_db_manifest = concat([graph_db_manifest, graph_to_add_manifest], ignore_index= True).drop_duplicates()
 
             df_joined_manifest = merge(graph_db_manifest, 
                                        relation_db,
                                        how='left',
                                        left_on='id',
-                                       right_on='id'
-                                       )
-            manifests_list = []
-            print(processor.getManifestsInCollection(row['id']).columns.to_list())
-            print(relation_db.columns.to_list())
-            print(df_joined_manifest.columns.to_list())
-
-
+                                       right_on='id').fillna('')
             
+
+            manifests_list = []
+            #print(df_joined_manifest.columns.to_list())
+            df_joined_manifest['creator'] =  df_joined_manifest.groupby(['manifest','id','label', 'entityId', 'title'])['creator'].transform(lambda x: '; '.join(x))
+            df_joined_manifest = df_joined_manifest.drop_duplicates()
             for _, row1 in df_joined_manifest.iterrows():
                 graph_db_canvas = DataFrame()
 
-                # TODO: reuse Erica's method here (maybe)
                 for processor in self.queryProcessors:
                     if isinstance(processor, TriplestoreQueryProcessor):
                         graph_to_add_canvas = processor.getCanvasesInManifest(row1['id'])
-                        graph_db_canvas = concat([graph_db_canvas,graph_to_add_canvas], ignore_index= True)
+                        graph_db_canvas = concat([graph_db_canvas,graph_to_add_canvas], ignore_index= True).drop_duplicates()
 
-                df_joined_canvas = merge(graph_db, 
+                df_joined_canvas = merge(graph_db_canvas, 
                                        relation_db,
                                        how='left',
                                        left_on='id',
                                        right_on='id'
-                                       )
-                
+                                       ).fillna('')
+                # print(df_joined_canvas.columns.to_list())
+                df_joined_canvas['creator'] =  df_joined_canvas.groupby(['canvas','id','label', 'entityId', 'title'])['creator'].transform(lambda x: '; '.join(x))
+                df_joined_canvas = df_joined_canvas.drop_duplicates()
                 canvases_list = [
                     Canvas(row2['id'], 
                        row2['label'], 
                        row2['title'],
-                       row2['creator']) 
+                       row2['creator'].split('; ')) 
                        for _, row2 in df_joined_canvas.iterrows()
                 ]
                 
                 manifests_list.append(
                     Manifest(row1["id"],
                         row1["label"], 
-                        canvases_list,
                         row1['title'], 
-                        row1['creator']
+                        row1['creator'].split('; '),
+                        canvases_list,
                         ) 
                 )
 
+            
             collections_list.append(
                 Collection(row["id"],
                         row["label"], 
+                        row['title'], 
+                        row['creator'].split('; '),
                         manifests_list,
+                        manifests_list,
+                        row['title'], 
+                        row['creator'], 
+                        manifests_list, 
                         row['title'], 
                         row['creator'], 
                         ) 
             )
-        return collections_list
+        return collections_list 
+    
+
+    def getAllManifests(self):
+        graph_db = DataFrame()
+        relation_db = DataFrame()
+        
+        for processor in self.queryProcessors:
+            if isinstance(processor, TriplestoreQueryProcessor):
+                graph_to_add = processor.getAllManifests()
+                graph_db = concat([graph_db,graph_to_add], ignore_index= True).drop_duplicates()
+            elif isinstance(processor, RelationalQueryProcessor):
+                relation_to_add = processor.getEntities()
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True).drop_duplicates()
+            
+        df_joined = merge(graph_db, relation_db, how='left',
+                           left_on="id", right_on="id").fillna('')
+        df_joined['creator'] =  df_joined.groupby(['manifest','id','label', 'entityId', 'title'])['creator'].transform(lambda x: '; '.join(x))
+        df_joined = df_joined.drop_duplicates()
+
+        manifests_list = []
+        for _, row in df_joined.iterrows():
+ 
+            graph_db_canvas = DataFrame()
+
+            for processor in self.queryProcessors:
+                if isinstance(processor, TriplestoreQueryProcessor):
+                    graph_to_add_canvas = processor.getCanvasesInManifest(row['id'])
+                    graph_db_canvas = concat([graph_db_canvas,graph_to_add_canvas], ignore_index= True).drop_duplicates()
+
+            df_joined_canvas = merge(graph_db, 
+                                       relation_db,
+                                       how='left',
+                                       left_on='id',
+                                       right_on='id'
+                                       ).fillna('')
+            
+            df_joined_canvas['creator'] =  df_joined_canvas.groupby(['canvas','id','label', 'entityId', 'title'])['creator'].transform(lambda x: '; '.join(x))
+            df_joined_canvas = df_joined_canvas.drop_duplicates()
+
+            canvases_list = [
+                    Canvas(row1['id'], 
+                       row1['label'], 
+                       row1['title'],
+                       row1['creator'].split('; ')) 
+                       for _, row1 in df_joined_canvas.iterrows()
+                ]
+                
+            manifests_list.append(
+                    Manifest(row["id"],
+                        row["label"], 
+                        row['title'], 
+                        row['creator'].split('; '),
+                        canvases_list,
+                        ) 
+                )
+
+        return manifests_list
+    
 
     def getAllImages(self):
         result = []
         for processor in self.queryProcessors:
             if isinstance(processor, RelationalQueryProcessor):
                 try:
-                    df = processor.getAllAnnotations()
+                    df = processor.getAllImages()
                     df = df.reset_index() 
 
-                    annotations_list = [
+                    images_list = [
                         Image(row['id'])
                                  for _, row in df.iterrows()
                     ] 
 
-                    result += annotations_list
+                    result += images_list
                 except Exception as e:
                     print(e)
         return result
     
-
-    def getAllManifests(self):
-        graph_db = DataFrame()
-        relation_db = DataFrame()
-        result = []
-        
-        for processor in self.queryProcessors:
-            if isinstance(processor, TriplestoreQueryProcessor):
-                graph_to_add = processor.getAllManifests()
-                graph_db = concat([graph_db,graph_to_add], ignore_index= True)
-            elif isinstance(processor, RelationalQueryProcessor):
-                relation_to_add = processor.getEntities()
-                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
-            
-        df_joined = merge(graph_db, relation_db, left_on="id", right_on="id") 
-        result = [
-                Manifest(row["id"],
-                        row["label"], 
-                        processor.getCanvasesInManifest(row['id']),
-                        row['title'], 
-                        row['creator']
-                        ) for _, row in df_joined.iterrows()
-            ]         
-        return result
-    
-
-
-
     def getAnnotationsToCanvas(self, canvasId):
         relation_db = DataFrame()
         for processor in self.queryProcessors:
             if isinstance(processor, RelationalQueryProcessor):
                 relation_to_add = processor.getAnnotationsWithTarget(canvasId)
                 relation_db = concat([relation_db, relation_to_add], ignore_index=True)
-        
+        print(relation_db.columns.to_list())
+        relation_db = relation_db[['id', 'motivation', 'target', 'body']].drop_duplicates().fillna('')
         result = [
             Annotation(row['id'],
                         row['motivation'],
-                        row['target'], 
-                        row['body']
-                    ) 
-                    for _, row in relation_db.iterrows()
-        ]
-
+                        IdentifiableEntity(row['target']), 
+                        Image(row['body'])
+                        ) for _, row in relation_db.iterrows()
+                    ] 
         return result
 
-                
+    # TODO: check this method
     def getAnnotationsToCollection(self, collectionId):
         graph_db = DataFrame()
         relation_db = DataFrame()
@@ -864,15 +907,14 @@ class GenericQueryProcessor():
         result = [
             Annotation(row['id'],
                         row['motivation'],
-                        row['target'], 
-                        row['body']
-                    ) 
-                    for _, row in relation_db.iterrows()
-        ]
+                        IdentifiableEntity(row['target']), 
+                        Image(row['body'])
+                        ) for _, row in relation_db.fillna('').iterrows()
+                    ] 
 
         return result
 
-
+    # TODO: check this method also
     def getAnnotationsToManifest(self, manifestId):
         graph_db = DataFrame()
         relation_db = DataFrame()
@@ -903,68 +945,56 @@ class GenericQueryProcessor():
     
 
     def getAnnotationsWithBody(self, bodyId:str):
-        result = []
+        relation_db = DataFrame()
         for processor in self.queryProcessors:
             if isinstance(processor, RelationalQueryProcessor):
-                try:
-                    df = processor.getAnnotationsWithBody(bodyId)
-                    df = df.reset_index() 
-
-                    annotations_list = [
-                        Annotation(row['id'], 
-                                row['motivation'], 
-                                IdentifiableEntity(row['target']), 
-                                Image(row['body'])
-                                ) for _, row in df.iterrows()
+                relation_to_add = processor.getAnnotationsWithBody(bodyId)
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
+        
+        relation_db = relation_db[['id', 'motivation', 'target', 'body']].drop_duplicates().fillna('')
+        result = [
+            Annotation(row['id'],
+                        row['motivation'],
+                        IdentifiableEntity(row['target']), 
+                        Image(row['body'])
+                        ) for _, row in relation_db.iterrows()
                     ] 
-
-                    result += annotations_list
-                except Exception as e:
-                    print(e)
         return result
 
 
     def getAnnotationsWithBodyAndTarget(self, bodyId:str, targetId:str):
-        result = []
+        relation_db = DataFrame()
         for processor in self.queryProcessors:
             if isinstance(processor, RelationalQueryProcessor):
-                try:
-                    df = processor.getAnnotationsWithBodyAndTarget(bodyId, targetId)
-                    df = df.reset_index() 
-
-                    annotations_list = [
-                        Annotation(row['id'], 
-                                row['motivation'], 
-                                IdentifiableEntity(row['target']), 
-                                Image(row['body'])
-                                ) for _, row in df.iterrows()
+                relation_to_add = processor.getAnnotationsWithBodyAndTarget(bodyId, targetId)
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
+        
+        relation_db = relation_db[['id', 'motivation', 'target', 'body']].drop_duplicates().fillna('')
+        result = [
+            Annotation(row['id'],
+                        row['motivation'],
+                        IdentifiableEntity(row['target']), 
+                        Image(row['body'])
+                        ) for _, row in relation_db.iterrows()
                     ] 
-
-                    result += annotations_list
-                except Exception as e:
-                    print(e)
         return result
 
 
     def getAnnotationsWithTarget(self, targetId:str):
-        result = []
+        relation_db = DataFrame()
         for processor in self.queryProcessors:
             if isinstance(processor, RelationalQueryProcessor):
-                try:
-                    df = processor.getAnnotationsWithTarget(targetId)
-                    df = df.reset_index() 
-
-                    annotations_list = [
-                        Annotation(row['id'], 
-                                row['motivation'], 
-                                IdentifiableEntity(row['target']), 
-                                Image(row['body'])
-                                ) for _, row in df.iterrows()
+                relation_to_add = processor.getAnnotationsWithTarget(targetId)
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True)
+        
+        relation_db = relation_db[['id', 'motivation', 'target', 'body']].drop_duplicates().fillna('')
+        result = [
+            Annotation(row['id'],
+                        row['motivation'],
+                        IdentifiableEntity(row['target']), 
+                        Image(row['body'])
+                        ) for _, row in relation_db.iterrows()
                     ] 
-
-                    result += annotations_list
-                except Exception as e:
-                    print(e)
         return result
 
     #Nicole 
@@ -1016,6 +1046,7 @@ class GenericQueryProcessor():
                     return entity
             else:
                 pass
+        return IdentifiableEntity('')
 
     def getEntitiesWithCreator(self, creator):
         graph_db = DataFrame()
@@ -1110,6 +1141,7 @@ class GenericQueryProcessor():
                     entities = EntityWithMetadata(id, label, title, creators)
                     result.append(entities)
                 return result
+        return result
                 
 
         
@@ -1179,7 +1211,7 @@ class GenericQueryProcessor():
                 images = Image(id)
             result.append(images)
 
-            return result
+        return result
     
 
     def getManifestsInCollection(self, collectionId):
@@ -1225,29 +1257,28 @@ class GenericQueryProcessor():
                 manifests = Manifest(id, label, title, creators, items)
                 result.append(manifests)            
 
-            return result
+        return result
 
 
 
-rel_qp = RelationalQueryProcessor()
-rel_qp.setDbPathOrUrl('./data/test.db')
+# rel_qp = RelationalQueryProcessor()
+# rel_qp.setDbPathOrUrl('./data/test.db')
 
-grp_qp = TriplestoreQueryProcessor()
-print(grp_qp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql'))
+# grp_qp = TriplestoreQueryProcessor()
+# print(grp_qp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql'))
 
-# Finally, create a generic query processor for asking
-# about data
-generic = GenericQueryProcessor()
-generic.addQueryProcessor(rel_qp)
-generic.addQueryProcessor(grp_qp)
 
-cp = CollectionProcessor()
-cp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql')
-cp.uploadData("./data/collection-1.json")
-cp.uploadData("./data/collection-2.json")
+# generic = GenericQueryProcessor()
+# generic.addQueryProcessor(rel_qp)
+# generic.addQueryProcessor(grp_qp)
+
+# cp = CollectionProcessor()
+# cp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql')
+# cp.uploadData("./data/collection-1.json")
+# cp.uploadData("./data/collection-2.json")
 # print(generic.getEntitiesWithLabel("Raimondi, Giuseppe. Quaderno manoscritto, \'Caserma Scalo : 1930-1968\'"))
 
-print(grp_qp.getEntityById('https://dl.ficlit.unibo.it/iiif/28429/collection'))
+# print(grp_qp.getEntityById('https://dl.ficlit.unibo.it/iiif/28429/collection'))
 
 # print(generic.getAllManifests())
 # print(generic.getAllCanvas())

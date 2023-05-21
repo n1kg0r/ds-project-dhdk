@@ -21,5 +21,5 @@ def clear_blazegraph_database(db_path):
         print("Failed to clear the database.")
 
 # RUN
-blazegraph_path = "http://127.0.0.1:9999/blazegraph"
-clear_blazegraph_database(blazegraph_path)
+# blazegraph_path = "http://127.0.0.1:9999/blazegraph"
+# clear_blazegraph_database(blazegraph_path)

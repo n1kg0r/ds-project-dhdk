@@ -33,7 +33,7 @@ class TestProjectBasic(unittest.TestCase):
     collection = "data" + sep + "collection-1.json"
     metadata = "data" + sep + "metadata.csv"
     relational = "." + sep + "relational.db"
-    graph = "http://192.168.1.52:9999/blazegraph/"
+    graph = "http://127.0.0.1:9999/blazegraph/sparql"
     
     def test_01_AnnotationProcessor(self):
         ann_dp = AnnotationProcessor()
@@ -45,8 +45,7 @@ class TestProjectBasic(unittest.TestCase):
         met_dp = MetadataProcessor()
         self.assertTrue(met_dp.setDbPathOrUrl(self.relational))
         self.assertEqual(met_dp.getDbPathOrUrl(), self.relational)
-        # BUG: AttributeError: 'Series' object has no attribute 'iteritems'
-        # self.assertTrue(met_dp.uploadData(self.metadata))
+        self.assertTrue(met_dp.uploadData(self.metadata))
 
     def test_03_CollectionProcessor(self):
         col_dp = CollectionProcessor()
@@ -56,36 +55,28 @@ class TestProjectBasic(unittest.TestCase):
 
     def test_04_RelationalQueryProcessor(self):
         rel_qp = RelationalQueryProcessor()
-        # self.assertTrue(rel_qp.setDbPathOrUrl(self.relational))
+        self.assertTrue(rel_qp.setDbPathOrUrl(self.relational))
 
-        # self.assertIsInstance(rel_qp.getAllAnnotations(), DataFrame)
-        # self.assertIsInstance(rel_qp.getAllImages(), DataFrame)
-        # self.assertIsInstance(rel_qp.getAnnotationsWithBody("just_a_test"), DataFrame)
-        # self.assertIsInstance(rel_qp.getAnnotationsWithBodyAndTarget("just_a_test", "another_test"), DataFrame)
-        # self.assertIsInstance(rel_qp.getAnnotationsWithTarget("just_a_test"), DataFrame)
+        self.assertIsInstance(rel_qp.getAllAnnotations(), DataFrame)
+        self.assertIsInstance(rel_qp.getAllImages(), DataFrame)
+        self.assertIsInstance(rel_qp.getAnnotationsWithBody("just_a_test"), DataFrame)
+        self.assertIsInstance(rel_qp.getAnnotationsWithBodyAndTarget("just_a_test", "another_test"), DataFrame)
+        self.assertIsInstance(rel_qp.getAnnotationsWithTarget("just_a_test"), DataFrame)
         self.assertIsInstance(rel_qp.getEntityById("just_a_test"), DataFrame)
-        # BUG: pandas.errors.DatabaseError: Execution failed on sql 'SELECT * FROM Entity LEFT JOIN Creators ON Entity.entityId == Creators.entityId WHERE creator = 'just_a_test'': no such table: Entity
-        # self.assertIsInstance(rel_qp.getEntitiesWithCreator("just_a_test"), DataFrame)
-        # BUG: pandas.errors.DatabaseError: Execution failed on sql 'SELECT * FROM Entity WHERE title = 'just_a_test'': no such table: Entity
-        #self.assertIsInstance(rel_qp.getEntitiesWithTitle("just_a_test"), DataFrame)
+        self.assertIsInstance(rel_qp.getEntitiesWithCreator("just_a_test"), DataFrame)
+        self.assertIsInstance(rel_qp.getEntitiesWithTitle("just_a_test"), DataFrame)
 
     def test_05_TriplestoreQueryProcessor(self):
         grp_qp = TriplestoreQueryProcessor()
         self.assertTrue(grp_qp.setDbPathOrUrl(self.graph))
-
-        # self.assertIsInstance(grp_qp.getAllCanvases(), DataFrame)
-        # self.assertIsInstance(grp_qp.getAllCollections(), DataFrame)
-        # self.assertIsInstance(grp_qp.getAllManifests(), DataFrame)
-        # self.assertIsInstance(grp_qp.getCanvasesInCollection("just_a_test"), DataFrame)
-        # self.assertIsInstance(grp_qp.getCanvasesInManifest("just_a_test"), DataFrame)
+        self.assertIsInstance(grp_qp.getAllCanvases(), DataFrame)
+        self.assertIsInstance(grp_qp.getAllCollections(), DataFrame)
+        self.assertIsInstance(grp_qp.getAllManifests(), DataFrame)
+        self.assertIsInstance(grp_qp.getCanvasesInCollection("just_a_test"), DataFrame)
+        self.assertIsInstance(grp_qp.getCanvasesInManifest("just_a_test"), DataFrame)
         self.assertIsInstance(grp_qp.getEntityById("just_a_test"), DataFrame)
-        # BUG: 
-        # self.assertIsInstance(grp_qp.getEntitiesWithLabel("just_a_test"), DataFrame)
-        # urllib.error.URLError: <urlopen error [Errno 60] Operation timed out>
-
-        # BUG: urllib.error.URLError: <urlopen error [Errno 60] Operation timed out>
-        # self.assertIsInstance(grp_qp.getEntitiesWithLabel("just_a_test"), DataFrame)
-        # self.assertIsInstance(grp_qp.getManifestsInCollection("just_a_test"), DataFrame)
+        self.assertIsInstance(grp_qp.getEntitiesWithLabel("just_a_test"), DataFrame)
+        self.assertIsInstance(grp_qp.getManifestsInCollection("just_a_test"), DataFrame)
 
     def test_06_GenericQueryProcessor(self):
         rel_qp = RelationalQueryProcessor()
@@ -98,11 +89,15 @@ class TestProjectBasic(unittest.TestCase):
         self.assertTrue(generic.addQueryProcessor(rel_qp))
         self.assertTrue(generic.addQueryProcessor(grp_qp))
         
+        print('added processors')
+
         self.assertIsInstance(generic.getAllAnnotations(), list)
         ann_1 = generic.getAllAnnotations()
         self.assertIsInstance(ann_1, list)
         for a in ann_1:
             self.assertIsInstance(a, Annotation)
+
+        print('getAllAnnotations done')
 
         self.assertIsInstance(generic.getAllCanvas(), list)
         can_1 = generic.getAllCanvas()
@@ -110,11 +105,15 @@ class TestProjectBasic(unittest.TestCase):
         for a in can_1:
             self.assertIsInstance(a, Canvas)
 
+        print('getAllCanvas done')
+
         self.assertIsInstance(generic.getAllCollections(), list)
         col_1 = generic.getAllCollections()
         self.assertIsInstance(col_1, list)
         for a in col_1:
             self.assertIsInstance(a, Collection)
+
+        print('getAllCollections done')
 
         self.assertIsInstance(generic.getAllImages(), list)
         ima_1 = generic.getAllImages()
@@ -122,17 +121,23 @@ class TestProjectBasic(unittest.TestCase):
         for a in ima_1:
             self.assertIsInstance(a, Image)
 
+        print('getAllImages done')
+
         self.assertIsInstance(generic.getAllManifests(), list)
         man_1 = generic.getAllManifests()
         self.assertIsInstance(man_1, list)
         for a in man_1:
             self.assertIsInstance(a, Manifest)
-        
+
+        print('getAllManifests done')
+
         self.assertIsInstance(generic.getAnnotationsToCanvas("just_a_test"), list)
         ann_2 = generic.getAnnotationsToCanvas("https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1")
         self.assertIsInstance(ann_2, list)
         for a in ann_2:
             self.assertIsInstance(a, Annotation)
+
+        print('getAllAnnotatinsToCanvas done')
 
         self.assertIsInstance(generic.getAnnotationsToCollection("just_a_test"), list)
         ann_3 = generic.getAnnotationsToCollection("https://dl.ficlit.unibo.it/iiif/28429/collection")
@@ -208,11 +213,10 @@ class TestProjectBasic(unittest.TestCase):
         for a in man_2:
             self.assertIsInstance(a, Manifest)
 
-
-tpb = TestProjectBasic()
-#tpb.test_01_AnnotationProcessor()
-#tpb.test_02_MetadataProcessor()
-#tpb.test_03_CollectionProcessor()
-#tpb.test_04_RelationalQueryProcessor()
-tpb.test_05_TriplestoreQueryProcessor()
-#tpb.test_06_GenericQueryProcessor()
+t = TestProjectBasic()
+# print(t.test_01_AnnotationProcessor())
+# print(t.test_02_MetadataProcessor())
+# print(t.test_03_CollectionProcessor())
+# print(t.test_04_RelationalQueryProcessor())
+# print(t.test_05_TriplestoreQueryProcessor())
+# print(t.test_06_GenericQueryProcessor())
