@@ -669,6 +669,8 @@ class GenericQueryProcessor():
             
         return result 
     
+    
+    
 
 
     def getAllCollections(self):
