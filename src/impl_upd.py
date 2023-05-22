@@ -214,6 +214,11 @@ class RelationalQueryProcessor(QueryProcessor):
              result = read_sql(q7, con) 
              return result 
         
+# rel_qp = RelationalQueryProcessor()
+# rel_qp.setDbPathOrUrl('./data/test.db')
+# print(rel_qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/manifest'))
+
+
 
 
 class TriplestoreQueryProcessor(QueryProcessor):
@@ -743,9 +748,9 @@ class GenericQueryProcessor():
                 manifests_list.append(
                     Manifest(row1["id"],
                         row1["label"], 
-                        canvases_list,
                         row1['title'], 
                         row1['creator'].split('; '),
+                        canvases_list,
                         ) 
                 )
 
@@ -811,9 +816,9 @@ class GenericQueryProcessor():
             manifests_list.append(
                     Manifest(row["id"],
                         row["label"], 
-                        canvases_list,
                         row['title'], 
                         row['creator'].split('; '),
+                        canvases_list,
                         ) 
                 )
 

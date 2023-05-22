@@ -12,6 +12,80 @@ metadata = "data" + sep + "metadata.csv"
 relational = "." + sep + "relational.db"
 graph = "http://192.168.1.52:9999/blazegraph/"
 
+ANNOTATIONS_CSV_PATH = "data/annotations.csv"
+METADATA_CSV_PATH = "data/metadata.csv"
+RELATIONAL_DB_PATH = "./data/test.db"
+GRAPH_DB_URL = "http://127.0.0.1:9999/blazegraph/sparql"
+COLLECTION_ONE_PATH = "data/collection-1.json"
+COLLECTION_TWO_PATH = "data/collection-2.json"
+
+
+
+rel_qp = RelationalQueryProcessor()
+rel_qp.setDbPathOrUrl('./data/test.db')
+
+grp_qp = TriplestoreQueryProcessor()
+print(grp_qp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql'))
+
+generic = GenericQueryProcessor()
+generic.addQueryProcessor(rel_qp)
+generic.addQueryProcessor(grp_qp)
+
+
+class TestProjectBasic(unittest.TestCase):
+    def init_processors_basic_case(self):
+        rel_qp = RelationalQueryProcessor()
+        rel_qp.setDbPathOrUrl(RELATIONAL_DB_PATH)
+
+        grp_qp = TriplestoreQueryProcessor()
+        print(grp_qp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql'))
+
+        generic = GenericQueryProcessor()
+        generic.addQueryProcessor(rel_qp)
+        generic.addQueryProcessor(grp_qp)
+
+
+    def populate_databases(self):
+        ann_dp = AnnotationProcessor()
+        ann_dp.setDbPathOrUrl(RELATIONAL_DB_PATH)
+        ann_dp.uploadData(ANNOTATIONS_CSV_PATH)
+        met_dp = MetadataProcessor()
+        met_dp.setDbPathOrUrl(RELATIONAL_DB_PATH)
+        met_dp.uploadData(METADATA_CSV_PATH)
+        col_dp = CollectionProcessor()
+        col_dp.setDbPathOrUrl(GRAPH_DB_URL)
+        col_dp.uploadData(COLLECTION_ONE_PATH)
+        col_dp.uploadData(COLLECTION_TWO_PATH)
+
+    def test_get_all_annotations(self):
+        get_all_annotations_res = generic.getAllAnnotations()
+        print(len(get_all_annotations_res))
+        for i in range(min(5, len(get_all_annotations_res))):
+            print()
+            print(get_all_annotations_res[i].id)
+            print(get_all_annotations_res[i].motivation)
+            print(get_all_annotations_res[i].target.id)
+            print(get_all_annotations_res[i].body.id)
+            print()
+
+    def test_generic_add_qp_clean_qp(self):
+        self.assertEqual(self.generic.queryProcessors, [])
+
+        self.generic.addQueryProcessor(self.rel_qp)
+        self.addCleanupgeneric.addQueryProcessor(self.grp_qp)
+        print(self.generic.queryProcessors)
+
+        self.generic.cleanQueryProcessors()
+        print(self.generic.queryProcessors)
+
+        self.generic.addQueryProcessor(self.rel_qp)
+        self.generic.addQueryProcessor(self.grp_qp)
+        print(self.generic.queryProcessors)
+
+
+tp = TestProjectBasic()
+tp.test_get_all_annotations()
+
 # uncomment if databases not populated
 # rel_path = "./data/test.db"
 # ann_dp = AnnotationProcessor()
@@ -27,15 +101,7 @@ graph = "http://192.168.1.52:9999/blazegraph/"
 # col_dp.uploadData("data/collection-2.json")
 
 
-rel_qp = RelationalQueryProcessor()
-rel_qp.setDbPathOrUrl('./data/test.db')
 
-grp_qp = TriplestoreQueryProcessor()
-print(grp_qp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql'))
-
-generic = GenericQueryProcessor()
-generic.addQueryProcessor(rel_qp)
-generic.addQueryProcessor(grp_qp)
 
 # getAllAnnotations test ok
 # get_all_annotations_res = generic.getAllAnnotations()
@@ -253,19 +319,6 @@ generic.addQueryProcessor(grp_qp)
 
 
 
-class TestProjectBasic(unittest.TestCase):
-    def test_generic(self):
-        self.assertEqual(generic.queryProcessors, [])
 
-        generic.addQueryProcessor(rel_qp)
-        generic.addQueryProcessor(grp_qp)
-        print(generic.queryProcessors)
-
-        generic.cleanQueryProcessors()
-        print(generic.queryProcessors)
-
-        generic.addQueryProcessor(rel_qp)
-        generic.addQueryProcessor(grp_qp)
-        print(generic.queryProcessors)
 
         
