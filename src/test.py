@@ -68,6 +68,27 @@ class TestProjectBasic(unittest.TestCase):
             print(get_all_annotations_res[i].body.id)
             print()
 
+    def test_get_all_canvases(self):
+        # get_all_canvas_res = generic.getAllCanvas()
+# print(len(get_all_canvas_res))
+
+# # uncomment for sample tests
+# for i in range(min(5, len(get_all_canvas_res))):
+#     print()
+#     print(get_all_canvas_res[i].id)
+#     print(get_all_canvas_res[i].label)
+#     print(get_all_canvas_res[i].title)
+#     print(get_all_canvas_res[i].creators)
+#     print()
+# for canvas in get_all_canvas_res:
+#     if canvas.title and len(canvas.title):
+#         print()
+#         print(canvas.id)
+#         print(canvas.label)
+#         print(canvas.title)
+#         print(canvas.creators)
+#         print(type(canvas.creators))
+
     def test_generic_add_qp_clean_qp(self):
         self.assertEqual(self.generic.queryProcessors, [])
 
@@ -86,33 +107,9 @@ class TestProjectBasic(unittest.TestCase):
 tp = TestProjectBasic()
 tp.test_get_all_annotations()
 
-# uncomment if databases not populated
-# rel_path = "./data/test.db"
-# ann_dp = AnnotationProcessor()
-# ann_dp.setDbPathOrUrl(rel_path)
-# ann_dp.uploadData("data/annotations.csv")
-# met_dp = MetadataProcessor()
-# met_dp.setDbPathOrUrl(rel_path)
-# met_dp.uploadData("data/metadata.csv")
-# grp_endpoint = "http://127.0.0.1:9999/blazegraph/sparql"
-# col_dp = CollectionProcessor()
-# col_dp.setDbPathOrUrl(grp_endpoint)
-# col_dp.uploadData("data/collection-1.json")
-# col_dp.uploadData("data/collection-2.json")
 
 
 
-
-# getAllAnnotations test ok
-# get_all_annotations_res = generic.getAllAnnotations()
-# print(len(get_all_annotations_res))
-# for i in range(min(5, len(get_all_annotations_res))):
-#     print()
-#     print(get_all_annotations_res[i].id)
-#     print(get_all_annotations_res[i].motivation)
-#     print(get_all_annotations_res[i].target.id)
-#     print(get_all_annotations_res[i].body.id)
-#     print()
 
 
 # test getAllCanvas -- seemingly ok
