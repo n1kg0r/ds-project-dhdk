@@ -1,6 +1,3 @@
-from rdflib import Graph, URIRef, RDF, Literal 
-from .clean_str import remove_special_chars
-
 def create_Graph(json_object:dict, base_url, my_graph:Graph):
     
     # create an internal id for the collections using an external counter
@@ -16,18 +13,23 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
     with open('canvas_counter.txt', 'r', encoding='utf-8') as c:
         canvas_counter = int(c.read().strip())
 
+    # define namespaces 
+    nikCl = Namespace("https://github.com/n1kg0r/ds-project-dhdk/classes/")
+    nikAttr = Namespace("https://github.com/n1kg0r/ds-project-dhdk/attributes/")
+    nikRel = Namespace("https://github.com/n1kg0r/ds-project-dhdk/relations/")
+    dc = Namespace("http://purl.org/dc/elements/1.1/")
 
     # classes
-    Collection = URIRef("https://github.com/n1kg0r/ds-project-dhdk/classes/Collection")
-    Manifest = URIRef("https://github.com/n1kg0r/ds-project-dhdk/classes/Manifest")
-    Canvas = URIRef("https://github.com/n1kg0r/ds-project-dhdk/classes/Canvas")
+    Collection = nikCl["Collection"]
+    Manifest = nikCl["Manifest"]
+    Canvas = nikCl["Canvas"]
 
     # attributes related to classes
-    label = URIRef("https://github.com/n1kg0r/ds-project-dhdk/attributes/label")
+    label = nikAttr["label"]
 
     # relations among classes
-    items = URIRef("https://github.com/n1kg0r/ds-project-dhdk/relations/items")
-    has_id = URIRef("http://purl.org/dc/elements/1.1/identifier")
+    items = nikRel["items"]
+    has_id = dc["identifier"]
 
     # create a variable for the id
     collection_id = json_object['id'] 
@@ -42,7 +44,7 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
     value_label = label_list[0][0]
 
     # remove the square brackets from the label value
-    value_label = remove_special_chars(str(value_label))
+    value_label = str(value_label)
 
     # create the graph with the triples
     my_graph.add((Coll_internalId, has_id, Literal(collection_id)))
@@ -68,7 +70,7 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
         M_value_label = M_label_list[0][0]
 
         # remove the square brackets from the label value
-        M_value_label = remove_special_chars(str(M_value_label))
+        M_value_label = str(M_value_label)
         
 
         # create the graph with the triples
@@ -94,13 +96,14 @@ def create_Graph(json_object:dict, base_url, my_graph:Graph):
             C_value_label = C_label_list[0][0]
 
             # remove the square brackets from the label value
-            C_value_label = remove_special_chars(str(C_value_label))
+            C_value_label = str(C_value_label)
 
 
             # create the graph with the triples
             my_graph.add((Can_internalId, has_id, Literal(canvas_id)))
             my_graph.add((Can_internalId, RDF.type, Canvas))
             my_graph.add((Can_internalId, label, Literal(str(C_value_label))))
+
 
     #upload the counters text file
     with open('collection_counter.txt', 'w') as a:
