@@ -669,7 +669,7 @@ class GenericQueryProcessor():
             
         return result 
     
-    
+  
     
 
 
