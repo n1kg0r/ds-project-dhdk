@@ -464,6 +464,14 @@ class AnnotationProcessor(QueryProcessor):
         pass
     def uploadData(self, path:str):
         try:
+            lenth_ann = 0
+            try:
+                with connect(self.getDbPathOrUrl()) as con:
+                    q1="SELECT * FROM Annotation;" 
+                    q1_table = read_sql(q1, con)
+                    lenth_ann = len(q1_table)
+            except:
+                pass
             annotations = read_csv(path, 
                                     keep_default_na=False,
                                     dtype={
@@ -474,14 +482,14 @@ class AnnotationProcessor(QueryProcessor):
                                     })
             annotations_internalId = []
             for idx, row in annotations.iterrows():
-                annotations_internalId.append("annotation-" +str(idx))
+                annotations_internalId.append("annotation-" +str(idx+lenth_ann))
             annotations.insert(0, "annotationId", Series(annotations_internalId, dtype = "string"))
             
             image = annotations[["body"]]
             image = image.rename(columns={"body": "id"})
             image_internalId = []
             for idx, row in image.iterrows():
-                image_internalId.append("image-" +str(idx))
+                image_internalId.append("image-" +str(idx+lenth_ann))
             image.insert(0, "imageId", Series(image_internalId, dtype = "string"))
 
             with connect(self.getDbPathOrUrl()) as con:
@@ -499,7 +507,15 @@ class MetadataProcessor(QueryProcessor):
     def __init__(self):
         pass
     def uploadData(self, path:str):
-        try: 
+        try:
+            lenth_meta = 0
+            try:
+                with connect(self.getDbPathOrUrl()) as con:
+                    q1="SELECT * FROM Entity;" 
+                    q1_table = read_sql(q1, con)
+                    lenth_meta = len(q1_table)
+            except:
+                pass
             entityWithMetadata= read_csv(path, 
                                     keep_default_na=False,
                                     dtype={
@@ -510,7 +526,7 @@ class MetadataProcessor(QueryProcessor):
             
             metadata_internalId = []
             for idx, row in entityWithMetadata.iterrows():
-                metadata_internalId.append("entity-" +str(idx))
+                metadata_internalId.append("entity-" +str(idx+lenth_meta))
             entityWithMetadata.insert(0, "entityId", Series(metadata_internalId, dtype = "string"))
             creator = entityWithMetadata[["entityId", "creator"]]
             #I recreate entityMetadata since, as I will create a proxy table, I will have no need of
@@ -519,17 +535,15 @@ class MetadataProcessor(QueryProcessor):
             
 
             for idx, row in creator.iterrows():
-                        for item_idx, item in row.items():
-                            if "entity-" in item:
-                                entity_id = item
-                            if ";" in item:
-                                list_of_creators =  item.split(";")
-                                creator = creator.drop(idx)
-                                new_serie = []
-                                for i in range (len(list_of_creators)):
-                                    new_serie.append(entity_id)
-                                new_data = DataFrame({"entityId": new_serie, "creator": list_of_creators})
-                                creator = concat([creator.loc[:idx-1], new_data, creator.loc[idx:]], ignore_index=True)
+                if ";" in row["creator"]:
+                    list_of_creators =  row["creator"].split(";")
+                    internal_id = row["entityId"]
+                    creator = creator.drop(idx)
+                    new_serie = []
+                    for i in range (len(list_of_creators)):
+                        new_serie.append(internal_id)
+                    new_data = DataFrame({"entityId": new_serie, "creator": list_of_creators})
+                    creator = concat([creator.loc[:idx-1], new_data, creator.loc[idx:]], ignore_index=True)
 
             with connect(self.getDbPathOrUrl()) as con:
                 entityWithMetadata.to_sql("Entity", con, if_exists="append", index = False)
