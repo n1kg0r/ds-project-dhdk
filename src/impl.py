@@ -5,7 +5,7 @@ from rdflib import Graph, Namespace
 from sparql_dataframe import get 
 from utils.clean_str import remove_special_chars
 from json import load
-from utils.create_graph import create_Graph
+from CreateGraph import create_Graph
 from urllib.parse import urlparse
 
 
@@ -63,14 +63,14 @@ class Canvas(EntityWithMetadata):
 
 # TODO: think about default values while initialisation
 class Manifest(EntityWithMetadata):
-    def __init__(self, id:str, label:str, title:str, creators:list[str], items:list[Canvas]):
+    def __init__(self, id:str, label:str, items:list[Canvas], title:str=None, creators:list[str]=None):
         super().__init__(id, label, title, creators)
         self.items = items
     def getItems(self):
         return self.items
 
 class Collection(EntityWithMetadata):
-    def __init__(self, id:str, label:str, title:str, creators:list[str], items:list[Manifest]):
+    def __init__(self, id:str, label:str, items:list[Manifest], title:str=None, creators:list[str]=None):
         super().__init__(id, label, title, creators)
         self.items = items
     def getItems(self):
@@ -484,7 +484,7 @@ class AnnotationProcessor(QueryProcessor):
             for idx, row in annotations.iterrows():
                 annotations_internalId.append("annotation-" +str(idx+lenth_ann))
             annotations.insert(0, "annotationId", Series(annotations_internalId, dtype = "string"))
-            
+
             image = annotations[["body"]]
             image = image.rename(columns={"body": "id"})
             image_internalId = []
@@ -497,8 +497,8 @@ class AnnotationProcessor(QueryProcessor):
                 image.to_sql("Image", con, if_exists="append", index=False)
 
             return True
-            
-        
+
+
         except Exception as e:
             print(str(e))
             return False
@@ -523,7 +523,7 @@ class MetadataProcessor(QueryProcessor):
                                         "title": "string",
                                         "creator": "string"
                                     })
-            
+
             metadata_internalId = []
             for idx, row in entityWithMetadata.iterrows():
                 metadata_internalId.append("entity-" +str(idx+lenth_meta))
@@ -532,7 +532,7 @@ class MetadataProcessor(QueryProcessor):
             #I recreate entityMetadata since, as I will create a proxy table, I will have no need of
             #coloumn creator
             entityWithMetadata = entityWithMetadata[["entityId", "id", "title"]]
-            
+
 
             for idx, row in creator.iterrows():
                 if ";" in row["creator"]:
@@ -557,8 +557,6 @@ class MetadataProcessor(QueryProcessor):
 # ap.setDbPathOrUrl('./data/test.db')
 # print(ap.uploadData('./data/annotations.csv'))
 # print(ap.getDbPathOrUrl())
-
-
 
 
 # mp = MetadataProcessor()
@@ -1110,6 +1108,7 @@ class GenericQueryProcessor():
             else:
                 break
         
+        
         if not graph_db.empty: #check if the call got some result
             df_joined = merge(graph_db, relation_db, left_on="id", right_on="id") #create the merge with the two db
             grouped = df_joined.groupby("id").agg({
@@ -1119,37 +1118,24 @@ class GenericQueryProcessor():
                                                     }).reset_index() #this is to avoid duplicates when we have more than one creator
             grouped_fill = grouped.fillna('')
             sorted = grouped_fill.sort_values("id") #sorted for id
-
+            
             if not sorted.empty:
-                # if the merge has some result inside, proceed
                 for row_idx, row in sorted.iterrows():
-                    if row["title"] != '' and row["creator"] != '':
-                        id = row["id"]
-                        label = label
-                        title = row["title"]
-                        creators = row['creator'].split('; ')
-                        entities = EntityWithMetadata(id, label, title, creators)
-                        result.append(entities)
-                    
-                    else: 
-
-                        id = row["id"]
-                        label = label
-                        title = ""
-                        creators = ""
-
-                        entities = EntityWithMetadata(id, label, title, creators)
-                        result.append(entities)
+                    id = row["id"]
+                    label = label
+                    title = row["title"]
+                    creators = row['creator'].split('; ')
+                    entities = EntityWithMetadata(id, label, title, creators)
+                    result.append(entities)            
             
                 return result
-        
+
             else:
                 for _, row in graph_db.iterrows():
                     id = row["id"]
                     label = label
                     title = ""
                     creators = ""
-
                     entities = EntityWithMetadata(id, label, title, creators)
                     result.append(entities)
                 return result
@@ -1187,7 +1173,7 @@ class GenericQueryProcessor():
             for _, row in sorted.iterrows():
                 id = row["id"]
                 label = row["label"]
-                title = title
+                title = row['title']
                 creators = row['creator'].split('; ')
                 entities = EntityWithMetadata(id, label, title, creators)
                 result.append(entities)
@@ -1214,8 +1200,10 @@ class GenericQueryProcessor():
 
         if not graph_db.empty:
             df_joined = merge(graph_db, relation_db, left_on="id", right_on="target")
+            joined_fill = df_joined.fillna('')
+            sorted = joined_fill.sort_values("id")
 
-            for _, row in df_joined.iterrows():
+            for _, row in sorted.iterrows():
                 id = row["body"]
                 images = Image(id)
             result.append(images)
@@ -1242,44 +1230,58 @@ class GenericQueryProcessor():
 
         if not graph_db.empty:
             df_joined = merge(graph_db, relation_db, left_on="id", right_on="id") 
+            joined_fill = df_joined.fillna('')
+            sorted = joined_fill.sort_values("id")
 
-            if not df_joined.empty:
+            for _, row in sorted.iterrows():
 
-                for _, row in df_joined.iterrows():
-                    id = row["id"]
-                    label = row["label"]
-                    title = row["title"]
-                    creators = row["creator"]
-                    items = processor.getCanvasesInManifest(id)
-                    manifests = Manifest(id, label, title, creators, items)
-                    result.append(manifests)
+                graph_db_canvas = DataFrame()
+
+                for processor in self.queryProcessors:
+                    if isinstance(processor, TriplestoreQueryProcessor):
+                        graph_to_add_canvas = processor.getCanvasesInManifest(row['id'])
+                        graph_db_canvas = concat([graph_db_canvas,graph_to_add_canvas], ignore_index= True).drop_duplicates()
+
+                        df_joined_canvas = merge(graph_db_canvas, 
+                                                relation_db,
+                                                how='left',
+                                                left_on='id',
+                                                right_on='id'
+                                                ).fillna('')
+        
+        
+                        df_joined_canvas['creator'] =  df_joined_canvas.groupby(['canvas','id','label', 'entityId', 'title'])['creator'].transform(lambda x: '; '.join(x))
+                        df_joined_canvas = df_joined_canvas.drop_duplicates()
+
+                        canvases_list = [
+                                Canvas(row1['id'], 
+                                row1['label'], 
+                                row1['title'],
+                                row1['creator'].split('; ')) 
+                                for _, row1 in df_joined_canvas.iterrows()
+                            ]
+                            
+                        result.append(
+                                Manifest(row["id"],
+                                    row["label"], 
+                                    canvases_list,
+                                    row['title'], 
+                                    row['creator'].split('; ')
+                                    ) 
+                            )
 
             return result
-        else: 
+            
+            
 
-            for _, row in graph_db.iterrows():
-                id = row["id"]
-                label = row["label"]
-                title = ""
-                creators = ""
-                items = processor.getCanvasesInManifest(id)
-                manifests = Manifest(id, label, title, creators, items)
-                result.append(manifests)            
+rel_path = "ralational.db"
 
-        return result
-
-
-
-# rel_qp = RelationalQueryProcessor()
-# rel_qp.setDbPathOrUrl('./data/test.db')
-
-# grp_qp = TriplestoreQueryProcessor()
-# print(grp_qp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql'))
-
-
-# generic = GenericQueryProcessor()
-# generic.addQueryProcessor(rel_qp)
-# generic.addQueryProcessor(grp_qp)
+# ann_dp = AnnotationProcessor()
+# ann_dp.setDbPathOrUrl(rel_path)
+# ann_dp.uploadData("data/annotations.csv")
+# met_dp = MetadataProcessor()
+# met_dp.setDbPathOrUrl(rel_path)
+# met_dp.uploadData("data/metadata.csv")
 
 # cp = CollectionProcessor()
 # cp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql')
@@ -1287,11 +1289,31 @@ class GenericQueryProcessor():
 # cp.uploadData("./data/collection-2.json")
 # print(generic.getEntitiesWithLabel("Raimondi, Giuseppe. Quaderno manoscritto, \'Caserma Scalo : 1930-1968\'"))
 
-# print(grp_qp.getEntityById('https://dl.ficlit.unibo.it/iiif/28429/collection'))
+rel_qp = RelationalQueryProcessor()
+rel_qp.setDbPathOrUrl(rel_path)
 
+grp_qp = TriplestoreQueryProcessor()
+grp_qp.setDbPathOrUrl('http://127.0.0.1:9999/blazegraph/sparql')
+
+
+generic = GenericQueryProcessor()
+generic.addQueryProcessor(rel_qp)
+generic.addQueryProcessor(grp_qp)
+
+# grp_qp = QueryProcessor()
+# print(grp_qp.setDbPathOrUrl(rel_path))
+# print(grp_qp.getEntityById("https://dl.ficlit.unibo.it/iiif/2/45669/full/699,800/0/default.jpg"))
+# print(generic.getEntityById('https://dl.ficlit.unibo.it/iiif/28429/collection'))
+# print(generic.getEntitiesWithTitle("Il Canzoniere"))
+# for entities in generic.getEntitiesWithTitle("Il Canzoniere"):
+#     print(entities.id, entities.label, entities.title, entities.creators)
 # print(generic.getAllManifests())
-# print(generic.getAllCanvas())
-# print(generic.getEntitiesWithCreator("Dante, Alighieri"))
+# print(len(generic.getAllCanvas()))
+# print(generic.getEntitiesWithLabel('BO0451_CAM6537_0228_foglio di guardia.jpg'))
+# for entities in generic.getEntitiesWithLabel('BO0451_CAM6537_0228_foglio di guardia.jpg'):
+#     print(entities.id, entities.label, entities.title, entities.creators)
+
+# print(generic.getEntitiesWithCreator("Alighieri, Dante"))
 # print(generic.getAnnotationsToCanvas("https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1"))
 
 # print(generic.getAllCollections())
@@ -1302,8 +1324,14 @@ class GenericQueryProcessor():
 
 # generic.getAllCollections()
 # for collection in generic.getAllCollections():
-#     print(collection.id, collection.label, collection.title, collection.items, collection.creators)
+#      print(collection.id, collection.label, collection.title, collection.items, collection.creators)
 
 
 # for manifest in generic.getAllCollections()[0].items:
 #     print(manifest.id, manifest.label, manifest.title, manifest.items, manifest.creators)
+
+print(generic.getManifestsInCollection('https://dl.ficlit.unibo.it/iiif/28429/collection'))
+for entities in generic.getManifestsInCollection('https://dl.ficlit.unibo.it/iiif/28429/collection'):
+    print(entities.id, entities.label, entities.items, entities.title, entities.creators)
+    print(vars(entities))
+    print(len(entities.items))
