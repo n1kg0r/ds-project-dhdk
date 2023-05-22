@@ -30,7 +30,8 @@ class Annotation(IdentifiableEntity):
         return self.motivation
     def getTarget(self):
         return self.target
-# small fix (title and creators can have 0 values)
+
+
 class EntityWithMetadata(IdentifiableEntity):
     def __init__(self, id: str, label: str, title:str=None, creators:str|list[str]=None):
         super().__init__(id)
@@ -59,7 +60,6 @@ class Canvas(EntityWithMetadata):
     pass
 
 
-# TODO: think about default values while initialisation
 class Manifest(EntityWithMetadata):
     def __init__(self, id:str, label:str, items:list[Canvas], title:str=None, creators:list[str]=None):
         super().__init__(id, label, title, creators)
@@ -77,7 +77,7 @@ class Collection(EntityWithMetadata):
 
 # NOTE: BLOCK PROCESSORS
 
-# refactoring
+
 class Processor(object):
     def __init__(self):
         self.dbPathOrUrl = ""
@@ -93,7 +93,7 @@ class Processor(object):
         return False
         
 
-# TODO: redo sql query for concatenating instead of merging
+
 class QueryProcessor(Processor):
     def __init__(self):
         super().__init__()
@@ -593,8 +593,6 @@ class CollectionProcessor(Processor):
                 store.add(triple)
             store.close()
             
-            # FIX
-            # my_graph.serialize(destination="Graph_db.ttl", format="turtle")
             with open('Graph_db.ttl', mode='a', encoding='utf-8') as f:
                 f.write(my_graph.serialize(format='turtle'))
 
@@ -657,13 +655,10 @@ class GenericQueryProcessor():
                 relation_to_add = processor.getEntities()
                 relation_db = concat([relation_db, relation_to_add], ignore_index=True)
 
-        # print(relation_db)
-
         df_joined = merge(graph_db, relation_db, left_on="id", right_on="id", how='left').fillna("").drop_duplicates()
         df_joined['creator'] =  df_joined.groupby(['canvas','id','label', 'entityId', 'title'])['creator'].transform(lambda x: '; '.join(x))
         df_joined = df_joined[['canvas','id','label', 'title', 'creator']].drop_duplicates()
 
-        # df_joined.to_csv('./get_all_canvases_res.csv', sep='\t')
         result = [
                 Canvas(row['id'], 
                        row['label'], 
@@ -729,7 +724,7 @@ class GenericQueryProcessor():
                                        left_on='id',
                                        right_on='id'
                                        ).fillna('')
-                # print(df_joined_canvas.columns.to_list())
+
                 df_joined_canvas['creator'] =  df_joined_canvas.groupby(['canvas','id','label', 'entityId', 'title'])['creator'].transform(lambda x: '; '.join(x))
                 df_joined_canvas = df_joined_canvas.drop_duplicates()
                 canvases_list = [
@@ -753,9 +748,9 @@ class GenericQueryProcessor():
             collections_list.append(
                 Collection(row["id"],
                         row["label"], 
+                        manifests_list,
                         row['title'], 
                         row['creator'].split('; '),
-                        manifests_list,
                         ) 
             )
         return collections_list 
@@ -827,7 +822,6 @@ class GenericQueryProcessor():
                 try:
                     df = processor.getAllImages()
                     df = df[['id']].drop_duplicates().fillna('') 
-                    # print(df.columns.to_list())
                     images_list = [
                         Image(row['id'])
                                  for _, row in df.iterrows()
@@ -869,7 +863,6 @@ class GenericQueryProcessor():
                 graph_to_add = processor.getCanvasesInCollection(collectionId)
                 graph_db = concat([graph_db, graph_to_add], ignore_index=True)
 
-        # graph_db.to_csv('./get_annotations_to_collection_res.csv', sep='\t')
         graph_db = graph_db[["id"]].drop_duplicates().fillna('')
         
         for processor in self.queryProcessors:
@@ -877,9 +870,6 @@ class GenericQueryProcessor():
                 for _, row in graph_db.iterrows():
                     relation_to_add = processor.getAnnotationsWithTarget(row["id"])
                     relation_db = concat([relation_db, relation_to_add], ignore_index=True)
-                    # print(relation_db.shape[0])
-        
-        # print(relation_db.columns.to_list())
 
         if not relation_db.empty:
             relation_db = relation_db[['id', 'motivation', 'target', 'body']].drop_duplicates().fillna('')
@@ -1151,9 +1141,9 @@ class GenericQueryProcessor():
                                                         "creator": lambda x: "; ".join(x)
                                                     }).reset_index() #this is to avoid duplicates when we have more than one creator
             grouped_fill = grouped.fillna('')
-            sorted = grouped_fill.sort_values("id")
+            # sorted = grouped_fill.sort_values("id")
 
-            for _, row in sorted.iterrows():
+            for _, row in grouped_fill.iterrows():
                 id = row["id"]
                 label = row["label"]
                 title = row['title']
@@ -1183,10 +1173,8 @@ class GenericQueryProcessor():
 
         if not graph_db.empty:
             df_joined = merge(graph_db, relation_db, left_on="id", right_on="target")
-            joined_fill = df_joined.fillna('')
-            sorted = joined_fill.sort_values("id")
 
-            for _, row in sorted.iterrows():
+            for _, row in df_joined.iterrows():
                 id = row["body"]
                 images = Image(id)
             result.append(images)
@@ -1213,10 +1201,8 @@ class GenericQueryProcessor():
 
         if not graph_db.empty:
             df_joined = merge(graph_db, relation_db, left_on="id", right_on="id") 
-            joined_fill = df_joined.fillna('')
-            sorted = joined_fill.sort_values("id")
 
-            for _, row in sorted.iterrows():
+            for _, row in df_joined.iterrows():
 
                 graph_db_canvas = DataFrame()
 
@@ -1253,6 +1239,6 @@ class GenericQueryProcessor():
                                     ) 
                             )
 
-            return result
+        return result
             
             
