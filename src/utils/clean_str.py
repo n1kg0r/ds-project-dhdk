@@ -1,4 +1,3 @@
-import requests
 
 def remove_special_chars(s: str) -> str:
     if '\"' in s:
