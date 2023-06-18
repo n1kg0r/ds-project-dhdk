@@ -1,5 +1,6 @@
 from sqlite3 import connect
-from pandas import read_sql, read_sql_table, DataFrame, concat, read_csv, Series, merge
+from pandas import read_sql, read_sql_table, DataFrame, concat, read_csv, Series, merge 
+from numpy import nan
 from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
 from rdflib import Graph, Namespace
 from sparql_dataframe import get 
@@ -275,7 +276,8 @@ class QueryProcessor(Processor):
 
     def getEntityById(self, entityId: str):
         db_url = self.getDbPathOrUrl()
-        df = DataFrame()
+        df = DataFrame(columns=['id', 'type', 'title', 'body', 'target', 'motivation', 'label'])
+        
 
         if len(db_url.split('.')) and db_url.split('.')[-1] == "db":
             select_entity = f"""
@@ -305,13 +307,21 @@ class QueryProcessor(Processor):
                     
             except Exception as e:
                 print(f"couldn't connect to sql database due to the following error: {e}")
+            
+            df_image['type'] = 'image'
+            df_annotation['type'] = 'annotation'
+            df_entity['type'] = 'entity'
 
-            df = concat([
-                df_entity[['id']],
-                df_annotation[['id']],
-                df_image[['id']]
-                ], 
-                ignore_index=True)
+            df_to_concat = DataFrame()
+            if not df_annotation.empty:
+                df_to_concat = df_annotation
+            elif not df_image.empty:
+                df_to_concat = df_image
+
+            if not df_to_concat.empty:
+                df = concat([df, df_to_concat], sort=False, ignore_index=True ).replace([nan], [None])
+
+            # print(df)
             
             
         elif len(urlparse(db_url).scheme) and len(urlparse(db_url).netloc):
@@ -322,20 +332,32 @@ class QueryProcessor(Processor):
                     PREFIX nikCl: <https://github.com/n1kg0r/ds-project-dhdk/classes/> 
                     PREFIX nikRel: <https://github.com/n1kg0r/ds-project-dhdk/relations/>  
 
-                    SELECT ?entity ?id
+                    SELECT ?entity ?id ?label ?type
                     WHERE {
                         ?entity dc:identifier "%s" ;
-                        dc:identifier ?id .
+                        dc:identifier ?id ;
+                        nikAttr:label ?label ;
+                        a ?type .
                     }
                     """ % entityId 
             try:
-                df = get(endpoint, query, True)[['id']]
+                df_graph = get(endpoint, query, True)[['id', 'label', 'type']].drop_duplicates()
+                
+                
+                for _, row in df_graph.iterrows():
+                    row['type'] = row['type'].split('/')[-1].lower()
+
+                df = concat([df, df_graph], sort=False, ignore_index=True ).replace([nan], [None])
+
+                
+
             except Exception as e:
                 print(f"couldn't connect to blazegraph due to the following error: \n{e}")
                 print(f"trying to reconnect via local connection at http://127.0.0.1:9999/blazegraph/sparql")
                 try:
                     endpoint = "http://127.0.0.1:9999/blazegraph/sparql"
-                    df = get(endpoint, query, True)[['id']]
+                    df_graph = get(endpoint, query, True)[['id', 'label', 'type']].drop_duplicates()
+                    df = concat([df, df_graph], sort=False, ignore_index=True ).replace([nan], [None])
                 except Exception as e2:
                     print(f"couldn't connect to blazegraph due to the following error: {e2}")
             
@@ -1114,24 +1136,73 @@ class GenericQueryProcessor():
                 break
         if not graph_db.empty:
             df_joined = merge(graph_db, relation_db, left_on="id", right_on="id")
-            for index, row in df_joined.iterrows():
+            for _, row in df_joined.iterrows():
                     canvas = Canvas(row['id'], row['label'], row['title'], row['creator'])
                     canvas_list.append(canvas)
         return canvas_list 
     
 
+    
 
     def getEntityById(self, id):
         pd = DataFrame()
+        relation_db = DataFrame() 
+
+        for processor in self.queryProcessors:
+            
+            if isinstance(processor, RelationalQueryProcessor):
+                relation_to_add = processor.getEntities()
+                relation_db = concat([relation_db, relation_to_add], ignore_index=True).drop_duplicates()
+            
 
         for processor in self.queryProcessors:
             if isinstance(processor, QueryProcessor):
-                pd_to_add = processor.getEntityById(id)[['id']]
-                pd = concat([pd, pd_to_add], ignore_index=True)
+                pd_to_add = processor.getEntityById(id)
+                pd = concat([pd, pd_to_add], ignore_index=True).replace([nan], [None])
 
-        pd = pd.drop_duplicates().fillna('')
+        pd = pd.drop_duplicates()
 
         if not pd.empty:
+            entity_data = pd.iloc[[0]]
+            # print('here here here')
+            # print(entity_data.iloc[[0]]['type'] == 'annotation')
+            # print()
+            if entity_data['type'].iloc[0] == 'annotation':
+                return Annotation(entity_data['id'].iloc[0], 
+                                  entity_data['motivation'].iloc[0],
+                                  self.getEntityById(entity_data['target'].iloc[0]),
+                                  self.getEntityById(entity_data['body'].iloc[0]), 
+                                  )
+            if entity_data['type'].iloc[0] == 'image':
+                return Image(entity_data['id'].iloc[0])
+            else:
+                
+        
+                searched_row = relation_db[relation_db['id'] == entity_data['id'].iloc[0]]
+                searched_row['creator'] = searched_row.groupby(['id','title', 'entityId'])['creator'].transform(lambda x: '; '.join(x))
+                searched_row = searched_row.drop_duplicates()
+
+                if entity_data['type'].iloc[0] == 'canvas':
+                    return Canvas(entity_data['id'].iloc[0],
+                                entity_data['label'].iloc[0],
+                                entity_data['title'].iloc[0],
+                                searched_row['creator'].iloc[0].split('; ')
+                                )
+                elif entity_data['type'].iloc[0] == 'manifest':
+                    return Manifest(entity_data['id'].iloc[0],
+                                    entity_data['label'].iloc[0],
+                                    self.getCanvasesInManifest(entity_data['id'].iloc[0]),
+                                    entity_data['title'].iloc[0],
+                                    searched_row['creator'].iloc[0].split('; '))
+                elif entity_data['type'].iloc[0] == 'collection':
+                    return Collection(
+                        entity_data['id'].iloc[0],
+                        entity_data['label'].iloc[0],
+                        self.getManifestsInCollection(entity_data['id'].iloc[0]),
+                        entity_data['title'].iloc[0],
+                        searched_row['creator'].iloc[0].split('; ')
+                    )
+
             return IdentifiableEntity(pd.loc[0, 'id'])
 
         print('no entities in DB have this id')
