@@ -6,6 +6,8 @@ from impl import GenericQueryProcessor, QueryProcessor,Processor
 from pandas import DataFrame
 from impl import IdentifiableEntity, EntityWithMetadata, Canvas, Collection, Image, Annotation, Manifest
 
+# java -server -Xmx1g -jar blazegraph.jar
+
 annotations = "data" + sep + "annotations.csv"
 collection = "data" + sep + "collection-1.json"
 metadata = "data" + sep + "metadata.csv"
@@ -105,7 +107,7 @@ class TestProjectBasic(unittest.TestCase):
 
 
 # tp = TestProjectBasic()
-# # tp.test_get_all_annotations()
+# tp.test_get_all_annotations()
 # tp.test_get_all_canvases()
 
 
@@ -124,16 +126,34 @@ p.getDbPathOrUrl()
 # print(Processor.setDbPathOrUrl(p, 'http://192.168.1.52:9999/blazegraph/'))
 # print(Processor.setDbPathOrUrl(p, 'haha hehe '))
 
+
+
+
+# ann_dp = AnnotationProcessor()
+# ann_dp.setDbPathOrUrl(RELATIONAL_DB_PATH)
+# ann_dp.uploadData(ANNOTATIONS_CSV_PATH)
+# met_dp = MetadataProcessor()
+# met_dp.setDbPathOrUrl(RELATIONAL_DB_PATH)
+# met_dp.uploadData(METADATA_CSV_PATH)
+# col_dp = CollectionProcessor()
+# col_dp.setDbPathOrUrl(GRAPH_DB_URL)
+# col_dp.uploadData(COLLECTION_ONE_PATH)
+# col_dp.uploadData(COLLECTION_TWO_PATH)
+
+
+
+
+
 qp = QueryProcessor()
-qp.setDbPathOrUrl("./data/test.db")
-#print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/annotation/p0001-image'))
-#print(qp.getEntityById('haha'))
-qp.setDbPathOrUrl(GRAPH_DB_URL)
-#print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/annotation/p0001-image'))
+qp.setDbPathOrUrl(RELATIONAL_DB_PATH)
+print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/annotation/p0001-image'))
+# print(qp.getEntityById('haha'))
+# qp.setDbPathOrUrl(GRAPH_DB_URL)
+# print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/annotation/p0001-image'))
 # print(qp.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/canvas/p1'))
 
 r = RelationalQueryProcessor()
-print(r.setDbPathOrUrl('relational.db'))
+print(r.setDbPathOrUrl(RELATIONAL_DB_PATH))
 #print(r.getAllAnnotations())
 #print(r.getAnnotationsWithBody('https://dl.ficlit.unibo.it/iiif/2/45498/full/699,800/0/default.jpg'))
 #print(r.getAnnotationsWithBodyAndTarget('https://dl.ficlit.unibo.it/iiif/2/45498/full/699,800/0/default.jpg','HAHA' ))
@@ -174,6 +194,8 @@ print(g.addQueryProcessor(t))
 print(g.addQueryProcessor(r))
 #print(g.getAllAnnotations())
 
+print(f"here {vars(g.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/annotation/p0001-image'))}")
+print(f"here {vars(g.getEntityById('https://dl.ficlit.unibo.it/iiif/2/28429/manifest'))}")
 
 
 # get_all_annotations_res = g.getAllAnnotations()
