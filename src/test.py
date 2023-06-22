@@ -21,6 +21,7 @@ from pandas import DataFrame
 from impl import IdentifiableEntity, EntityWithMetadata, Canvas, Collection, Image, Annotation, Manifest
 
 # REMEMBER: before launching the tests, please run the Blazegraph instance!
+# java -server -Xmx1g -jar blazegraph.jar
 
 class TestProjectBasic(unittest.TestCase):
 
@@ -200,3 +201,12 @@ class TestProjectBasic(unittest.TestCase):
         self.assertIsInstance(man_2, list)
         for a in man_2:
             self.assertIsInstance(a, Manifest)
+
+
+t = TestProjectBasic()
+print(t.test_01_AnnotationProcessor())
+print(t.test_02_MetadataProcessor())
+print(t.test_03_CollectionProcessor())
+print(t.test_04_RelationalQueryProcessor())
+print(t.test_05_TriplestoreQueryProcessor())
+print(t.test_06_GenericQueryProcessor())

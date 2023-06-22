@@ -1207,7 +1207,7 @@ class GenericQueryProcessor():
 
         print('no entities in DB have this id')
         print('returning an empty Identifiable Entity')
-        return IdentifiableEntity('')
+        return None
     
 
     def getEntitiesWithCreator(self, creator):
