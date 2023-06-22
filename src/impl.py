@@ -1170,7 +1170,7 @@ class GenericQueryProcessor():
             df_joined = merge(graph_db, relation_db, left_on="id", right_on="id")
             # itera le righe del dataframe e crea gli oggetti Canvas
             for index, row in df_joined.iterrows():
-                entity = EntityWithMetadata(row['id'], row['label'], row['title'], row['creator'])
+                entity = self.getEntityById(row['id'])
                 entity_list.append(entity)
         return entity_list
         
@@ -1209,7 +1209,7 @@ class GenericQueryProcessor():
                     label = label
                     title = row["title"]
                     creators = row['creator'].split('; ')
-                    entities = EntityWithMetadata(id, label, title, creators)
+                    entities = self.getEntityById(id)
                     result.append(entities)            
             
                 return result
@@ -1220,7 +1220,7 @@ class GenericQueryProcessor():
                     label = label
                     title = ""
                     creators = ""
-                    entities = EntityWithMetadata(id, label, title, creators)
+                    entities = self.getEntityById(id)
                     result.append(entities)
                 return result
         return result
@@ -1259,7 +1259,7 @@ class GenericQueryProcessor():
                 label = row["label"]
                 title = row['title']
                 creators = row['creator'].split('; ')
-                entities = EntityWithMetadata(id, label, title, creators)
+                entities = self.getEntityById(id)
                 result.append(entities)
 
         return result
