@@ -1,5 +1,5 @@
 from sqlite3 import connect
-from pandas import read_sql, read_sql_table, DataFrame, concat, read_csv, Series, merge 
+from pandas import read_sql, read_sql_table, DataFrame, concat, read_csv, Series, merge, options
 from numpy import nan
 from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
 from rdflib import Graph, Namespace
@@ -8,6 +8,7 @@ from utils.clean_str import remove_special_chars
 from json import load
 from utils.create_graph import create_Graph
 from urllib.parse import urlparse
+options.mode.chained_assignment = None
 #NOTE: BLOCK DATA MODEL
 
 class IdentifiableEntity():
@@ -25,8 +26,6 @@ class Annotation(IdentifiableEntity):
     def __init__(self, id, motivation:str, target:IdentifiableEntity, body:Image):
         if not isinstance(motivation, str):
             raise ValueError('Annotation.motivation must be a string')
-        if not isinstance(target, IdentifiableEntity):
-            raise ValueError('Annotation.target must be an IdentifiableEntity')
         if not isinstance(body, Image):
             raise ValueError('Annotation.body must be an Image')
         self.motivation = motivation
@@ -714,7 +713,7 @@ class GenericQueryProcessor():
             result = [
                 Annotation(row['id'],
                             row['motivation'],
-                            IdentifiableEntity(row['target']), 
+                            self.getEntityById(row['target']), 
                             Image(row['body'])
                             ) for _, row in relation_db.iterrows()
             ]
@@ -927,69 +926,7 @@ class GenericQueryProcessor():
             result = [
                 Annotation(row['id'],
                             row['motivation'],
-                            IdentifiableEntity(row['target']), 
-                            Image(row['body'])
-                            ) for _, row in relation_db.iterrows()
-            ]
-        return result
-
-
-    def getAnnotationsToCollection(self, collectionId):
-        graph_db = DataFrame()
-        relation_db = DataFrame()
-        result = []
-
-        for processor in self.queryProcessors:
-            if isinstance(processor, TriplestoreQueryProcessor):
-                graph_to_add = processor.getCanvasesInCollection(collectionId)
-                graph_db = concat([graph_db, graph_to_add], ignore_index=True)
-
-        graph_db = graph_db[["id"]].drop_duplicates().fillna('')
-        
-        for processor in self.queryProcessors:
-            if isinstance(processor, RelationalQueryProcessor):
-                for _, row in graph_db.iterrows():
-                    relation_to_add = processor.getAnnotationsWithTarget(row["id"])
-                    relation_db = concat([relation_db, relation_to_add], ignore_index=True)
-
-        if not relation_db.empty:
-            relation_db = relation_db[['id', 'motivation', 'target', 'body']].drop_duplicates().fillna('')
-            
-            result = [
-                Annotation(row['id'],
-                            row['motivation'],
-                            IdentifiableEntity(row['target']), 
-                            Image(row['body'])
-                            ) for _, row in relation_db.iterrows()
-                        ] 
-        return result
-
-  
-    def getAnnotationsToManifest(self, manifestId):
-        graph_db = DataFrame()
-        relation_db = DataFrame()
-        result = []
-
-        for processor in self.queryProcessors:
-            if isinstance(processor, TriplestoreQueryProcessor):
-                graph_to_add = processor.getCanvasesInManifest(manifestId)
-                graph_db = concat([graph_db, graph_to_add], ignore_index=True)
-
-        graph_db = graph_db[["id"]].drop_duplicates().fillna('')
-        graph_db.to_csv('./graph_manifest_test.csv', sep='\t')
-        for processor in self.queryProcessors:
-            if isinstance(processor, RelationalQueryProcessor):
-                for _, row in graph_db.iterrows():
-                    relation_to_add = processor.getAnnotationsWithTarget(row["id"])
-                    relation_db = concat([relation_db, relation_to_add], ignore_index=True)
-        
-        if not relation_db.empty:
-            relation_db = relation_db[['id', 'motivation', 'target', 'body']].drop_duplicates().fillna('')
-
-            result = [
-                Annotation(row['id'],
-                            row['motivation'],
-                            IdentifiableEntity(row['target']), 
+                            self.getEntityById(row['target']), 
                             Image(row['body'])
                             ) for _, row in relation_db.iterrows()
             ]
@@ -1011,7 +948,7 @@ class GenericQueryProcessor():
             result = [
                 Annotation(row['id'],
                             row['motivation'],
-                            IdentifiableEntity(row['target']), 
+                            self.getEntityById(row['target']), 
                             Image(row['body'])
                             ) for _, row in relation_db.iterrows()
             ]
@@ -1033,7 +970,7 @@ class GenericQueryProcessor():
             result = [
                 Annotation(row['id'],
                             row['motivation'],
-                            IdentifiableEntity(row['target']), 
+                            self.getEntityById(row['target']), 
                             Image(row['body'])
                             ) for _, row in relation_db.iterrows()
             ]
@@ -1053,14 +990,14 @@ class GenericQueryProcessor():
             result = [
                 Annotation(row['id'],
                             row['motivation'],
-                            IdentifiableEntity(row['target']), 
+                            self.getEntityById(row['target']), 
                             Image(row['body'])
                             ) for _, row in relation_db.iterrows()
             ]
         return result
     
     
-    def getAnnotationsToCollection1(self, collectionId):
+    def getAnnotationsToCollection(self, collectionId):
         relation_db = DataFrame()
         result = []        
         for processor in self.queryProcessors:
@@ -1074,14 +1011,14 @@ class GenericQueryProcessor():
             result = [
                 Annotation(row['id'],
                             row['motivation'],
-                            IdentifiableEntity(row['target']), 
+                            self.getEntityById(row['target']), 
                             Image(row['body'])
                             ) for _, row in relation_db.iterrows()
                         ] 
         return result
 
 
-    def getAnnotationsToManifest1(self, manifestId):
+    def getAnnotationsToManifest(self, manifestId):
         relation_db = DataFrame()
         result = []        
         for processor in self.queryProcessors:
@@ -1095,7 +1032,7 @@ class GenericQueryProcessor():
             result = [
                 Annotation(row['id'],
                             row['motivation'],
-                            IdentifiableEntity(row['target']), 
+                            self.getEntityById(row['target']),  
                             Image(row['body'])
                             ) for _, row in relation_db.iterrows()
                         ] 
@@ -1205,8 +1142,8 @@ class GenericQueryProcessor():
 
             return IdentifiableEntity(pd.loc[0, 'id'])
 
-        print('no entities in DB have this id')
-        print('returning an empty Identifiable Entity')
+        # print('no entities in DB have this id')
+        # print('returning an empty Identifiable Entity')
         return None
     
 
