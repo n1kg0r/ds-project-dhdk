@@ -1122,21 +1122,21 @@ class GenericQueryProcessor():
                 if entity_data['type'].iloc[0] == 'canvas':
                     return Canvas(entity_data['id'].iloc[0],
                                 entity_data['label'].iloc[0],
-                                entity_data['title'].iloc[0],
+                                searched_row['title'].iloc[0],
                                 searched_row['creator'].iloc[0].split('; ')
                                 )
                 elif entity_data['type'].iloc[0] == 'manifest':
                     return Manifest(entity_data['id'].iloc[0],
                                     entity_data['label'].iloc[0],
                                     self.getCanvasesInManifest(entity_data['id'].iloc[0]),
-                                    entity_data['title'].iloc[0],
+                                    searched_row['title'].iloc[0],
                                     searched_row['creator'].iloc[0].split('; '))
                 elif entity_data['type'].iloc[0] == 'collection':
                     return Collection(
                         entity_data['id'].iloc[0],
                         entity_data['label'].iloc[0],
                         self.getManifestsInCollection(entity_data['id'].iloc[0]),
-                        entity_data['title'].iloc[0],
+                        searched_row['title'].iloc[0],
                         searched_row['creator'].iloc[0].split('; ')
                     )
 
